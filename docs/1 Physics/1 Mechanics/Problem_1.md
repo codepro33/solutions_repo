@@ -73,9 +73,11 @@ Solutions:
 - \( t = \frac{2 v_0 \sin\theta}{g} \) (time of flight).
 
 Substitute into \( x(t) \):
-\[
+
+$$
 R = x\left(\frac{2 v_0 \sin\theta}{g}\right) = v_0 \cos\theta \cdot \frac{2 v_0 \sin\theta}{g} = \frac{2 v_0^2 \sin\theta \cos\theta}{g}
-\]
+$$
+
 Using the identity \( \sin 2\theta = 2 \sin\theta \cos\theta \):
 \[
 R = \frac{v_0^2 \sin 2\theta}{g}
