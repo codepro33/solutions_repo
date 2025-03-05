@@ -25,9 +25,11 @@ Projectile motion occurs under the influence of gravity, assuming no air resista
 The only force is gravity, acting along the y-axis (\( a_y = -g \), \( a_x = 0 \)).
 
 - **Horizontal motion** (constant velocity):
-  \[
+
+  $$
   \frac{d^2 x}{dt^2} = 0 \quad \Rightarrow \quad \frac{dx}{dt} = v_{0x} = v_0 \cos\theta
-  \]
+  $$
+  
   Integrating:
   \[
   x(t) = v_0 \cos\theta \cdot t
