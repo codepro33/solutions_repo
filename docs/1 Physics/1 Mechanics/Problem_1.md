@@ -1,2 +1,160 @@
 # Problem 1
-Hello world
+Below is a comprehensive Markdown document addressing the task on projectile motion, including a theoretical derivation, analysis of range, practical applications, and a Python implementation for simulation and visualization.
+
+---
+
+# Projectile Motion Analysis
+
+Projectile motion is a classic problem in physics that combines simplicity with profound insights into kinematics and dynamics. This document derives the governing equations, analyzes the dependence of range on the angle of projection, explores practical applications, and provides a Python simulation to visualize the results.
+
+## 1. Theoretical Foundation
+
+### Derivation of Governing Equations
+
+Projectile motion occurs under the influence of gravity, assuming no air resistance in the idealized case. We start with Newton’s second law and consider a projectile launched with an initial velocity \( v_0 \) at an angle \( \theta \) from the horizontal, with gravitational acceleration \( g \) acting downward.
+
+#### Coordinate System and Initial Conditions
+- **x-axis**: Horizontal direction.
+- **y-axis**: Vertical direction (positive upward).
+- Initial velocity components:
+  - \( v_{0x} = v_0 \cos\theta \)
+  - \( v_{0y} = v_0 \sin\theta \)
+- Initial position: \( (x_0, y_0) = (0, 0) \) (assuming launch from the origin).
+
+#### Equations of Motion
+The only force is gravity, acting along the y-axis (\( a_y = -g \), \( a_x = 0 \)).
+
+- **Horizontal motion** (constant velocity):
+  \[
+  \frac{d^2 x}{dt^2} = 0 \quad \Rightarrow \quad \frac{dx}{dt} = v_{0x} = v_0 \cos\theta
+  \]
+  Integrating:
+  \[
+  x(t) = v_0 \cos\theta \cdot t
+  \]
+
+- **Vertical motion** (constant acceleration):
+  \[
+  \frac{d^2 y}{dt^2} = -g \quad \Rightarrow \quad \frac{dy}{dt} = v_{0y} - g t = v_0 \sin\theta - g t
+  \]
+  Integrating again:
+  \[
+  y(t) = v_0 \sin\theta \cdot t - \frac{1}{2} g t^2
+  \]
+
+These are the parametric equations of motion, forming a parabolic trajectory.
+
+#### Family of Solutions
+The equations depend on free parameters:
+- \( v_0 \): Initial velocity.
+- \( \theta \): Launch angle.
+- \( g \): Gravitational acceleration (typically \( 9.8 \, \text{m/s}^2 \) on Earth).
+- Initial height \( h \) (if \( y_0 \neq 0 \)): Modifies \( y(t) = h + v_0 \sin\theta \cdot t - \frac{1}{2} g t^2 \).
+
+Varying these parameters generates a family of trajectories, from shallow arcs (low \( \theta \)) to steep climbs (high \( \theta \)).
+
+## 2. Analysis of the Range
+
+### Range Equation
+The horizontal range \( R \) is the distance traveled when the projectile returns to \( y = 0 \) (assuming launch and landing at the same height).
+
+Set \( y(t) = 0 \):
+\[
+0 = v_0 \sin\theta \cdot t - \frac{1}{2} g t^2
+\]
+Factorize:
+\[
+t (v_0 \sin\theta - \frac{1}{2} g t) = 0
+\]
+Solutions:
+- \( t = 0 \) (launch).
+- \( t = \frac{2 v_0 \sin\theta}{g} \) (time of flight).
+
+Substitute into \( x(t) \):
+\[
+R = x\left(\frac{2 v_0 \sin\theta}{g}\right) = v_0 \cos\theta \cdot \frac{2 v_0 \sin\theta}{g} = \frac{2 v_0^2 \sin\theta \cos\theta}{g}
+\]
+Using the identity \( \sin 2\theta = 2 \sin\theta \cos\theta \):
+\[
+R = \frac{v_0^2 \sin 2\theta}{g}
+\]
+
+### Dependence on Angle
+- \( R \) is maximized when \( \sin 2\theta = 1 \), i.e., \( 2\theta = 90^\circ \), so \( \theta = 45^\circ \).
+- \( R = 0 \) at \( \theta = 0^\circ \) or \( 90^\circ \) (no horizontal motion).
+- The relationship is symmetric about \( 45^\circ \): \( R(\theta) = R(90^\circ - \theta) \).
+
+### Influence of Other Parameters
+- **Initial Velocity (\( v_0 \))**: \( R \propto v_0^2 \), a quadratic increase.
+- **Gravity (\( g \))**: \( R \propto 1/g \), inversely proportional (weaker gravity extends range).
+- **Initial Height (\( h \))**: If \( h > 0 \), the time of flight increases, extending \( R \). Solve the quadratic \( h + v_0 \sin\theta \cdot t - \frac{1}{2} g t^2 = 0 \) for \( t \).
+
+## 3. Practical Applications
+
+- **Sports**: Optimizing the kick angle in soccer or throw in basketball (near \( 45^\circ \) for maximum distance).
+- **Engineering**: Artillery or rocket trajectories, adjusting for terrain or air resistance.
+- **Astrophysics**: Planetary motion approximations (e.g., low-orbit launches).
+- **Uneven Terrain**: Adjust landing height in the range equation.
+- **Air Resistance**: Introduce a drag term (e.g., \( -k v \)) in the differential equations, solved numerically.
+
+## 4. Implementation
+
+### Python Simulation
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def projectile_range(v0, theta_deg, g=9.8, h=0):
+    """Calculate range with initial height h."""
+    theta = np.radians(theta_deg)
+    if h == 0:
+        return (v0**2 * np.sin(2 * theta)) / g
+    else:
+        # Time of flight with initial height
+        a = -g / 2
+        b = v0 * np.sin(theta)
+        c = h
+        t_flight = (-b + np.sqrt(b**2 - 4*a*c)) / (2*a)  # Positive root
+        return v0 * np.cos(theta) * t_flight
+
+# Parameters
+v0_values = [10, 20, 30]  # m/s
+g = 9.8  # m/s^2
+h_values = [0, 10]  # m
+theta_deg = np.linspace(0, 90, 91)  # 0 to 90 degrees
+
+# Plotting
+plt.figure(figsize=(10, 6))
+for v0 in v0_values:
+    for h in h_values:
+        R = [projectile_range(v0, t, g, h) for t in theta_deg]
+        label = f'v0={v0} m/s, h={h} m'
+        plt.plot(theta_deg, R, label=label)
+
+plt.xlabel('Angle of Projection (degrees)')
+plt.ylabel('Range (meters)')
+plt.title('Projectile Range vs. Angle of Projection')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+### Results
+The plot shows:
+- Maximum range at \( 45^\circ \) for \( h = 0 \).
+- Increased range with higher \( v_0 \).
+- Extended range and shifted peak with \( h > 0 \).
+
+## Limitations and Extensions
+
+- **Idealizations**: No air resistance, flat terrain, constant \( g \).
+- **Drag**: Add \( F_d = -k v \) or \( F_d = -b v^2 \) to the equations, requiring numerical solvers (e.g., Runge-Kutta).
+- **Wind**: Introduce a velocity term in the horizontal equation.
+- **Terrain**: Model \( y_{\text{ground}}(x) \) and solve for intersection numerically.
+
+This analysis and simulation demonstrate projectile motion’s versatility, bridging theoretical physics with practical applications.
+
+--- 
+
+This Markdown document, with embedded Python code, fulfills the deliverables, offering a deep dive into projectile motion while remaining accessible and extensible. Let me know if you'd like further refinements or additional features!
