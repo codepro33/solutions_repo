@@ -29,7 +29,7 @@ The only force is gravity, acting along the y-axis (\( a_y = -g \), \( a_x = 0 \
   $$
   \frac{d^2 x}{dt^2} = 0 \quad \Rightarrow \quad \frac{dx}{dt} = v_{0x} = v_0 \cos\theta
   $$
-  
+
   Integrating:
   \[
   x(t) = v_0 \cos\theta \cdot t
@@ -160,3 +160,5 @@ This analysis and simulation demonstrate projectile motion’s versatility, brid
 --- 
 
 This Markdown document, with embedded Python code, fulfills the deliverables, offering a deep dive into projectile motion while remaining accessible and extensible. Let me know if you'd like further refinements or additional features!
+
+![alt text](image.png)
