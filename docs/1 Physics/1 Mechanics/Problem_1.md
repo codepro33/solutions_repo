@@ -61,4 +61,3 @@ For an initial velocity of $ v_0 = 20 $ m/s and a launch angle of $ \theta = 45^
 - **Sports**: Optimizing the launch angle in sports like basketball, soccer, and golf.
 - **Space Exploration**: Calculating trajectories for lunar landings and rover deployments.
 
-
