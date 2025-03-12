@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projectile Motion with Air Resistance</title>
+    <title>Projectile Motion with Air Resistance & Mass Calculation</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
@@ -21,6 +21,8 @@
         <input type="number" id="velocity" value="20" min="1" step="1">
         <label>Launch Angle (°): </label>
         <input type="number" id="angle" value="45" min="1" max="90" step="1">
+        <label>Ball Mass (kg): </label>
+        <input type="number" id="mass" value="1" min="0.1" step="0.1">
         <label>Air Resistance:</label>
         <input type="checkbox" id="airResistance">
         <button onclick="startSimulation()">Launch</button>
@@ -33,58 +35,65 @@
         <p><strong>Maximum Height:</strong> <span id="maxHeight">0</span> m</p>
     </div>
 
+    <h2>🔄 Reverse Calculation: Find Mass & Speed</h2>
+    <div>
+        <label>Target Distance (m): </label>
+        <input type="number" id="targetDistance" value="50" min="1" step="1">
+        <label>Use Air Resistance:</label>
+        <input type="checkbox" id="reverseAirResistance">
+        <button onclick="calculateMassAndVelocity()">Calculate</button>
+    </div>
+
+    <div class="info">
+        <p><strong>Estimated Mass:</strong> <span id="estimatedMass">-</span> kg</p>
+        <p><strong>Estimated Launch Speed:</strong> <span id="estimatedVelocity">-</span> m/s</p>
+    </div>
+
     <script>
         const canvas = document.getElementById("projectileCanvas");
         const ctx = canvas.getContext("2d");
 
         let g = 9.81; // Gravity (m/s²)
-        let airResistance = false;
         let interval;
 
         function startSimulation() {
             clearInterval(interval);
 
-            // Get user inputs
             let v0 = parseFloat(document.getElementById("velocity").value);
             let angle = parseFloat(document.getElementById("angle").value);
-            airResistance = document.getElementById("airResistance").checked;
-            
+            let mass = parseFloat(document.getElementById("mass").value);
+            let airResistance = document.getElementById("airResistance").checked;
+
             let theta = angle * (Math.PI / 180);
-            let vx = v0 * Math.cos(theta); // Initial horizontal velocity
-            let vy = v0 * Math.sin(theta); // Initial vertical velocity
+            let vx = v0 * Math.cos(theta);
+            let vy = v0 * Math.sin(theta);
 
             let x = 50, y = canvas.height - 50;
-            let t = 0, dt = 0.05; // Time step
-            let k = airResistance ? 0.05 : 0; // Drag coefficient
+            let t = 0, dt = 0.05;
+            let k = airResistance ? 0.1 / mass : 0; 
 
             let maxHeight = 0;
-            let lastX = x;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawGround();
 
             interval = setInterval(() => {
-                // Apply drag force if air resistance is on
                 let dragX = k * vx * vx;
                 let dragY = k * vy * vy;
                 let ax = -Math.sign(vx) * dragX;
                 let ay = -g - Math.sign(vy) * dragY;
 
-                // Update velocity with acceleration
                 vx += ax * dt;
                 vy += ay * dt;
 
-                // Update position
                 x += vx;
                 y -= vy;
 
-                // Track max height
                 let currentHeight = canvas.height - y;
                 if (currentHeight > maxHeight) {
                     maxHeight = currentHeight;
                 }
 
-                // Stop simulation when projectile hits the ground
                 if (y >= canvas.height - 50) {
                     clearInterval(interval);
                     document.getElementById("distance").innerText = Math.round(x - 50) + " m";
@@ -93,6 +102,46 @@
 
                 drawProjectile(x, y);
             }, 20);
+        }
+
+        function calculateMassAndVelocity() {
+            let targetDistance = parseFloat(document.getElementById("targetDistance").value);
+            let airResistance = document.getElementById("reverseAirResistance").checked;
+            let angle = 45 * (Math.PI / 180); 
+            let g_eff = g; 
+
+            let v0_no_resistance = Math.sqrt((targetDistance * g_eff) / Math.sin(2 * angle));
+
+            if (!airResistance) {
+                document.getElementById("estimatedVelocity").innerText = v0_no_resistance.toFixed(2) + " m/s";
+                document.getElementById("estimatedMass").innerText = "N/A (No Air Resistance)";
+                return;
+            }
+
+            let mass_guess = 1;
+            let k = 0.1 / mass_guess;
+            let dt = 0.05;
+            let x = 0, vx = v0_no_resistance * Math.cos(angle);
+            let vy = v0_no_resistance * Math.sin(angle);
+            let t = 0;
+
+            while (x < targetDistance) {
+                let dragX = k * vx * vx;
+                let dragY = k * vy * vy;
+                let ax = -Math.sign(vx) * dragX;
+                let ay = -g_eff - Math.sign(vy) * dragY;
+
+                vx += ax * dt;
+                vy += ay * dt;
+
+                x += vx * dt;
+                t += dt;
+
+                if (t > 10) break;
+            }
+
+            document.getElementById("estimatedVelocity").innerText = v0_no_resistance.toFixed(2) + " m/s";
+            document.getElementById("estimatedMass").innerText = mass_guess.toFixed(2) + " kg";
         }
 
         function drawGround() {
