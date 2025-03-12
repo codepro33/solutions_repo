@@ -40,11 +40,14 @@ We analyze the range for different launch angles (0° to 90°) and compare it fo
 
 ![alt text](image-1.png)
 
-# 🎯 Projectile Motion Simulation
+# 🚀 Projectile Motion Simulation
 
-Below is an interactive simulation that calculates the **range vs. launch angle** of a projectile.
+This interactive simulation shows how the **range** of a projectile changes with the **launch angle**.
 
-<iframe src="simulation.html" width="800" height="600"></iframe>
+👉 **[Click here to view the simulation](simulation.html)** 👈
+
+Enter the initial velocity and see how the range changes dynamically!
+
 
 ## Observations
 
