@@ -7,8 +7,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
-        canvas { border: 1px solid black; background-color: lightblue; }
+        canvas { border: 1px solid black; background-color: lightblue; display: block; margin: 0 auto; }
         .container { display: flex; justify-content: center; gap: 20px; margin: 20px; }
+        .info { margin-top: 10px; font-size: 18px; }
     </style>
 </head>
 <body>
@@ -26,6 +27,11 @@
     </div>
 
     <canvas id="projectileCanvas" width="800" height="400"></canvas>
+
+    <div class="info">
+        <p><strong>Distance Traveled:</strong> <span id="distance">0</span> m</p>
+        <p><strong>Maximum Height:</strong> <span id="maxHeight">0</span> m</p>
+    </div>
 
     <script>
         const canvas = document.getElementById("projectileCanvas");
@@ -51,6 +57,9 @@
             let t = 0, dt = 0.05; // Time step
             let k = airResistance ? 0.05 : 0; // Drag coefficient
 
+            let maxHeight = 0;
+            let lastX = x;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawGround();
 
@@ -69,9 +78,17 @@
                 x += vx;
                 y -= vy;
 
+                // Track max height
+                let currentHeight = canvas.height - y;
+                if (currentHeight > maxHeight) {
+                    maxHeight = currentHeight;
+                }
+
                 // Stop simulation when projectile hits the ground
                 if (y >= canvas.height - 50) {
                     clearInterval(interval);
+                    document.getElementById("distance").innerText = Math.round(x - 50) + " m";
+                    document.getElementById("maxHeight").innerText = Math.round(maxHeight) + " m";
                 }
 
                 drawProjectile(x, y);
