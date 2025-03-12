@@ -3,61 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projectile Motion Simulation</title>
+    <title>Projectile Motion with Air Resistance</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
-        canvas { max-width: 600px; margin: auto; }
+        body { font-family: Arial, sans-serif; text-align: center; }
+        canvas { border: 1px solid black; background-color: lightblue; }
+        .container { display: flex; justify-content: center; gap: 20px; margin: 20px; }
     </style>
 </head>
 <body>
 
-    <h2>Projectile Motion: Range vs. Launch Angle</h2>
+    <h2>🚀 Projectile Motion Simulation</h2>
 
-    <label for="velocity">Initial Velocity (m/s):</label>
-    <input type="number" id="velocity" value="20" min="1" step="1">
-    <button onclick="simulate()">Run Simulation</button>
+    <div>
+        <label>Initial Velocity (m/s): </label>
+        <input type="number" id="velocity" value="20" min="1" step="1">
+        <label>Launch Angle (°): </label>
+        <input type="number" id="angle" value="45" min="1" max="90" step="1">
+        <label>Air Resistance:</label>
+        <input type="checkbox" id="airResistance">
+        <button onclick="startSimulation()">Launch</button>
+    </div>
 
-    <canvas id="rangeChart"></canvas>
+    <canvas id="projectileCanvas" width="800" height="400"></canvas>
 
     <script>
-        function calculateRange(v0, g, angle) {
-            let theta = angle * (Math.PI / 180);  // Convert degrees to radians
-            return (v0 * v0 * Math.sin(2 * theta)) / g;  // Range formula
+        const canvas = document.getElementById("projectileCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let g = 9.81; // Gravity (m/s²)
+        let airResistance = false;
+        let interval;
+
+        function startSimulation() {
+            clearInterval(interval);
+
+            // Get user inputs
+            let v0 = parseFloat(document.getElementById("velocity").value);
+            let angle = parseFloat(document.getElementById("angle").value);
+            airResistance = document.getElementById("airResistance").checked;
+            
+            let theta = angle * (Math.PI / 180);
+            let vx = v0 * Math.cos(theta); // Initial horizontal velocity
+            let vy = v0 * Math.sin(theta); // Initial vertical velocity
+
+            let x = 50, y = canvas.height - 50;
+            let t = 0, dt = 0.05; // Time step
+            let k = airResistance ? 0.05 : 0; // Drag coefficient
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGround();
+
+            interval = setInterval(() => {
+                // Apply drag force if air resistance is on
+                let dragX = k * vx * vx;
+                let dragY = k * vy * vy;
+                let ax = -Math.sign(vx) * dragX;
+                let ay = -g - Math.sign(vy) * dragY;
+
+                // Update velocity with acceleration
+                vx += ax * dt;
+                vy += ay * dt;
+
+                // Update position
+                x += vx;
+                y -= vy;
+
+                // Stop simulation when projectile hits the ground
+                if (y >= canvas.height - 50) {
+                    clearInterval(interval);
+                }
+
+                drawProjectile(x, y);
+            }, 20);
         }
 
-        function simulate() {
-            let v0 = parseFloat(document.getElementById("velocity").value);
-            let g = 9.81;  // Gravity (m/s²)
-            let angles = [];
-            let ranges = [];
+        function drawGround() {
+            ctx.fillStyle = "green";
+            ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
+        }
 
-            for (let angle = 0; angle <= 90; angle++) {
-                angles.push(angle);
-                ranges.push(calculateRange(v0, g, angle));
-            }
-
-            // Create the chart
-            let ctx = document.getElementById("rangeChart").getContext("2d");
-            new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: angles,
-                    datasets: [{
-                        label: "Range (m)",
-                        data: ranges,
-                        borderColor: "blue",
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: { title: { display: true, text: "Launch Angle (degrees)" } },
-                        y: { title: { display: true, text: "Range (m)" } }
-                    }
-                }
-            });
+        function drawProjectile(x, y) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGround();
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fill();
         }
     </script>
 
