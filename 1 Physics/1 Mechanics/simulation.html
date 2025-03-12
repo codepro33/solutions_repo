@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projectile Motion with Air Resistance & Mass Calculation</title>
+    <title>Projectile Motion with Air Resistance & Reverse Calculation</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
@@ -39,6 +39,8 @@
     <div>
         <label>Target Distance (m): </label>
         <input type="number" id="targetDistance" value="50" min="1" step="1">
+        <label>Launch Angle (°): </label>
+        <input type="number" id="reverseAngle" value="45" min="1" max="90" step="1">
         <label>Use Air Resistance:</label>
         <input type="checkbox" id="reverseAirResistance">
         <button onclick="calculateMassAndVelocity()">Calculate</button>
@@ -106,8 +108,9 @@
 
         function calculateMassAndVelocity() {
             let targetDistance = parseFloat(document.getElementById("targetDistance").value);
+            let reverseAngle = parseFloat(document.getElementById("reverseAngle").value);
             let airResistance = document.getElementById("reverseAirResistance").checked;
-            let angle = 45 * (Math.PI / 180); 
+            let angle = reverseAngle * (Math.PI / 180); 
             let g_eff = g; 
 
             let v0_no_resistance = Math.sqrt((targetDistance * g_eff) / Math.sin(2 * angle));
