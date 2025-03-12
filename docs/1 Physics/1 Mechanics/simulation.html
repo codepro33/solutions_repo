@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion Simulation</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        canvas { max-width: 600px; margin: auto; }
+    </style>
+</head>
+<body>
+
+    <h2>Projectile Motion: Range vs. Launch Angle</h2>
+
+    <label for="velocity">Initial Velocity (m/s):</label>
+    <input type="number" id="velocity" value="20" min="1" step="1">
+    <button onclick="simulate()">Run Simulation</button>
+
+    <canvas id="rangeChart"></canvas>
+
+    <script>
+        function calculateRange(v0, g, angle) {
+            let theta = angle * (Math.PI / 180);  // Convert degrees to radians
+            return (v0 * v0 * Math.sin(2 * theta)) / g;  // Range formula
+        }
+
+        function simulate() {
+            let v0 = parseFloat(document.getElementById("velocity").value);
+            let g = 9.81;  // Gravity (m/s²)
+            let angles = [];
+            let ranges = [];
+
+            for (let angle = 0; angle <= 90; angle++) {
+                angles.push(angle);
+                ranges.push(calculateRange(v0, g, angle));
+            }
+
+            // Create the chart
+            let ctx = document.getElementById("rangeChart").getContext("2d");
+            new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: angles,
+                    datasets: [{
+                        label: "Range (m)",
+                        data: ranges,
+                        borderColor: "blue",
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { title: { display: true, text: "Launch Angle (degrees)" } },
+                        y: { title: { display: true, text: "Range (m)" } }
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

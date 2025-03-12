@@ -40,6 +40,12 @@ We analyze the range for different launch angles (0° to 90°) and compare it fo
 
 ![alt text](image-1.png)
 
+# 🎯 Projectile Motion Simulation
+
+Below is an interactive simulation that calculates the **range vs. launch angle** of a projectile.
+
+<iframe src="simulation.html" width="800" height="600"></iframe>
+
 ## Observations
 
 - The range is maximized at $\theta = 45^\circ$.
