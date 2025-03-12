@@ -3,44 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projectile Motion with Air Resistance & Saved Trajectories</title>
+    <title>Projectile Motion Simulation</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         canvas { border: 1px solid black; background-color: lightblue; display: block; margin: 0 auto; }
-        .container { display: flex; justify-content: center; gap: 20px; margin: 20px; }
+        .controls { margin: 15px; }
         .info { margin-top: 10px; font-size: 18px; }
-        button { margin: 10px; padding: 10px; cursor: pointer; }
+        button { padding: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <h2>🚀 Projectile Motion Simulation</h2>
 
-    <div>
-        <label>Initial Velocity (m/s): </label>
-        <input type="number" id="velocity" value="20" min="1" step="1">
-        <label>Launch Angle (°): </label>
-        <input type="number" id="angle" value="45" min="1" max="90" step="1">
-        <label>Ball Mass (kg): </label>
-        <input type="number" id="mass" value="1" min="0.1" step="0.1">
-        <label>Air Resistance:</label>
-        <input type="checkbox" id="airResistance">
+    <div class="controls">
+        <label>Velocity (m/s): <input type="number" id="velocity" value="20"></label>
+        <label>Angle (°): <input type="number" id="angle" value="45"></label>
+        <label>Mass (kg): <input type="number" id="mass" value="1"></label>
+        <label>Air Resistance: <input type="checkbox" id="airResistance"></label>
         <button onclick="startSimulation()">Launch</button>
-        <button onclick="clearTrajectories()">Clear All Trajectories</button>
+        <button onclick="clearTrajectories()">Clear All</button>
     </div>
 
-    <canvas id="projectileCanvas"></canvas>
+    <canvas id="projectileCanvas" width="800" height="400"></canvas>
 
     <div class="info">
-        <p><strong>Distance Traveled:</strong> <span id="distance">0</span> m</p>
-        <p><strong>Maximum Height:</strong> <span id="maxHeight">0</span> m</p>
+        <p><strong>Distance:</strong> <span id="distance">0</span> m</p>
+        <p><strong>Max Height:</strong> <span id="maxHeight">0</span> m</p>
     </div>
 
     <script>
         let g = 9.81;
         let interval;
-        let allTrajectories = []; // Store all previous launches
+        let allTrajectories = [];
 
         function startSimulation() {
             clearInterval(interval);
@@ -57,17 +53,16 @@
 
             let x = 0, y = 0;
             let t = 0, dt = 0.02;
-            let k = airResistance ? 0.05 / mass : 0; 
+            let k = airResistance ? 0.05 / mass : 0;
 
             let maxHeight = 0;
-            let canvasWidth = Math.max(800, v0 * 5);
-            let canvasHeight = Math.max(400, v0 * 2);
-            let scale = canvasWidth / 100;
+            let maxDistance = (v0 * v0 * Math.sin(2 * theta)) / g; 
 
             let canvas = document.getElementById("projectileCanvas");
             let ctx = canvas.getContext("2d");
-            canvas.width = canvasWidth;
-            canvas.height = canvasHeight;
+
+            let scaleX = canvas.width / (maxDistance * 1.1); 
+            let scaleY = canvas.height / (maxHeight + v0 * v0 / (2 * g) * 1.2); 
 
             function updateFrame() {
                 let dragX = k * vx * vx;
@@ -86,54 +81,51 @@
 
                 if (y <= 0) {
                     clearInterval(interval);
-                    allTrajectories.push([...trajectory]); // Save completed trajectory
+                    allTrajectories.push([...trajectory]);
                     document.getElementById("distance").innerText = Math.round(x) + " m";
                     document.getElementById("maxHeight").innerText = Math.round(maxHeight) + " m";
                 }
 
-                drawFrame(ctx, canvas, trajectory, scale);
+                drawFrame(ctx, canvas, trajectory, scaleX, scaleY);
             }
 
             interval = setInterval(updateFrame, 20);
         }
 
-        function drawFrame(ctx, canvas, currentTrajectory, scale) {
+        function drawFrame(ctx, canvas, currentTrajectory, scaleX, scaleY) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "green";
             ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
 
             ctx.lineWidth = 2;
 
-            // Draw all previous trajectories in faded colors
             allTrajectories.forEach(traj => {
                 ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
                 ctx.beginPath();
                 traj.forEach((point, index) => {
-                    let px = point.x * scale;
-                    let py = canvas.height - point.y * scale;
+                    let px = point.x * scaleX;
+                    let py = canvas.height - point.y * scaleY;
                     if (index === 0) ctx.moveTo(px, py);
                     else ctx.lineTo(px, py);
                 });
                 ctx.stroke();
             });
 
-            // Draw current trajectory in bold
             ctx.strokeStyle = "blue";
             ctx.beginPath();
             currentTrajectory.forEach((point, index) => {
-                let px = point.x * scale;
-                let py = canvas.height - point.y * scale;
+                let px = point.x * scaleX;
+                let py = canvas.height - point.y * scaleY;
                 if (index === 0) ctx.moveTo(px, py);
                 else ctx.lineTo(px, py);
             });
             ctx.stroke();
 
-            // Draw the ball
             ctx.fillStyle = "red";
             let lastPoint = currentTrajectory[currentTrajectory.length - 1];
             if (lastPoint) {
                 ctx.beginPath();
-                ctx.arc(lastPoint.x * scale, canvas.height - lastPoint.y * scale, 5, 0, Math.PI * 2);
+                ctx.arc(lastPoint.x * scaleX, canvas.height - lastPoint.y * scaleY, 5, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
