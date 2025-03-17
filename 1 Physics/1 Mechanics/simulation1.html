@@ -1,0 +1,82 @@
+document.body.innerHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forced Damped Pendulum</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Forced Damped Pendulum Simulation</h2>
+    <canvas id="pendulumCanvas" width="500" height="500"></canvas>
+</body>
+</html>`;
+
+const canvas = document.getElementById("pendulumCanvas");
+const ctx = canvas.getContext("2d");
+
+// Simulation parameters
+const g = 9.81;
+const L = 1;
+const dt = 0.02;
+let theta = Math.PI / 4;
+let omega = 0;
+const gamma = 0.2; // Damping coefficient
+const F_d = 1.2; // Driving force amplitude
+const omega_d = 2 / 3; // Driving frequency
+let time = 0;
+let paused = false;
+
+// Function to update pendulum state
+function updatePendulum() {
+    if (paused) return;
+    const alpha = -gamma * omega - Math.sin(theta) + F_d * Math.cos(omega_d * time);
+    omega += alpha * dt;
+    theta += omega * dt;
+    time += dt;
+}
+
+// Function to draw the pendulum
+function drawPendulum() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const originX = canvas.width / 2;
+    const originY = canvas.height / 4;
+    const x = originX + L * 100 * Math.sin(theta);
+    const y = originY + L * 100 * Math.cos(theta);
+    
+    // Draw the pendulum rod
+    ctx.beginPath();
+    ctx.moveTo(originX, originY);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    
+    // Draw the pendulum bob
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, 2 * Math.PI);
+    ctx.fillStyle = "red";
+    ctx.fill();
+}
+
+// Animation loop
+function animate() {
+    updatePendulum();
+    drawPendulum();
+    requestAnimationFrame(animate);
+}
+
+// Event listener for pausing/resuming on click
+canvas.addEventListener("click", () => {
+    paused = !paused;
+});
+
+// Start the animation
+animate();
