@@ -7,34 +7,47 @@
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         canvas { border: 1px solid black; display: block; margin: 20px auto; background-color: lightgray; }
-        button { margin: 10px; padding: 10px; cursor: pointer; }
+        .controls { margin: 10px; }
+        .controls label, .controls input { margin: 5px; }
+        button { margin: 5px; padding: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <h2>Forced Damped Pendulum Simulation</h2>
-    <button onclick="paused = !paused;">Pause/Resume</button>
-    <canvas id="pendulumCanvas" width="500" height="500"></canvas>
+    <h2>⚙️ Forced Damped Pendulum Simulation ⚙️</h2>
+    
+    <div class="controls">
+        <label>Damping:</label> <input type="range" id="damping" min="0" max="0.1" step="0.001" value="0.02">
+        <label>Driving Force:</label> <input type="range" id="F_d" min="0" max="2" step="0.1" value="0.5">
+        <label>Driving Frequency:</label> <input type="range" id="omega_d" min="0" max="5" step="0.1" value="2">
+        <label>Gravity:</label> <input type="range" id="gravity" min="5" max="20" step="0.1" value="9.81">
+        <label>Length:</label> <input type="range" id="length" min="50" max="300" step="5" value="150">
+    </div>
+
+    <button onclick="paused = !paused;">⏯ Pause / Resume</button>
+    <button onclick="resetPendulum()">🔄 Reset</button>
+
+    <canvas id="pendulumCanvas" width="600" height="500"></canvas>
 
     <script>
         const canvas = document.getElementById("pendulumCanvas");
         const ctx = canvas.getContext("2d");
 
-        // Physical parameters
-        const g = 9.81;   // Gravity (m/s^2)
-        const L = 150;    // Pendulum length in pixels (scaling factor)
-        const dt = 0.02;  // Time step
-        let theta = Math.PI / 3;  // Initial angle
-        let omega = 0;            // Initial angular velocity
-        const damping = 0.01;     // Damping factor
-        const F_d = 0.5;          // Driving force amplitude
-        const omega_d = 1.0;      // Driving frequency
+        let g = parseFloat(document.getElementById("gravity").value);
+        let L = parseFloat(document.getElementById("length").value);
+        let damping = parseFloat(document.getElementById("damping").value);
+        let F_d = parseFloat(document.getElementById("F_d").value);
+        let omega_d = parseFloat(document.getElementById("omega_d").value);
+
+        let theta = Math.PI / 4;
+        let omega = 0;
         let time = 0;
+        let dt = 0.02;
         let paused = false;
 
         function updatePendulum() {
             if (paused) return;
-            const alpha = -g / L * Math.sin(theta) - damping * omega + F_d * Math.cos(omega_d * time);
+            let alpha = -g / L * Math.sin(theta) - damping * omega + F_d * Math.cos(omega_d * time);
             omega += alpha * dt;
             theta += omega * dt;
             time += dt;
@@ -43,11 +56,8 @@
         function drawPendulum() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Pivot point
             const originX = canvas.width / 2;
             const originY = canvas.height / 5;
-            
-            // Bob position
             const x = originX + L * Math.sin(theta);
             const y = originY + L * Math.cos(theta);
 
@@ -71,6 +81,24 @@
             drawPendulum();
             requestAnimationFrame(animate);
         }
+
+        function resetPendulum() {
+            theta = Math.PI / 4;
+            omega = 0;
+            time = 0;
+        }
+
+        function updateParameters() {
+            g = parseFloat(document.getElementById("gravity").value);
+            L = parseFloat(document.getElementById("length").value);
+            damping = parseFloat(document.getElementById("damping").value);
+            F_d = parseFloat(document.getElementById("F_d").value);
+            omega_d = parseFloat(document.getElementById("omega_d").value);
+        }
+
+        document.querySelectorAll('.controls input').forEach(input => {
+            input.addEventListener('input', updateParameters);
+        });
 
         animate();
     </script>
