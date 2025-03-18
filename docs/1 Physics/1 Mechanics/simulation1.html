@@ -6,102 +6,67 @@
     <title>Forced Damped Pendulum</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
-        canvas { border: 1px solid black; display: block; margin: 20px auto; background-color: lightgray; }
-        .controls { margin: 10px; }
-        .controls label, .controls input { margin: 5px; }
-        button { margin: 5px; padding: 8px; cursor: pointer; }
+        canvas { border: 1px solid black; background-color: lightgrey; display: block; margin: 0 auto; }
+        .controls { margin: 20px; }
     </style>
 </head>
 <body>
-
-    <h2>⚙️ Forced Damped Pendulum Simulation ⚙️</h2>
-    
+    <h2>Forced Damped Pendulum Simulation</h2>
     <div class="controls">
-        <label>Damping:</label> <input type="range" id="damping" min="0" max="0.1" step="0.001" value="0.02">
-        <label>Driving Force:</label> <input type="range" id="F_d" min="0" max="2" step="0.1" value="0.5">
-        <label>Driving Frequency:</label> <input type="range" id="omega_d" min="0" max="5" step="0.1" value="2">
-        <label>Gravity:</label> <input type="range" id="gravity" min="5" max="20" step="0.1" value="9.81">
-        <label>Length:</label> <input type="range" id="length" min="50" max="300" step="5" value="150">
+        <label>Damping Coefficient: <input type="number" id="damping" value="0.2" step="0.05"></label>
+        <label>Driving Force Amplitude: <input type="number" id="force" value="1.2" step="0.1"></label>
+        <label>Driving Frequency: <input type="number" id="frequency" value="0.666" step="0.05"></label>
+        <button onclick="startSimulation()">Restart</button>
     </div>
-
-    <button onclick="paused = !paused;">⏯ Pause / Resume</button>
-    <button onclick="resetPendulum()">🔄 Reset</button>
-
-    <canvas id="pendulumCanvas" width="600" height="500"></canvas>
-
+    <canvas id="pendulumCanvas" width="500" height="500"></canvas>
     <script>
         const canvas = document.getElementById("pendulumCanvas");
         const ctx = canvas.getContext("2d");
-
-        let g = parseFloat(document.getElementById("gravity").value);
-        let L = parseFloat(document.getElementById("length").value);
-        let damping = parseFloat(document.getElementById("damping").value);
-        let F_d = parseFloat(document.getElementById("F_d").value);
-        let omega_d = parseFloat(document.getElementById("omega_d").value);
-
-        let theta = Math.PI / 4;
-        let omega = 0;
-        let time = 0;
-        let dt = 0.02;
-        let paused = false;
-
+        let theta = Math.PI / 4, omega = 0, time = 0;
+        let L = 1, g = 9.81, dt = 0.02;
+        let gamma = 0.2, F_d = 1.2, omega_d = 2/3;
+        let animationFrame;
+        
         function updatePendulum() {
-            if (paused) return;
-            let alpha = -g / L * Math.sin(theta) - damping * omega + F_d * Math.cos(omega_d * time);
+            let alpha = -gamma * omega - (g / L) * Math.sin(theta) + F_d * Math.cos(omega_d * time);
             omega += alpha * dt;
             theta += omega * dt;
             time += dt;
         }
-
+        
         function drawPendulum() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const originX = canvas.width / 2;
-            const originY = canvas.height / 5;
-            const x = originX + L * Math.sin(theta);
-            const y = originY + L * Math.cos(theta);
-
-            // Draw pendulum rod
+            let originX = canvas.width / 2, originY = canvas.height / 4;
+            let x = originX + L * 100 * Math.sin(theta);
+            let y = originY + L * 100 * Math.cos(theta);
             ctx.beginPath();
             ctx.moveTo(originX, originY);
             ctx.lineTo(x, y);
-            ctx.strokeStyle = "black";
-            ctx.lineWidth = 3;
             ctx.stroke();
-
-            // Draw pendulum bob
             ctx.beginPath();
-            ctx.arc(x, y, 15, 0, 2 * Math.PI);
+            ctx.arc(x, y, 10, 0, 2 * Math.PI);
             ctx.fillStyle = "red";
             ctx.fill();
         }
-
+        
         function animate() {
             updatePendulum();
             drawPendulum();
-            requestAnimationFrame(animate);
+            animationFrame = requestAnimationFrame(animate);
         }
-
-        function resetPendulum() {
+        
+        function startSimulation() {
+            cancelAnimationFrame(animationFrame);
             theta = Math.PI / 4;
             omega = 0;
             time = 0;
+            gamma = parseFloat(document.getElementById("damping").value);
+            F_d = parseFloat(document.getElementById("force").value);
+            omega_d = parseFloat(document.getElementById("frequency").value);
+            animate();
         }
-
-        function updateParameters() {
-            g = parseFloat(document.getElementById("gravity").value);
-            L = parseFloat(document.getElementById("length").value);
-            damping = parseFloat(document.getElementById("damping").value);
-            F_d = parseFloat(document.getElementById("F_d").value);
-            omega_d = parseFloat(document.getElementById("omega_d").value);
-        }
-
-        document.querySelectorAll('.controls input').forEach(input => {
-            input.addEventListener('input', updateParameters);
-        });
-
+        
         animate();
     </script>
-
 </body>
 </html>
