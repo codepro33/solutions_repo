@@ -137,6 +137,11 @@ These applications illustrate the broad impact of the forced damped pendulum acr
 
 ## Step 1: Define the Forced Damped Pendulum Equation
 
+
+👉 **[Click here to view the simulation](simulation1.html)** 👈
+
+
+
 The equation of motion for a forced damped pendulum is:
 
 $$
