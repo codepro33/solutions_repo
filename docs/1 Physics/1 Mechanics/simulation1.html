@@ -13,59 +13,88 @@
 <body>
     <h2>Forced Damped Pendulum Simulation</h2>
     <div class="controls">
-        <label>Damping Coefficient: <input type="number" id="damping" value="0.2" step="0.05"></label>
+        <label>Damping Coefficient: <input type="number" id="damping" value="0.5" step="0.05"></label>
         <label>Driving Force Amplitude: <input type="number" id="force" value="1.2" step="0.1"></label>
-        <label>Driving Frequency: <input type="number" id="frequency" value="0.666" step="0.05"></label>
+        <label>Driving Frequency: <input type="number" id="frequency" value="2.0" step="0.05"></label>
         <button onclick="startSimulation()">Restart</button>
     </div>
     <canvas id="pendulumCanvas" width="500" height="500"></canvas>
+
     <script>
         const canvas = document.getElementById("pendulumCanvas");
         const ctx = canvas.getContext("2d");
-        let theta = Math.PI / 4, omega = 0, time = 0;
-        let L = 1, g = 9.81, dt = 0.02;
-        let gamma = 0.2, F_d = 1.2, omega_d = 2/3;
+
+        // Parameters
+        let theta = 0.1; // initial angular displacement (rad)
+        let omega = 0.0; // initial angular velocity (rad/s)
+        let time = 0; // simulation time
+        const g = 9.81; // gravity (m/s^2)
+        const L = 1.0; // length of the pendulum (m)
+        const dt = 0.01; // time step for numerical integration
+
+        // User-controlled parameters
+        let gamma = 0.5; // damping coefficient (b/m)
+        let F_d = 1.2; // amplitude of the driving force (F)
+        let omega_d = 2.0; // angular frequency of the driving force (rad/s)
+
+        // Animation frame ID
         let animationFrame;
-        
+
+        // Function to update the pendulum's state
         function updatePendulum() {
-            let alpha = -gamma * omega - (g / L) * Math.sin(theta) + F_d * Math.cos(omega_d * time);
+            const alpha = -gamma * omega - (g / L) * Math.sin(theta) + F_d * Math.cos(omega_d * time);
             omega += alpha * dt;
             theta += omega * dt;
             time += dt;
         }
-        
+
+        // Function to draw the pendulum
         function drawPendulum() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            let originX = canvas.width / 2, originY = canvas.height / 4;
-            let x = originX + L * 100 * Math.sin(theta);
-            let y = originY + L * 100 * Math.cos(theta);
+
+            // Pendulum pivot point
+            const originX = canvas.width / 2;
+            const originY = canvas.height / 4;
+
+            // Bob position
+            const bobX = originX + L * 100 * Math.sin(theta);
+            const bobY = originY + L * 100 * Math.cos(theta);
+
+            // Draw the rod
             ctx.beginPath();
             ctx.moveTo(originX, originY);
-            ctx.lineTo(x, y);
+            ctx.lineTo(bobX, bobY);
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
             ctx.stroke();
+
+            // Draw the bob
             ctx.beginPath();
-            ctx.arc(x, y, 10, 0, 2 * Math.PI);
+            ctx.arc(bobX, bobY, 10, 0, 2 * Math.PI);
             ctx.fillStyle = "red";
             ctx.fill();
         }
-        
+
+        // Main animation loop
         function animate() {
             updatePendulum();
             drawPendulum();
             animationFrame = requestAnimationFrame(animate);
         }
-        
+
+        // Function to restart the simulation with new parameters
         function startSimulation() {
-            cancelAnimationFrame(animationFrame);
-            theta = Math.PI / 4;
-            omega = 0;
+            cancelAnimationFrame(animationFrame); // Stop the current animation
+            gamma = parseFloat(document.getElementById("damping").value); // Update damping
+            F_d = parseFloat(document.getElementById("force").value); // Update driving force
+            omega_d = parseFloat(document.getElementById("frequency").value); // Update driving frequency
+            theta = 0.1; // Reset initial conditions
+            omega = 0.0;
             time = 0;
-            gamma = parseFloat(document.getElementById("damping").value);
-            F_d = parseFloat(document.getElementById("force").value);
-            omega_d = parseFloat(document.getElementById("frequency").value);
-            animate();
+            animate(); // Restart the animation
         }
-        
+
+        // Start the simulation
         animate();
     </script>
 </body>

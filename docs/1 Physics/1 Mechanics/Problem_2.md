@@ -129,4 +129,53 @@ Pendulum clocks rely on the periodic motion of a damped oscillator. External ene
 
 These applications illustrate the broad impact of the forced damped pendulum across physics, engineering, and biology.
 
-👉 **[Click here to view the simulation](simulation1.html)** 👈
+
+
+
+
+
+
+## Step 1: Define the Forced Damped Pendulum Equation
+
+The equation of motion for a forced damped pendulum is:
+
+$$
+\frac{d^2\theta}{dt^2} + \frac{b}{m} \frac{d\theta}{dt} + \frac{g}{L} \sin(\theta) = F \cos(\omega_d t)
+$$
+
+Where:
+- $\theta$: Angular displacement.
+- $b$: Damping coefficient.
+- $m$: Mass of the pendulum bob.
+- $g$: Acceleration due to gravity.
+- $L$: Length of the pendulum.
+- $F$: Amplitude of the driving force.
+- $\omega_d$: Angular frequency of the driving force.
+
+This can be rewritten as a system of first-order differential equations:
+
+$$
+\frac{d\theta}{dt} = \omega
+$$
+$$
+\frac{d\omega}{dt} = -\frac{b}{m} \omega - \frac{g}{L} \sin(\theta) + F \cos(\omega_d t)
+$$
+
+---
+
+## Step 2: Implement the Model in Python
+
+Below is the Python code to simulate the system:
+
+![alt text](image-2.png)
+
+
+## A phase diagram plots the angular velocity $\omega$ against the angular displacement $\theta$.
+
+![alt text](image-3.png)
+
+## Step 4: Plot Poincaré Sections
+
+## A Poincaré section is a way to visualize chaotic behavior. We sample the system at a fixed phase of the driving force (e.g., every $2\pi/\omega_d$).
+
+![alt text](image-4.png)
