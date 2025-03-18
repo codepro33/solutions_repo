@@ -200,7 +200,35 @@
 <h2 id="6-clocks-and-timekeeping">6. Clocks and Timekeeping</h2>
 <p>Pendulum clocks rely on the periodic motion of a damped oscillator. External energy input compensates for damping, ensuring consistent timekeeping.</p>
 <p>These applications illustrate the broad impact of the forced damped pendulum across physics, engineering, and biology.</p>
-<p>👉 <strong><a href="../simulation1.html">Click here to view the simulation</a></strong> 👈</p>
+<h2 id="step-1-define-the-forced-damped-pendulum-equation">Step 1: Define the Forced Damped Pendulum Equation</h2>
+<p>The equation of motion for a forced damped pendulum is:</p>
+<div class="arithmatex">\[
+\frac{d^2\theta}{dt^2} + \frac{b}{m} \frac{d\theta}{dt} + \frac{g}{L} \sin(\theta) = F \cos(\omega_d t)
+\]</div>
+<p>Where:
+- <span class="arithmatex">\(\theta\)</span>: Angular displacement.
+- <span class="arithmatex">\(b\)</span>: Damping coefficient.
+- <span class="arithmatex">\(m\)</span>: Mass of the pendulum bob.
+- <span class="arithmatex">\(g\)</span>: Acceleration due to gravity.
+- <span class="arithmatex">\(L\)</span>: Length of the pendulum.
+- <span class="arithmatex">\(F\)</span>: Amplitude of the driving force.
+- <span class="arithmatex">\(\omega_d\)</span>: Angular frequency of the driving force.</p>
+<p>This can be rewritten as a system of first-order differential equations:</p>
+<div class="arithmatex">\[
+\frac{d\theta}{dt} = \omega
+$$
+$$
+\frac{d\omega}{dt} = -\frac{b}{m} \omega - \frac{g}{L} \sin(\theta) + F \cos(\omega_d t)
+\]</div>
+<hr/>
+<h2 id="step-2-implement-the-model-in-python">Step 2: Implement the Model in Python</h2>
+<p>Below is the Python code to simulate the system:</p>
+<p><img alt="alt text" src="../image-2.png"/></p>
+<h2 id="a-phase-diagram-plots-the-angular-velocity-omega-against-the-angular-displacement-theta">A phase diagram plots the angular velocity <span class="arithmatex">\(\omega\)</span> against the angular displacement <span class="arithmatex">\(\theta\)</span>.</h2>
+<p><img alt="alt text" src="../image-3.png"/></p>
+<h2 id="step-4-plot-poincare-sections">Step 4: Plot Poincaré Sections</h2>
+<h2 id="a-poincare-section-is-a-way-to-visualize-chaotic-behavior-we-sample-the-system-at-a-fixed-phase-of-the-driving-force-eg-every-2piomega_d">A Poincaré section is a way to visualize chaotic behavior. We sample the system at a fixed phase of the driving force (e.g., every <span class="arithmatex">\(2\pi/\omega_d\)</span>).</h2>
+<p><img alt="alt text" src="../image-4.png"/></p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
