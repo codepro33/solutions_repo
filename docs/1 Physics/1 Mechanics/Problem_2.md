@@ -149,6 +149,7 @@ $$
 $$
 
 Where:
+
 - $\theta$: Angular displacement.
 - $b$: Damping coefficient.
 - $m$: Mass of the pendulum bob.
@@ -162,6 +163,7 @@ This can be rewritten as a system of first-order differential equations:
 $$
 \frac{d\theta}{dt} = \omega
 $$
+
 $$
 \frac{d\omega}{dt} = -\frac{b}{m} \omega - \frac{g}{L} \sin(\theta) + F \cos(\omega_d t)
 $$
