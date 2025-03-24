@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 2 - Physics and Mathematics</title>
+<title>Escape Velocities and Cosmic Velocities - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 2";
+        var mkdocs_page_name = "Escape Velocities and Cosmic Velocities";
         var mkdocs_page_input_path = "1 Physics/2 Gravity/Problem_2.md";
         var mkdocs_page_url = null;
       </script>
@@ -56,7 +56,39 @@
 <ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../Problem_1/">Problem 1</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Escape Velocities and Cosmic Velocities</a>
+<ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#definitions-and-physical-meaning">Definitions and Physical Meaning</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#first-cosmic-velocity-orbital-velocity">First Cosmic Velocity (Orbital Velocity)</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#second-cosmic-velocity-escape-velocity">Second Cosmic Velocity (Escape Velocity)</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#third-cosmic-velocity">Third Cosmic Velocity</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-derivations">Mathematical Derivations</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#first-cosmic-velocity-v_1">First Cosmic Velocity (\(v_1\))</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#second-cosmic-velocity-v_2">Second Cosmic Velocity (\(v_2\))</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#third-cosmic-velocity-v_3">Third Cosmic Velocity (\(v_3\))</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters-affecting-velocities">Parameters Affecting Velocities</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#calculations-for-celestial-bodies">Calculations for Celestial Bodies</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#python-script">Python Script</a>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_3/">Problem 3</a>
 </li>
@@ -109,7 +141,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">2 Gravity</li>
-<li class="breadcrumb-item active">Problem 2</li>
+<li class="breadcrumb-item active">Escape Velocities and Cosmic Velocities</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -117,6 +149,99 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
+<h1 id="escape-velocities-and-cosmic-velocities">Escape Velocities and Cosmic Velocities</h1>
+<h2 id="introduction">Introduction</h2>
+<p>The concept of escape velocity is crucial for understanding the conditions required to leave a celestial body's gravitational influence. Extending this concept, the first, second, and third cosmic velocities define the thresholds for orbiting, escaping, and leaving a star system. These principles underpin modern space exploration, from launching satellites to interplanetary missions.</p>
+<p>This document defines the first, second, and third cosmic velocities, explains their physical meaning, derives their equations, calculates them for Earth, Mars, and Jupiter, and includes a Python script to visualize these velocities.</p>
+<hr/>
+<h2 id="definitions-and-physical-meaning">Definitions and Physical Meaning</h2>
+<h3 id="first-cosmic-velocity-orbital-velocity">First Cosmic Velocity (Orbital Velocity)</h3>
+<p>The <strong>first cosmic velocity</strong> (<span class="arithmatex">\(v_1\)</span>) is the minimum speed required for an object to enter a circular orbit around a celestial body at its surface.</p>
+<ul>
+<li><strong>Physical Meaning</strong>: At <span class="arithmatex">\(v_1\)</span>, an object orbits without falling back or escaping. For Earth, this is the speed of low Earth orbit (LEO) satellites.</li>
+</ul>
+<h3 id="second-cosmic-velocity-escape-velocity">Second Cosmic Velocity (Escape Velocity)</h3>
+<p>The <strong>second cosmic velocity</strong> (<span class="arithmatex">\(v_2\)</span>) is the speed required to escape a celestial body’s gravitational influence from its surface.</p>
+<ul>
+<li><strong>Physical Meaning</strong>: At <span class="arithmatex">\(v_2\)</span>, kinetic energy equals gravitational potential energy, allowing escape to infinity. It’s the threshold for leaving a planet.</li>
+</ul>
+<h3 id="third-cosmic-velocity">Third Cosmic Velocity</h3>
+<p>The <strong>third cosmic velocity</strong> (<span class="arithmatex">\(v_3\)</span>) is the speed required to escape the gravitational pull of a star (e.g., the Sun) from a planet’s surface.</p>
+<ul>
+<li><strong>Physical Meaning</strong>: This enables interstellar travel, overcoming both planetary and stellar gravity.</li>
+</ul>
+<hr/>
+<h2 id="mathematical-derivations">Mathematical Derivations</h2>
+<h3 id="first-cosmic-velocity-v_1">First Cosmic Velocity (<span class="arithmatex">\(v_1\)</span>)</h3>
+<p>Gravitational force equals centripetal force for a circular orbit:
+$$
+\frac{G M m}{r^2} = \frac{m v_1^2}{r}
+$$
+Where:</p>
+<ul>
+<li><span class="arithmatex">\(G = 6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}\)</span> (gravitational constant),</li>
+<li><span class="arithmatex">\(M\)</span> = mass of the body,</li>
+<li><span class="arithmatex">\(m\)</span> = mass of the object (cancels out),</li>
+<li><span class="arithmatex">\(r\)</span> = radius of the body.</li>
+</ul>
+<p>Simplifying:
+$$
+v_1 = \sqrt{\frac{G M}{r}}
+$$</p>
+<h3 id="second-cosmic-velocity-v_2">Second Cosmic Velocity (<span class="arithmatex">\(v_2\)</span>)</h3>
+<p>From energy conservation (kinetic + potential = 0 at infinity):
+$$
+\frac{1}{2} m v_2^2 - \frac{G M m}{r} = 0
+$$
+Simplifying:
+$$
+v_2 = \sqrt{\frac{2 G M}{r}}
+$$
+Note: <span class="arithmatex">\(v_2 = \sqrt{2} \cdot v_1\)</span>.</p>
+<h3 id="third-cosmic-velocity-v_3">Third Cosmic Velocity (<span class="arithmatex">\(v_3\)</span>)</h3>
+<p>Escaping a star system involves escaping the planet and the star. Sun’s escape velocity from Earth’s orbit:
+$$
+v_{\text{esc,Sun}} = \sqrt{\frac{2 G M_{\text{Sun}}}{R}}
+$$
+Where <span class="arithmatex">\(M_{\text{Sun}}\)</span> is the Sun’s mass and <span class="arithmatex">\(R\)</span> is Earth’s orbital radius (~1 AU). Approximate <span class="arithmatex">\(v_3\)</span>:
+$$
+v_3 \approx \sqrt{v_2^2 + v_{\text{esc,Sun}}^2}
+$$
+Exact values depend on launch conditions.</p>
+<hr/>
+<h2 id="parameters-affecting-velocities">Parameters Affecting Velocities</h2>
+<ul>
+<li><strong>Mass (<span class="arithmatex">\(M\)</span>)</strong>: Higher mass increases velocities.</li>
+<li><strong>Radius (<span class="arithmatex">\(r\)</span>)</strong>: Larger radius decreases velocities for a given mass.</li>
+<li><strong>Distance from Star (<span class="arithmatex">\(R\)</span>)</strong>: Affects <span class="arithmatex">\(v_3\)</span> via stellar gravity.</li>
+</ul>
+<hr/>
+<h2 id="calculations-for-celestial-bodies">Calculations for Celestial Bodies</h2>
+<p>Data:</p>
+<ul>
+<li><strong>Earth</strong>: <span class="arithmatex">\(M = 5.972 \times 10^{24} \, \text{kg}\)</span>, <span class="arithmatex">\(r = 6,371 \, \text{km}\)</span>,</li>
+<li><strong>Mars</strong>: <span class="arithmatex">\(M = 6.417 \times 10^{23} \, \text{kg}\)</span>, <span class="arithmatex">\(r = 3,390 \, \text{km}\)</span>,</li>
+<li><strong>Jupiter</strong>: <span class="arithmatex">\(M = 1.898 \times 10^{27} \, \text{kg}\)</span>, <span class="arithmatex">\(r = 69,911 \, \text{km}\)</span>,</li>
+<li><strong>Sun</strong>: <span class="arithmatex">\(M_{\text{Sun}} = 1.989 \times 10^{30} \, \text{kg}\)</span>, <span class="arithmatex">\(R_{\text{Earth}} = 1.496 \times 10^8 \, \text{km}\)</span>.</li>
+</ul>
+<h3 id="python-script">Python Script</h3>
+<p><strong>Earth</strong>:</p>
+<ul>
+<li>v1 (Orbital) = 7.91 km/s</li>
+<li>v2 (Escape) = 11.19 km/s</li>
+<li>v3 (Solar Escape) = 43.59 km/s</li>
+</ul>
+<p><strong>Mars</strong>:</p>
+<ul>
+<li>v1 (Orbital) = 3.55 km/s</li>
+<li>v2 (Escape) = 5.03 km/s</li>
+</ul>
+<p><strong>Jupiter</strong>:</p>
+<ul>
+<li>v1 (Orbital) = 42.57 km/s</li>
+<li>v2 (Escape) = 60.20 km/s</li>
+</ul>
+<p><img alt="alt text" src="../image-3.png"/></p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
