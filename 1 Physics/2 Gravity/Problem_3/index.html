@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 3 - Physics and Mathematics</title>
+<title>Trajectories of a Freely Released Payload Near Earth - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 3";
+        var mkdocs_page_name = "Trajectories of a Freely Released Payload Near Earth";
         var mkdocs_page_input_path = "1 Physics/2 Gravity/Problem_3.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,8 +58,38 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Escape Velocities and Cosmic Velocities</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 3</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Trajectories of a Freely Released Payload Near Earth</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#definitions-and-physical-meaning">Definitions and Physical Meaning</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#trajectory-types">Trajectory Types</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-derivations">Mathematical Derivations</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#newtons-law-of-gravitation">Newton’s Law of Gravitation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#specific-energy-and-trajectory-type">Specific Energy and Trajectory Type</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#escape-velocity">Escape Velocity</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#orbital-elements-simplified">Orbital Elements (Simplified)</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters-affecting-trajectories">Parameters Affecting Trajectories</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#calculations-and-simulation">Calculations and Simulation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#initial-conditions">Initial Conditions</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#python-script">Python Script</a>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -111,7 +141,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">2 Gravity</li>
-<li class="breadcrumb-item active">Problem 3</li>
+<li class="breadcrumb-item active">Trajectories of a Freely Released Payload Near Earth</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -119,7 +149,121 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-3">Problem 3</h1>
+<h1 id="trajectories-of-a-freely-released-payload-near-earth">Trajectories of a Freely Released Payload Near Earth</h1>
+<h2 id="introduction">Introduction</h2>
+<p>When an object is released from a moving rocket near Earth, its trajectory depends on initial conditions (position, velocity, altitude) and gravitational forces. This problem integrates orbital mechanics and numerical methods, offering insights critical for space missions like payload deployment or reentry.</p>
+<p>This document analyzes possible trajectories (parabolic, hyperbolic, elliptical) of a payload released near Earth, performs a numerical simulation of its path, and develops a Python tool to visualize the motion under Earth's gravity. It leverages Newton's Law of Gravitation and Kepler's Laws for derivations.</p>
+<hr/>
+<h2 id="definitions-and-physical-meaning">Definitions and Physical Meaning</h2>
+<h3 id="trajectory-types">Trajectory Types</h3>
+<ul>
+<li><strong>Elliptical</strong>: Closed orbit; payload remains bound to Earth (e.g., satellite orbits).</li>
+<li><strong>Parabolic</strong>: Boundary case; payload escapes with zero residual velocity at infinity.</li>
+<li>
+<p><strong>Hyperbolic</strong>: Open trajectory; payload escapes with excess velocity.</p>
+</li>
+<li>
+<p><strong>Physical Meaning</strong>: The trajectory depends on the payload’s specific energy, determined by initial velocity and position relative to Earth’s gravitational potential.</p>
+</li>
+</ul>
+<hr/>
+<h2 id="mathematical-derivations">Mathematical Derivations</h2>
+<h3 id="newtons-law-of-gravitation">Newton’s Law of Gravitation</h3>
+<p>Gravitational force between Earth and payload:
+$$
+F = \frac{G M m}{r^2}
+$$
+Where:</p>
+<ul>
+<li><span class="arithmatex">\(G = 6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}\)</span> (gravitational constant),</li>
+<li><span class="arithmatex">\(M = 5.972 \times 10^{24} \, \text{kg}\)</span> (Earth’s mass),</li>
+<li><span class="arithmatex">\(m\)</span> = payload mass,</li>
+<li><span class="arithmatex">\(r\)</span> = distance from Earth’s center.</li>
+</ul>
+<p>Acceleration:
+$$
+\ddot{\mathbf{r}} = -\frac{G M}{r^3} \mathbf{r}
+$$</p>
+<h3 id="specific-energy-and-trajectory-type">Specific Energy and Trajectory Type</h3>
+<p>Total specific energy (<span class="arithmatex">\(\epsilon\)</span>) determines the trajectory:</p>
+<div class="arithmatex">\[
+\epsilon = \frac{v^2}{2} - \frac{G M}{r}
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\epsilon &lt; 0\)</span>: Elliptical (bound orbit),</li>
+<li><span class="arithmatex">\(\epsilon = 0\)</span>: Parabolic (escape velocity),</li>
+<li><span class="arithmatex">\(\epsilon &gt; 0\)</span>: Hyperbolic (excess velocity).</li>
+</ul>
+<h3 id="escape-velocity">Escape Velocity</h3>
+<p>Minimum speed to escape Earth:
+$$
+v_{\text{esc}} = \sqrt{\frac{2 G M}{r}}
+$$</p>
+<h3 id="orbital-elements-simplified">Orbital Elements (Simplified)</h3>
+<p>Semi-major axis (<span class="arithmatex">\(a\)</span>) for elliptical orbits:
+$$
+a = -\frac{G M}{2 \epsilon} \quad (\epsilon &lt; 0)
+$$</p>
+<hr/>
+<h2 id="parameters-affecting-trajectories">Parameters Affecting Trajectories</h2>
+<ul>
+<li><strong>Initial Velocity (<span class="arithmatex">\(v_0\)</span>)</strong>: Magnitude and direction relative to Earth.</li>
+<li><strong>Initial Position (<span class="arithmatex">\(r_0\)</span>)</strong>: Altitude above Earth’s surface.</li>
+<li><strong>Earth’s Mass (<span class="arithmatex">\(M\)</span>)</strong>: Fixed gravitational influence.</li>
+<li><strong>Altitude</strong>: Affects gravitational strength (<span class="arithmatex">\(r = R_{\text{Earth}} + h\)</span>).</li>
+</ul>
+<hr/>
+<h2 id="calculations-and-simulation">Calculations and Simulation</h2>
+<h3 id="initial-conditions">Initial Conditions</h3>
+<ul>
+<li>Earth radius: <span class="arithmatex">\(R_{\text{Earth}} = 6,371 \, \text{km}\)</span>,</li>
+<li>Altitude: <span class="arithmatex">\(h = 400 \, \text{km}\)</span> (e.g., LEO),</li>
+<li>Initial position: <span class="arithmatex">\(r_0 = 6,771 \, \text{km}\)</span>,</li>
+<li>Velocities: <span class="arithmatex">\(v_0 = 7.5 \, \text{km/s}\)</span> (elliptical), <span class="arithmatex">\(11.2 \, \text{km/s}\)</span> (parabolic), <span class="arithmatex">\(12.0 \, \text{km/s}\)</span> (hyperbolic),</li>
+<li>Direction: Tangential to Earth’s surface.</li>
+</ul>
+<h3 id="python-script">Python Script</h3>
+<p><img alt="alt text" src="../image-4.png"/></p>
+<h1 id="results-and-importance-of-payload-trajectories-near-earth">Results and Importance of Payload Trajectories Near Earth</h1>
+<h2 id="results-of-trajectory-simulations">Results of Trajectory Simulations</h2>
+<h3 id="calculated-trajectories">Calculated Trajectories</h3>
+<ul>
+<li><strong>Elliptical (<span class="arithmatex">\(v_0 = 7.5 \, \text{km/s}\)</span>)</strong>:</li>
+<li>Bound orbit, payload circles Earth.</li>
+<li>Specific energy: <span class="arithmatex">\(\epsilon &lt; 0\)</span>.</li>
+<li><strong>Parabolic (<span class="arithmatex">\(v_0 = 11.2 \, \text{km/s}\)</span>)</strong>:</li>
+<li>Escape trajectory, zero velocity at infinity.</li>
+<li>Specific energy: <span class="arithmatex">\(\epsilon = 0\)</span>.</li>
+<li><strong>Hyperbolic (<span class="arithmatex">\(v_0 = 12.0 \, \text{km/s}\)</span>)</strong>:</li>
+<li>Excess velocity escape, open path.</li>
+<li>Specific energy: <span class="arithmatex">\(\epsilon &gt; 0\)</span>.</li>
+</ul>
+<p>The Python script generates a plot showing:</p>
+<ul>
+<li>Elliptical: Closed loop around Earth.</li>
+<li>Parabolic: Boundary escape path.</li>
+<li>Hyperbolic: Diverging trajectory.</li>
+</ul>
+<p>Initial conditions: Released at <span class="arithmatex">\(400 \, \text{km}\)</span> altitude (<span class="arithmatex">\(r_0 = 6,771 \, \text{km}\)</span>), tangential velocity.</p>
+<hr/>
+<h2 id="importance-in-space-exploration">Importance in Space Exploration</h2>
+<h3 id="orbital-insertion">Orbital Insertion</h3>
+<ul>
+<li><strong>Elliptical Trajectories</strong>: Payloads with <span class="arithmatex">\(v_0 &lt; v_{\text{esc}}\)</span> (e.g., <span class="arithmatex">\(7.5 \, \text{km/s}\)</span> at <span class="arithmatex">\(400 \, \text{km}\)</span>) enter stable orbits, critical for satellite deployment.
+  $$
+  v_{\text{esc}} = \sqrt{\frac{2 G M}{r_0}} \approx 11.2 \, \text{km/s}
+  $$</li>
+</ul>
+<h3 id="reentry-scenarios">Reentry Scenarios</h3>
+<ul>
+<li><strong>Sub-Elliptical Velocities</strong>: If <span class="arithmatex">\(v_0\)</span> is insufficient for orbit, the payload follows a ballistic path, intersecting Earth (reentry).</li>
+</ul>
+<h3 id="escape-scenarios">Escape Scenarios</h3>
+<ul>
+<li><strong>Parabolic and Hyperbolic Trajectories</strong>: Velocities at or above <span class="arithmatex">\(v_{\text{esc}}\)</span> (e.g., <span class="arithmatex">\(11.2 \, \text{km/s}\)</span> or <span class="arithmatex">\(12.0 \, \text{km/s}\)</span>) enable escape, relevant for interplanetary missions.</li>
+<li>Parabolic: Minimal energy escape.</li>
+<li>Hyperbolic: Excess energy for faster departure.</li>
+</ul>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
