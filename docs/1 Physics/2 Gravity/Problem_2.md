@@ -28,6 +28,8 @@ The **third cosmic velocity** ($v_3$) is the speed required to escape the gravit
 
 - **Physical Meaning**: This enables interstellar travel, overcoming both planetary and stellar gravity.
 
+![alt text](image-5.png)
+
 ---
 
 ## Mathematical Derivations
