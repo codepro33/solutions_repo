@@ -10,6 +10,7 @@ $$
 $$
 
 where:
+
 - $\theta$ is the angular displacement,
 - $\gamma$ is the damping coefficient,
 - $F_d$ is the amplitude of the external forcing,
@@ -86,6 +87,7 @@ The system undergoes a transition through different dynamic regimes:
 ## Chaos Analysis
 
 The transition to chaos is analyzed using:
+
 - **Poincar\'e Sections** to identify periodic and chaotic attractors.
 - **Bifurcation Diagrams** showing transitions between periodicity and chaos.
 - **Lyapunov Exponents** quantifying sensitivity to initial conditions.
