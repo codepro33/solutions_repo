@@ -133,21 +133,6 @@ Data:
 
 
 
-## Overview
-
-**Voyager 1** is a space probe launched by **NASA** on **September 5, 1977**, as part of the **Voyager program**. It was designed to explore the outer planets and is now the **farthest human-made object from Earth**, traveling into **interstellar space**.
-
-
-## Speed & Distance 📏
-
-- **Current Speed:** ~ **17 km/s** (~3.6 AU per year).
-- **Current Distance:** Over **24 billion km (160+ AU)** from Earth.
-- **Signal Delay:** It takes **over 22 hours** for a signal from Voyager 1 to reach Earth.
-
-## Fun Fact 🤯
-
-If an **alien civilization** finds Voyager 1, they will get **a snapshot of human civilization from 1977!** 👽✨
-
 
 
 
