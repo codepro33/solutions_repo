@@ -115,19 +115,37 @@ Data:
 
 **Earth**:
 
-- v1 (Orbital) = 7.91 km/s
-- v2 (Escape) = 11.19 km/s
-- v3 (Solar Escape) = 43.59 km/s
+$$
+ v1 (Orbital) = 7.91 km/s
+$$
+
+$$
+ v2 (Escape) = 11.19 km/s
+$$
+
+$$
+ v3 (Solar Escape) = 43.59 km/s
+$$
+
 
 **Mars**:
+$$
+ v1 (Orbital) = 3.55 km/s
+$$
 
-- v1 (Orbital) = 3.55 km/s
-- v2 (Escape) = 5.03 km/s
+$$
+ v2 (Escape) = 5.03 km/s
+$$
 
 **Jupiter**:
 
-- v1 (Orbital) = 42.57 km/s
-- v2 (Escape) = 60.20 km/s
+$$
+v1 (Orbital) = 42.57 km/s
+$$
+
+$$
+v2 (Escape) = 60.20 km/s
+$$
 
   ![alt text](image-3.png)
 
@@ -136,3 +154,18 @@ Data:
 
 
 
+
+The Python script from the main document generates a bar chart comparing $v_1$ and $v_2$ for Earth, Mars, and Jupiter, with $v_3$ as a dashed line for Earth.
+
+---
+
+## Importance in Space Exploration
+
+### Launching Satellites
+- **First Cosmic Velocity**: Satellites in LEO (e.g., ~$7.8 \, \text{km/s}$ for Earth) use $v_1$, adjusted for drag and altitude.
+
+### Missions to Other Planets
+- **Second Cosmic Velocity**: Interplanetary missions require $v_2$ (e.g., $5.03 \, \text{km/s}$ for Mars escape).
+
+### Interstellar Travel
+- **Third Cosmic Velocity**: Escaping the solar system needs $v_3$ (e.g., $16.6 \, \text{km/s}$ from Earth), often aided by gravitational assists.
