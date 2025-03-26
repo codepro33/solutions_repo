@@ -144,9 +144,7 @@ Initial conditions: Released at $400 \, \text{km}$ altitude ($r_0 = 6,771 \, \te
   - Parabolic: Minimal energy escape.
   - Hyperbolic: Excess energy for faster departure.
 
-  --------------------------------------------------------------
-
-  ## 🌟 Interesting Fact: Light Sail Probes Could Reach 10% of Light Speed!  
+## 🌟 Interesting Fact: Light Sail Probes Could Reach 10% of Light Speed!  
 
 Scientists are working on a **revolutionary space probe** that could travel at **10% the speed of light (0.1c)** using **solar sail technology**. 🚀  
 
