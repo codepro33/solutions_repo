@@ -13,8 +13,15 @@ This document analyzes possible trajectories (parabolic, hyperbolic, elliptical)
 ### Trajectory Types
 
 - **Elliptical**: Closed orbit; payload remains bound to Earth (e.g., satellite orbits).
+
+![alt text](image-6.png)
+
+
+
 - **Parabolic**: Boundary case; payload escapes with zero residual velocity at infinity.
 - **Hyperbolic**: Open trajectory; payload escapes with excess velocity.
+
+![alt text](image-7.png)
 
 - **Physical Meaning**: The trajectory depends on the payload’s specific energy, determined by initial velocity and position relative to Earth’s gravitational potential.
 
