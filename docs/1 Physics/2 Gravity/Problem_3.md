@@ -143,3 +143,32 @@ Initial conditions: Released at $400 \, \text{km}$ altitude ($r_0 = 6,771 \, \te
 - **Parabolic and Hyperbolic Trajectories**: Velocities at or above $v_{\text{esc}}$ (e.g., $11.2 \, \text{km/s}$ or $12.0 \, \text{km/s}$) enable escape, relevant for interplanetary missions.
   - Parabolic: Minimal energy escape.
   - Hyperbolic: Excess energy for faster departure.
+
+  --------------------------------------------------------------
+
+  ## 🌟 Interesting Fact: Light Sail Probes Could Reach 10% of Light Speed!  
+
+Scientists are working on a **revolutionary space probe** that could travel at **10% the speed of light (0.1c)** using **solar sail technology**. 🚀  
+
+### 🔬 How Does It Work?  
+
+- The probe will use an **ultra-thin, reflective sail** to catch energy from **powerful lasers or sunlight**.  
+- **Radiation pressure** (from photons bouncing off the sail) will provide continuous thrust.  
+- Over time, this can accelerate the spacecraft to **~30,000 km/s**!  
+
+### 🌌 Why Is This Important?  
+
+- At **0.1c**, a probe could reach **Alpha Centauri**, the nearest star system, in **40-50 years** instead of thousands!  
+- This could allow us to explore **interstellar space** within a human lifetime.  
+
+### 🚀 Challenges to Overcome  
+
+- Developing **powerful laser systems** to propel the sail.  
+- Ensuring the **sail withstands extreme forces**.  
+- Communicating across **vast interstellar distances**.  
+
+### 🔥 Future Possibilities  
+
+If successful, this technology could lead to **fast interstellar probes** and even **human space travel beyond our solar system**!  
+
+👉 This concept is being actively researched by the **Breakthrough Starshot** initiative.  
