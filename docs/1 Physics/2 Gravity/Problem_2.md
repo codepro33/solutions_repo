@@ -43,7 +43,7 @@ The **third cosmic velocity** ($v_3$) is the speed required to escape the gravit
 If an **alien civilization** finds Voyager 1, they will get **a snapshot of human civilization from 1977!** 👽✨
 ----------------------------------------------------------------
 
-![alt text](image-5.png)
+
 
 ---
 
