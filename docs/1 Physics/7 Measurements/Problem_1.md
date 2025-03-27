@@ -1,177 +1,94 @@
-# Escape Velocities and Cosmic Velocities
+# Trajectories of a Freely Released Payload Near Earth
 
 ## Motivation
 
-The concept of escape velocity is fundamental to understanding how objects can break free from a celestial body's gravitational pull. Building on this, the first, second, and third cosmic velocities provide critical thresholds for orbiting a planet, escaping its gravity, and departing its star system, respectively. These velocities are essential for space exploration, governing satellite launches, interplanetary missions, and the theoretical framework for interstellar travel.
+When a payload is released from a moving rocket near Earth, its subsequent trajectory is determined by its initial position, velocity, and Earth’s gravitational field. This scenario integrates orbital mechanics and numerical simulation, offering insights into payload deployment, orbital insertion, and reentry dynamics. Understanding these trajectories is critical for space mission planning, such as satellite launches or spacecraft reentry.
 
 ---
 
-## Definitions and Physical Meaning
+## Possible Trajectories
 
-1. **First Cosmic Velocity ($v_1$)**:  
+The trajectory of a freely released payload depends on its specific energy and angular momentum relative to Earth. Using gravitational principles, the possible paths are:
 
-   The minimum speed required for an object to achieve a stable circular orbit around a celestial body at its surface. It is essentially the orbital velocity at radius $r = R$, where $R$ is the body's radius.
+1. **Elliptical Trajectory**: If the payload’s total mechanical energy $E < 0$, it follows a bound, elliptical orbit around Earth.
+2. **Parabolic Trajectory**: If $E = 0$, the payload escapes Earth with zero velocity at infinity, tracing a parabola.
+3. **Hyperbolic Trajectory**: If $E > 0$, the payload escapes with excess velocity, following a hyperbola.
 
-2. **Second Cosmic Velocity ($v_2$)**:  
+The specific energy per unit mass is:
 
-   Known as the escape velocity, this is the minimum speed needed to escape a celestial body’s gravitational field from its surface, reaching infinity with zero residual velocity.
+$$
+\epsilon = \frac{v^2}{2} - \frac{G M}{r}
+$$
 
-3. **Third Cosmic Velocity ($v_3$)**:  
+where $v$ is the initial velocity, $r$ is the radial distance from Earth’s center, $G$ is the gravitational constant, and $M$ is Earth’s mass. The trajectory type is determined by:
 
-   The minimum speed required to escape the gravitational influence of a star system (e.g., the Solar System) from a planet’s surface, assuming the planet is in a circular orbit around the star.
+- $\epsilon < 0$: Elliptical
+- $\epsilon = 0$: Parabolic
+- $\epsilon > 0$: Hyperbolic
 
 ---
 
-## Mathematical Derivations
+## Mathematical Derivation
 
-### First Cosmic Velocity ($v_1$)
+### Equations of Motion
 
-The first cosmic velocity is derived from the condition for circular orbit, where gravitational force equals centripetal force: $G M m / r^2 = m v^2 / r$. At the surface, $r = R$:
-
-$$
-G M / R^2 = v_1^2 / R
-$$
-
-Multiply by $R$:
+Newton’s Law of Gravitation provides the force: $F = G M m / r^2$. For a payload of mass $m$, the acceleration in polar coordinates (radial $r$, angular $\theta$) is:
 
 $$
-v_1^2 = G M / R
-$$
-
-Thus:
-
-$$
-v_1 = \sqrt{G M / R}
-$$
-
-where $G$ is the gravitational constant, $M$ is the mass of the celestial body, and $R$ is its radius.
-
-### Second Cosmic Velocity ($v_2$)
-
-The escape velocity is derived from conservation of energy. Total mechanical energy at the surface (kinetic + potential) must be zero at infinity:
-
-$$
-\frac{1}{2} m v_2^2 - G M m / R = 0
-$$
-
-Simplify:
-
-$$
-\frac{1}{2} v_2^2 = G M / R
+\ddot{r} - r \dot{\theta}^2 = -\frac{G M}{r^2}
 $$
 
 $$
-v_2^2 = 2 G M / R
+r \ddot{\theta} + 2 \dot{r} \dot{\theta} = 0
 $$
 
-Thus:
+The second equation implies conservation of angular momentum: $h = r^2 \dot{\theta} = \text{constant}$.
+
+### Trajectory Classification
+
+The orbit’s shape is governed by the eccentricity $e$, derived from initial conditions:
 
 $$
-v_2 = \sqrt{2 G M / R}
+e = \sqrt{1 + \frac{2 \epsilon h^2}{(G M)^2}}
 $$
 
-Note that $v_2 = \sqrt{2} v_1$, meaning escape velocity is $\sqrt{2}$ times the orbital velocity.
+- $e < 1$: Elliptical
+- $e = 1$: Parabolic
+- $e > 1$: Hyperbolic
 
-### Third Cosmic Velocity ($v_3$)
-
-The third cosmic velocity is more complex, as it involves escaping the star’s gravitational field from a planet’s surface. For a planet in a circular orbit around a star (mass $M_s$, orbital radius $a$), the planet’s orbital velocity is $v_p = \sqrt{G M_s / a}$. The total velocity to escape the Solar System from the planet’s surface combines:
-
-- Escaping the planet: $v_2 = \sqrt{2 G M / R}$.
-- Matching the planet’s orbital velocity and exceeding the star’s escape velocity at $a$.
-
-The escape velocity from the star’s field at distance $a$ is:
-
-$$
-v_{\text{esc, star}} = \sqrt{2 G M_s / a}
-$$
-
-Assuming the launch is in the direction of the planet’s orbit, the approximate $v_3$ from the surface is:
-
-$$
-v_3 \approx \sqrt{v_2^2 + (v_{\text{esc, star}} - v_p)^2}
-$$
-
-For Earth escaping the Sun:
-
-$$
-v_3 \approx \sqrt{(11.2)^2 + (42.1 - 29.8)^2} \, \text{km/s}
-$$
+For a circular orbit, $v = \sqrt{G M / r}$, and for escape, $v = \sqrt{2 G M / r}$.
 
 ---
 
-## Parameters Affecting These Velocities
+## Numerical Analysis
 
-- **Mass ($M$)**: Higher mass increases all velocities ($v_1$, $v_2$, $v_3$).
-- **Radius ($R$)**: Larger radius decreases $v_1$ and $v_2$ (inverse relationship).
-- **Star’s Mass ($M_s$) and Orbital Distance ($a$)**: For $v_3$, a more massive star or smaller orbit increases the velocity needed to escape the system.
+To compute the trajectory, we solve the differential equations numerically using initial conditions: position $(r_0, \theta_0)$ and velocity $(v_{r0}, v_{\theta0})$. The state vector is $[r, \dot{r}, \theta, \dot{\theta}]$, and we use a numerical integrator (e.g., Runge-Kutta) to simulate the path under Earth’s gravity.
 
----
+### Initial Conditions Example
 
-## Calculations for Celestial Bodies
-
-### Earth
-
-- $M = 5.972 \times 10^{24}$ kg
-- $R = 6.371 \times 10^6$ m
+- Altitude: 400 km ($r_0 = 6.371 \times 10^6 + 4 \times 10^5 = 6.771 \times 10^6$ m)
+- Earth’s mass: $M = 5.972 \times 10^{24}$ kg
 - $G = 6.6743 \times 10^{-11}$ m³ kg⁻¹ s⁻²
-- $M_s = 1.989 \times 10^{30}$ kg (Sun’s mass)
-- $a = 1.496 \times 10^{11}$ m (1 AU)
-
-$$
-v_1 = \sqrt{G M / R} = \sqrt{(6.6743 \times 10^{-11}) (5.972 \times 10^{24}) / (6.371 \times 10^6)} \approx 7.91 \, \text{km/s}
-$$
-
-$$
-v_2 = \sqrt{2 G M / R} = \sqrt{2} \cdot 7.91 \approx 11.19 \, \text{km/s}
-$$
-
-$$
-v_3 \approx \sqrt{(11.19)^2 + (42.1 - 29.8)^2} \approx 16.6 \, \text{km/s}
-$$
-
-### Mars
-
-- $M = 6.417 \times 10^{23}$ kg
-- $R = 3.39 \times 10^6$ m
-
-$$
-v_1 = \sqrt{(6.6743 \times 10^{-11}) (6.417 \times 10^{23}) / (3.39 \times 10^6)} \approx 3.55 \, \text{km/s}
-$$
-
-$$
-v_2 = \sqrt{2} \cdot 3.55 \approx 5.02 \, \text{km/s}
-$$
-
-### Jupiter
-
-- $M = 1.899 \times 10^{27}$ kg
-- $R = 6.991 \times 10^7$ m
-
-$$
-v_1 = \sqrt{(6.6743 \times 10^{-11}) (1.899 \times 10^{27}) / (6.991 \times 10^7)} \approx 42.6 \, \text{km/s}
-$$
-
-$$
-v_2 = \sqrt{2} \cdot 42.6 \approx 60.2 \, \text{km/s}
-$$
+- Circular velocity: $v_{\theta0} = \sqrt{G M / r_0} \approx 7.67$ km/s
+- Test cases: $v = 0.8 v_c$, $v_c$, $1.5 v_c$ (suborbital, orbital, escape)
 
 ---
 
-## Importance in Space Exploration
+## Relation to Space Scenarios
 
-1. **Launching Satellites**: $v_1$ determines the speed for low Earth orbit (e.g., 7.91 km/s). Rockets must exceed this, typically reaching 8-10 km/s with altitude.
-2. **Interplanetary Missions**: $v_2$ (11.19 km/s for Earth) is the threshold for missions to Mars or the Moon. Additional velocity from Earth’s motion aids efficiency.
-3. **Interstellar Travel**: $v_3$ (16.6 km/s from Earth) sets the bar for escaping the Solar System, as achieved by Voyager 1 using gravitational assists.
+1. **Orbital Insertion**: If $v \approx v_c$, the payload enters an elliptical or circular orbit, useful for satellite deployment.
+2. **Reentry**: If $v < v_c$, the trajectory intersects Earth’s surface or atmosphere, simulating a return path.
+3. **Escape**: If $v > \sqrt{2 G M / r}$, the payload escapes Earth’s gravity, relevant for interplanetary missions.
 
 ---
 
 ## Python Scripts and Visualizations
 
-### Python Script 1: Cosmic Velocities Bar Plot
+### Python Script 1: Trajectory Simulation
+
+![alt text](image-14.png)
 
 
-![alt text](image-12.png)
+## Python Script 2: Energy-Based Trajectory Types
 
-## Python Script 2: Velocity vs. Mass/Radius Ratio
-
-![alt text](image-13.png)
+![alt text](image-15.png)
