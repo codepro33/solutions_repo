@@ -1,143 +1,177 @@
-# Orbital Period and Orbital Radius: Kepler's Third Law
+# Escape Velocities and Cosmic Velocities
 
-## Motivation  
+## Motivation
 
-The relationship between the square of the orbital period and the cube of the orbital radius, known as **Kepler's Third Law**, is a cornerstone of celestial mechanics. This law allows for the determination of planetary motions and has broad implications for understanding gravitational interactions both on local and cosmic scales. By analyzing this relationship, we can connect fundamental principles of gravity with real-world phenomena such as satellite orbits and planetary systems.
-
-## Task Overview  
-
-The task involves deriving the relationship between the square of the orbital period and the cube of the orbital radius for circular orbits. We will explore the implications of this law in astronomy, investigate real-world examples, and implement a computational model to simulate circular orbits and verify this relationship.
+The concept of escape velocity is fundamental to understanding how objects can break free from a celestial body's gravitational pull. Building on this, the first, second, and third cosmic velocities provide critical thresholds for orbiting a planet, escaping its gravity, and departing its star system, respectively. These velocities are essential for space exploration, governing satellite launches, interplanetary missions, and the theoretical framework for interstellar travel.
 
 ---
 
-## 1. Derivation of Kepler’s Third Law  
+## Definitions and Physical Meaning
 
-For a body in a circular orbit, the centripetal force required to keep the body moving in orbit is provided by the gravitational force. This is expressed as:
+1. **First Cosmic Velocity ($v_1$)**:  
 
-$$
-F_{\text{centripetal}} = F_{\text{gravitational}}
-$$
+   The minimum speed required for an object to achieve a stable circular orbit around a celestial body at its surface. It is essentially the orbital velocity at radius $r = R$, where $R$ is the body's radius.
 
-The centripetal force is given by:
+2. **Second Cosmic Velocity ($v_2$)**:  
 
-$$
-F_{\text{centripetal}} = \frac{m v^2}{r}
-$$
+   Known as the escape velocity, this is the minimum speed needed to escape a celestial body’s gravitational field from its surface, reaching infinity with zero residual velocity.
 
-where:
+3. **Third Cosmic Velocity ($v_3$)**:  
 
-- $m$ is the mass of the orbiting body,
-- $v$ is the orbital velocity,
-- $r$ is the orbital radius.
+   The minimum speed required to escape the gravitational influence of a star system (e.g., the Solar System) from a planet’s surface, assuming the planet is in a circular orbit around the star.
 
-The gravitational force is:
+---
 
-$$
-F_{\text{gravitational}} = \frac{G M m}{r^2}
-$$
+## Mathematical Derivations
 
-where:
+### First Cosmic Velocity ($v_1$)
 
-- $G$ is the gravitational constant,
-- $M$ is the mass of the central body (e.g., the Sun),
-- $r$ is the orbital radius.
-
-By equating the two forces:
+The first cosmic velocity is derived from the condition for circular orbit, where gravitational force equals centripetal force: $G M m / r^2 = m v^2 / r$. At the surface, $r = R$:
 
 $$
-\frac{m v^2}{r} = \frac{G M m}{r^2}
+G M / R^2 = v_1^2 / R
 $$
 
-Simplifying:
+Multiply by $R$:
 
 $$
-v^2 = \frac{G M}{r}
+v_1^2 = G M / R
 $$
 
-Now, the velocity is related to the orbital period $T$ by:
+Thus:
 
 $$
-v = \frac{2\pi r}{T}
+v_1 = \sqrt{G M / R}
 $$
 
-Substituting this into the above equation:
+where $G$ is the gravitational constant, $M$ is the mass of the celestial body, and $R$ is its radius.
+
+### Second Cosmic Velocity ($v_2$)
+
+The escape velocity is derived from conservation of energy. Total mechanical energy at the surface (kinetic + potential) must be zero at infinity:
 
 $$
-\left(\frac{2\pi r}{T}\right)^2 = \frac{G M}{r}
+\frac{1}{2} m v_2^2 - G M m / R = 0
 $$
 
-Simplifying further:
+Simplify:
 
 $$
-\frac{4\pi^2 r^2}{T^2} = \frac{G M}{r}
+\frac{1}{2} v_2^2 = G M / R
 $$
 
-Now, solve for $T^2$:
-
 $$
-T^2 = \frac{4\pi^2 r^3}{G M}
+v_2^2 = 2 G M / R
 $$
 
-This is the relationship between the orbital period squared ($T^2$) and the orbital radius cubed ($r^3$), which is Kepler's Third Law:
+Thus:
 
 $$
-T^2 \propto r^3
+v_2 = \sqrt{2 G M / R}
+$$
+
+Note that $v_2 = \sqrt{2} v_1$, meaning escape velocity is $\sqrt{2}$ times the orbital velocity.
+
+### Third Cosmic Velocity ($v_3$)
+
+The third cosmic velocity is more complex, as it involves escaping the star’s gravitational field from a planet’s surface. For a planet in a circular orbit around a star (mass $M_s$, orbital radius $a$), the planet’s orbital velocity is $v_p = \sqrt{G M_s / a}$. The total velocity to escape the Solar System from the planet’s surface combines:
+
+- Escaping the planet: $v_2 = \sqrt{2 G M / R}$.
+- Matching the planet’s orbital velocity and exceeding the star’s escape velocity at $a$.
+
+The escape velocity from the star’s field at distance $a$ is:
+
+$$
+v_{\text{esc, star}} = \sqrt{2 G M_s / a}
+$$
+
+Assuming the launch is in the direction of the planet’s orbit, the approximate $v_3$ from the surface is:
+
+$$
+v_3 \approx \sqrt{v_2^2 + (v_{\text{esc, star}} - v_p)^2}
+$$
+
+For Earth escaping the Sun:
+
+$$
+v_3 \approx \sqrt{(11.2)^2 + (42.1 - 29.8)^2} \, \text{km/s}
 $$
 
 ---
 
-## 2. Implications of Kepler's Third Law  
+## Parameters Affecting These Velocities
 
-Kepler’s Third Law provides several important insights into the motion of celestial bodies:
-
-- **Planetary Masses**: By measuring the orbital period and radius of a satellite or planet, the mass of the central body (e.g., the Sun or Earth) can be determined.
-- **Orbital Distances**: The law helps calculate the distance of a planet or moon from the central star or planet based on its orbital period.
-- **Satellite Orbits**: Kepler’s Third Law is used extensively in satellite communication and space exploration, determining satellite orbital periods for given altitudes.
-
-### Real-World Example: The Moon’s Orbit Around Earth  
-
-The Moon orbits Earth at an average distance of $r = 3.84 \times 10^8$ meters and has an orbital period of approximately $T = 27.3$ days. Using Kepler's Third Law:
-
-$$
-T^2 = \frac{4\pi^2 r^3}{G M}
-$$
-
-Substituting the values for $r$ and $M$ (the mass of Earth):
-
-$$
-T = \sqrt{\frac{4\pi^2 (3.84 \times 10^8)^3}{(6.67430 \times 10^{-11}) (5.972 \times 10^{24})}}
-$$
-
-This confirms that Kepler's Third Law can be used to accurately predict the Moon's orbital period.
+- **Mass ($M$)**: Higher mass increases all velocities ($v_1$, $v_2$, $v_3$).
+- **Radius ($R$)**: Larger radius decreases $v_1$ and $v_2$ (inverse relationship).
+- **Star’s Mass ($M_s$) and Orbital Distance ($a$)**: For $v_3$, a more massive star or smaller orbit increases the velocity needed to escape the system.
 
 ---
 
-## 3. Computational Model to Simulate Circular Orbits  
+## Calculations for Celestial Bodies
 
-Below is a Python script to simulate the motion of a planet in a circular orbit using Newtonian mechanics. This simulation will help visualize the orbital motion and verify Kepler's Third Law.
+### Earth
 
-### Code 1: Simulating a Circular Orbit Using Numerical Integration  
-
-![alt text](image-8.png)
-
-## 4. Testing  Kepler’s Third Law
-
-We can now verify the proportionality $T^2 \propto r^3$ numerically.
-
-![alt text](image-9.png)
-
-## 5. Extension to Elliptical Orbits  
-
-For elliptical orbits, **Kepler’s Third Law** still holds, but we replace the orbital radius $r$ with the **semi-major axis** $a$:
+- $M = 5.972 \times 10^{24}$ kg
+- $R = 6.371 \times 10^6$ m
+- $G = 6.6743 \times 10^{-11}$ m³ kg⁻¹ s⁻²
+- $M_s = 1.989 \times 10^{30}$ kg (Sun’s mass)
+- $a = 1.496 \times 10^{11}$ m (1 AU)
 
 $$
-T^2 = \frac{4\pi^2}{G M} a^3
+v_1 = \sqrt{G M / R} = \sqrt{(6.6743 \times 10^{-11}) (5.972 \times 10^{24}) / (6.371 \times 10^6)} \approx 7.91 \, \text{km/s}
 $$
 
-This is the general form of Kepler’s Third Law for elliptical orbits, and it allows us to calculate the orbital period of objects in elliptical orbits, such as the planets in the Solar System.
+$$
+v_2 = \sqrt{2 G M / R} = \sqrt{2} \cdot 7.91 \approx 11.19 \, \text{km/s}
+$$
+
+$$
+v_3 \approx \sqrt{(11.19)^2 + (42.1 - 29.8)^2} \approx 16.6 \, \text{km/s}
+$$
+
+### Mars
+
+- $M = 6.417 \times 10^{23}$ kg
+- $R = 3.39 \times 10^6$ m
+
+$$
+v_1 = \sqrt{(6.6743 \times 10^{-11}) (6.417 \times 10^{23}) / (3.39 \times 10^6)} \approx 3.55 \, \text{km/s}
+$$
+
+$$
+v_2 = \sqrt{2} \cdot 3.55 \approx 5.02 \, \text{km/s}
+$$
+
+### Jupiter
+
+- $M = 1.899 \times 10^{27}$ kg
+- $R = 6.991 \times 10^7$ m
+
+$$
+v_1 = \sqrt{(6.6743 \times 10^{-11}) (1.899 \times 10^{27}) / (6.991 \times 10^7)} \approx 42.6 \, \text{km/s}
+$$
+
+$$
+v_2 = \sqrt{2} \cdot 42.6 \approx 60.2 \, \text{km/s}
+$$
 
 ---
 
-### Code 3: Simulating an Elliptical Orbit
+## Importance in Space Exploration
 
-![alt text](image-10.png)
+1. **Launching Satellites**: $v_1$ determines the speed for low Earth orbit (e.g., 7.91 km/s). Rockets must exceed this, typically reaching 8-10 km/s with altitude.
+2. **Interplanetary Missions**: $v_2$ (11.19 km/s for Earth) is the threshold for missions to Mars or the Moon. Additional velocity from Earth’s motion aids efficiency.
+3. **Interstellar Travel**: $v_3$ (16.6 km/s from Earth) sets the bar for escaping the Solar System, as achieved by Voyager 1 using gravitational assists.
+
+---
+
+## Python Scripts and Visualizations
+
+### Python Script 1: Cosmic Velocities Bar Plot
+
+
+![alt text](image-12.png)
+
+## Python Script 2: Velocity vs. Mass/Radius Ratio
+
+![alt text](image-13.png)
