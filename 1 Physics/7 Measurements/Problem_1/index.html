@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Escape Velocities and Cosmic Velocities - Physics and Mathematics</title>
+<title>Trajectories of a Freely Released Payload Near Earth - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Escape Velocities and Cosmic Velocities";
+        var mkdocs_page_name = "Trajectories of a Freely Released Payload Near Earth";
         var mkdocs_page_input_path = "1 Physics/7 Measurements/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -90,43 +90,35 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal current">7 Measurements</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Escape Velocities and Cosmic Velocities</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Trajectories of a Freely Released Payload Near Earth</a>
 <ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="#motivation">Motivation</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#definitions-and-physical-meaning">Definitions and Physical Meaning</a>
+<li class="toctree-l3"><a class="reference internal" href="#possible-trajectories">Possible Trajectories</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#mathematical-derivations">Mathematical Derivations</a>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-derivation">Mathematical Derivation</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#first-cosmic-velocity-v_1">First Cosmic Velocity (\(v_1\))</a>
+<li class="toctree-l4"><a class="reference internal" href="#equations-of-motion">Equations of Motion</a>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="#second-cosmic-velocity-v_2">Second Cosmic Velocity (\(v_2\))</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#third-cosmic-velocity-v_3">Third Cosmic Velocity (\(v_3\))</a>
+<li class="toctree-l4"><a class="reference internal" href="#trajectory-classification">Trajectory Classification</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#parameters-affecting-these-velocities">Parameters Affecting These Velocities</a>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#calculations-for-celestial-bodies">Calculations for Celestial Bodies</a>
+<li class="toctree-l3"><a class="reference internal" href="#numerical-analysis">Numerical Analysis</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#earth">Earth</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#mars">Mars</a>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="#jupiter">Jupiter</a>
+<li class="toctree-l4"><a class="reference internal" href="#initial-conditions-example">Initial Conditions Example</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#importance-in-space-exploration">Importance in Space Exploration</a>
+<li class="toctree-l3"><a class="reference internal" href="#relation-to-space-scenarios">Relation to Space Scenarios</a>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#python-scripts-and-visualizations">Python Scripts and Visualizations</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#python-script-1-cosmic-velocities-bar-plot">Python Script 1: Cosmic Velocities Bar Plot</a>
+<li class="toctree-l4"><a class="reference internal" href="#python-script-1-trajectory-simulation">Python Script 1: Trajectory Simulation</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#python-script-2-velocity-vs-massradius-ratio">Python Script 2: Velocity vs. Mass/Radius Ratio</a>
+<li class="toctree-l3"><a class="reference internal" href="#python-script-2-energy-based-trajectory-types">Python Script 2: Energy-Based Trajectory Types</a>
 </li>
 </ul>
 </li>
@@ -147,7 +139,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">7 Measurements</li>
-<li class="breadcrumb-item active">Escape Velocities and Cosmic Velocities</li>
+<li class="breadcrumb-item active">Trajectories of a Freely Released Payload Near Earth</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -155,135 +147,73 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="escape-velocities-and-cosmic-velocities">Escape Velocities and Cosmic Velocities</h1>
+<h1 id="trajectories-of-a-freely-released-payload-near-earth">Trajectories of a Freely Released Payload Near Earth</h1>
 <h2 id="motivation">Motivation</h2>
-<p>The concept of escape velocity is fundamental to understanding how objects can break free from a celestial body's gravitational pull. Building on this, the first, second, and third cosmic velocities provide critical thresholds for orbiting a planet, escaping its gravity, and departing its star system, respectively. These velocities are essential for space exploration, governing satellite launches, interplanetary missions, and the theoretical framework for interstellar travel.</p>
+<p>When a payload is released from a moving rocket near Earth, its subsequent trajectory is determined by its initial position, velocity, and Earth’s gravitational field. This scenario integrates orbital mechanics and numerical simulation, offering insights into payload deployment, orbital insertion, and reentry dynamics. Understanding these trajectories is critical for space mission planning, such as satellite launches or spacecraft reentry.</p>
 <hr/>
-<h2 id="definitions-and-physical-meaning">Definitions and Physical Meaning</h2>
+<h2 id="possible-trajectories">Possible Trajectories</h2>
+<p>The trajectory of a freely released payload depends on its specific energy and angular momentum relative to Earth. Using gravitational principles, the possible paths are:</p>
 <ol>
-<li><strong>First Cosmic Velocity (<span class="arithmatex">\(v_1\)</span>)</strong>:  </li>
+<li><strong>Elliptical Trajectory</strong>: If the payload’s total mechanical energy <span class="arithmatex">\(E &lt; 0\)</span>, it follows a bound, elliptical orbit around Earth.</li>
+<li><strong>Parabolic Trajectory</strong>: If <span class="arithmatex">\(E = 0\)</span>, the payload escapes Earth with zero velocity at infinity, tracing a parabola.</li>
+<li><strong>Hyperbolic Trajectory</strong>: If <span class="arithmatex">\(E &gt; 0\)</span>, the payload escapes with excess velocity, following a hyperbola.</li>
 </ol>
-<p>The minimum speed required for an object to achieve a stable circular orbit around a celestial body at its surface. It is essentially the orbital velocity at radius <span class="arithmatex">\(r = R\)</span>, where <span class="arithmatex">\(R\)</span> is the body's radius.</p>
-<ol>
-<li><strong>Second Cosmic Velocity (<span class="arithmatex">\(v_2\)</span>)</strong>:  </li>
-</ol>
-<p>Known as the escape velocity, this is the minimum speed needed to escape a celestial body’s gravitational field from its surface, reaching infinity with zero residual velocity.</p>
-<ol>
-<li><strong>Third Cosmic Velocity (<span class="arithmatex">\(v_3\)</span>)</strong>:  </li>
-</ol>
-<p>The minimum speed required to escape the gravitational influence of a star system (e.g., the Solar System) from a planet’s surface, assuming the planet is in a circular orbit around the star.</p>
-<hr/>
-<h2 id="mathematical-derivations">Mathematical Derivations</h2>
-<h3 id="first-cosmic-velocity-v_1">First Cosmic Velocity (<span class="arithmatex">\(v_1\)</span>)</h3>
-<p>The first cosmic velocity is derived from the condition for circular orbit, where gravitational force equals centripetal force: <span class="arithmatex">\(G M m / r^2 = m v^2 / r\)</span>. At the surface, <span class="arithmatex">\(r = R\)</span>:</p>
+<p>The specific energy per unit mass is:</p>
 <div class="arithmatex">\[
-G M / R^2 = v_1^2 / R
+\epsilon = \frac{v^2}{2} - \frac{G M}{r}
 \]</div>
-<p>Multiply by <span class="arithmatex">\(R\)</span>:</p>
-<div class="arithmatex">\[
-v_1^2 = G M / R
-\]</div>
-<p>Thus:</p>
-<div class="arithmatex">\[
-v_1 = \sqrt{G M / R}
-\]</div>
-<p>where <span class="arithmatex">\(G\)</span> is the gravitational constant, <span class="arithmatex">\(M\)</span> is the mass of the celestial body, and <span class="arithmatex">\(R\)</span> is its radius.</p>
-<h3 id="second-cosmic-velocity-v_2">Second Cosmic Velocity (<span class="arithmatex">\(v_2\)</span>)</h3>
-<p>The escape velocity is derived from conservation of energy. Total mechanical energy at the surface (kinetic + potential) must be zero at infinity:</p>
-<div class="arithmatex">\[
-\frac{1}{2} m v_2^2 - G M m / R = 0
-\]</div>
-<p>Simplify:</p>
-<div class="arithmatex">\[
-\frac{1}{2} v_2^2 = G M / R
-\]</div>
-<div class="arithmatex">\[
-v_2^2 = 2 G M / R
-\]</div>
-<p>Thus:</p>
-<div class="arithmatex">\[
-v_2 = \sqrt{2 G M / R}
-\]</div>
-<p>Note that <span class="arithmatex">\(v_2 = \sqrt{2} v_1\)</span>, meaning escape velocity is <span class="arithmatex">\(\sqrt{2}\)</span> times the orbital velocity.</p>
-<h3 id="third-cosmic-velocity-v_3">Third Cosmic Velocity (<span class="arithmatex">\(v_3\)</span>)</h3>
-<p>The third cosmic velocity is more complex, as it involves escaping the star’s gravitational field from a planet’s surface. For a planet in a circular orbit around a star (mass <span class="arithmatex">\(M_s\)</span>, orbital radius <span class="arithmatex">\(a\)</span>), the planet’s orbital velocity is <span class="arithmatex">\(v_p = \sqrt{G M_s / a}\)</span>. The total velocity to escape the Solar System from the planet’s surface combines:</p>
+<p>where <span class="arithmatex">\(v\)</span> is the initial velocity, <span class="arithmatex">\(r\)</span> is the radial distance from Earth’s center, <span class="arithmatex">\(G\)</span> is the gravitational constant, and <span class="arithmatex">\(M\)</span> is Earth’s mass. The trajectory type is determined by:</p>
 <ul>
-<li>Escaping the planet: <span class="arithmatex">\(v_2 = \sqrt{2 G M / R}\)</span>.</li>
-<li>Matching the planet’s orbital velocity and exceeding the star’s escape velocity at <span class="arithmatex">\(a\)</span>.</li>
-</ul>
-<p>The escape velocity from the star’s field at distance <span class="arithmatex">\(a\)</span> is:</p>
-<div class="arithmatex">\[
-v_{\text{esc, star}} = \sqrt{2 G M_s / a}
-\]</div>
-<p>Assuming the launch is in the direction of the planet’s orbit, the approximate <span class="arithmatex">\(v_3\)</span> from the surface is:</p>
-<div class="arithmatex">\[
-v_3 \approx \sqrt{v_2^2 + (v_{\text{esc, star}} - v_p)^2}
-\]</div>
-<p>For Earth escaping the Sun:</p>
-<div class="arithmatex">\[
-v_3 \approx \sqrt{(11.2)^2 + (42.1 - 29.8)^2} \, \text{km/s}
-\]</div>
-<hr/>
-<h2 id="parameters-affecting-these-velocities">Parameters Affecting These Velocities</h2>
-<ul>
-<li><strong>Mass (<span class="arithmatex">\(M\)</span>)</strong>: Higher mass increases all velocities (<span class="arithmatex">\(v_1\)</span>, <span class="arithmatex">\(v_2\)</span>, <span class="arithmatex">\(v_3\)</span>).</li>
-<li><strong>Radius (<span class="arithmatex">\(R\)</span>)</strong>: Larger radius decreases <span class="arithmatex">\(v_1\)</span> and <span class="arithmatex">\(v_2\)</span> (inverse relationship).</li>
-<li><strong>Star’s Mass (<span class="arithmatex">\(M_s\)</span>) and Orbital Distance (<span class="arithmatex">\(a\)</span>)</strong>: For <span class="arithmatex">\(v_3\)</span>, a more massive star or smaller orbit increases the velocity needed to escape the system.</li>
+<li><span class="arithmatex">\(\epsilon &lt; 0\)</span>: Elliptical</li>
+<li><span class="arithmatex">\(\epsilon = 0\)</span>: Parabolic</li>
+<li><span class="arithmatex">\(\epsilon &gt; 0\)</span>: Hyperbolic</li>
 </ul>
 <hr/>
-<h2 id="calculations-for-celestial-bodies">Calculations for Celestial Bodies</h2>
-<h3 id="earth">Earth</h3>
+<h2 id="mathematical-derivation">Mathematical Derivation</h2>
+<h3 id="equations-of-motion">Equations of Motion</h3>
+<p>Newton’s Law of Gravitation provides the force: <span class="arithmatex">\(F = G M m / r^2\)</span>. For a payload of mass <span class="arithmatex">\(m\)</span>, the acceleration in polar coordinates (radial <span class="arithmatex">\(r\)</span>, angular <span class="arithmatex">\(\theta\)</span>) is:</p>
+<div class="arithmatex">\[
+\ddot{r} - r \dot{\theta}^2 = -\frac{G M}{r^2}
+\]</div>
+<div class="arithmatex">\[
+r \ddot{\theta} + 2 \dot{r} \dot{\theta} = 0
+\]</div>
+<p>The second equation implies conservation of angular momentum: <span class="arithmatex">\(h = r^2 \dot{\theta} = \text{constant}\)</span>.</p>
+<h3 id="trajectory-classification">Trajectory Classification</h3>
+<p>The orbit’s shape is governed by the eccentricity <span class="arithmatex">\(e\)</span>, derived from initial conditions:</p>
+<div class="arithmatex">\[
+e = \sqrt{1 + \frac{2 \epsilon h^2}{(G M)^2}}
+\]</div>
 <ul>
-<li><span class="arithmatex">\(M = 5.972 \times 10^{24}\)</span> kg</li>
-<li><span class="arithmatex">\(R = 6.371 \times 10^6\)</span> m</li>
+<li><span class="arithmatex">\(e &lt; 1\)</span>: Elliptical</li>
+<li><span class="arithmatex">\(e = 1\)</span>: Parabolic</li>
+<li><span class="arithmatex">\(e &gt; 1\)</span>: Hyperbolic</li>
+</ul>
+<p>For a circular orbit, <span class="arithmatex">\(v = \sqrt{G M / r}\)</span>, and for escape, <span class="arithmatex">\(v = \sqrt{2 G M / r}\)</span>.</p>
+<hr/>
+<h2 id="numerical-analysis">Numerical Analysis</h2>
+<p>To compute the trajectory, we solve the differential equations numerically using initial conditions: position <span class="arithmatex">\((r_0, \theta_0)\)</span> and velocity <span class="arithmatex">\((v_{r0}, v_{\theta0})\)</span>. The state vector is <span class="arithmatex">\([r, \dot{r}, \theta, \dot{\theta}]\)</span>, and we use a numerical integrator (e.g., Runge-Kutta) to simulate the path under Earth’s gravity.</p>
+<h3 id="initial-conditions-example">Initial Conditions Example</h3>
+<ul>
+<li>Altitude: 400 km (<span class="arithmatex">\(r_0 = 6.371 \times 10^6 + 4 \times 10^5 = 6.771 \times 10^6\)</span> m)</li>
+<li>Earth’s mass: <span class="arithmatex">\(M = 5.972 \times 10^{24}\)</span> kg</li>
 <li><span class="arithmatex">\(G = 6.6743 \times 10^{-11}\)</span> m³ kg⁻¹ s⁻²</li>
-<li><span class="arithmatex">\(M_s = 1.989 \times 10^{30}\)</span> kg (Sun’s mass)</li>
-<li><span class="arithmatex">\(a = 1.496 \times 10^{11}\)</span> m (1 AU)</li>
+<li>Circular velocity: <span class="arithmatex">\(v_{\theta0} = \sqrt{G M / r_0} \approx 7.67\)</span> km/s</li>
+<li>Test cases: <span class="arithmatex">\(v = 0.8 v_c\)</span>, <span class="arithmatex">\(v_c\)</span>, <span class="arithmatex">\(1.5 v_c\)</span> (suborbital, orbital, escape)</li>
 </ul>
-<div class="arithmatex">\[
-v_1 = \sqrt{G M / R} = \sqrt{(6.6743 \times 10^{-11}) (5.972 \times 10^{24}) / (6.371 \times 10^6)} \approx 7.91 \, \text{km/s}
-\]</div>
-<div class="arithmatex">\[
-v_2 = \sqrt{2 G M / R} = \sqrt{2} \cdot 7.91 \approx 11.19 \, \text{km/s}
-\]</div>
-<div class="arithmatex">\[
-v_3 \approx \sqrt{(11.19)^2 + (42.1 - 29.8)^2} \approx 16.6 \, \text{km/s}
-\]</div>
-<h3 id="mars">Mars</h3>
-<ul>
-<li><span class="arithmatex">\(M = 6.417 \times 10^{23}\)</span> kg</li>
-<li><span class="arithmatex">\(R = 3.39 \times 10^6\)</span> m</li>
-</ul>
-<div class="arithmatex">\[
-v_1 = \sqrt{(6.6743 \times 10^{-11}) (6.417 \times 10^{23}) / (3.39 \times 10^6)} \approx 3.55 \, \text{km/s}
-\]</div>
-<div class="arithmatex">\[
-v_2 = \sqrt{2} \cdot 3.55 \approx 5.02 \, \text{km/s}
-\]</div>
-<h3 id="jupiter">Jupiter</h3>
-<ul>
-<li><span class="arithmatex">\(M = 1.899 \times 10^{27}\)</span> kg</li>
-<li><span class="arithmatex">\(R = 6.991 \times 10^7\)</span> m</li>
-</ul>
-<div class="arithmatex">\[
-v_1 = \sqrt{(6.6743 \times 10^{-11}) (1.899 \times 10^{27}) / (6.991 \times 10^7)} \approx 42.6 \, \text{km/s}
-\]</div>
-<div class="arithmatex">\[
-v_2 = \sqrt{2} \cdot 42.6 \approx 60.2 \, \text{km/s}
-\]</div>
 <hr/>
-<h2 id="importance-in-space-exploration">Importance in Space Exploration</h2>
+<h2 id="relation-to-space-scenarios">Relation to Space Scenarios</h2>
 <ol>
-<li><strong>Launching Satellites</strong>: <span class="arithmatex">\(v_1\)</span> determines the speed for low Earth orbit (e.g., 7.91 km/s). Rockets must exceed this, typically reaching 8-10 km/s with altitude.</li>
-<li><strong>Interplanetary Missions</strong>: <span class="arithmatex">\(v_2\)</span> (11.19 km/s for Earth) is the threshold for missions to Mars or the Moon. Additional velocity from Earth’s motion aids efficiency.</li>
-<li><strong>Interstellar Travel</strong>: <span class="arithmatex">\(v_3\)</span> (16.6 km/s from Earth) sets the bar for escaping the Solar System, as achieved by Voyager 1 using gravitational assists.</li>
+<li><strong>Orbital Insertion</strong>: If <span class="arithmatex">\(v \approx v_c\)</span>, the payload enters an elliptical or circular orbit, useful for satellite deployment.</li>
+<li><strong>Reentry</strong>: If <span class="arithmatex">\(v &lt; v_c\)</span>, the trajectory intersects Earth’s surface or atmosphere, simulating a return path.</li>
+<li><strong>Escape</strong>: If <span class="arithmatex">\(v &gt; \sqrt{2 G M / r}\)</span>, the payload escapes Earth’s gravity, relevant for interplanetary missions.</li>
 </ol>
 <hr/>
 <h2 id="python-scripts-and-visualizations">Python Scripts and Visualizations</h2>
-<h3 id="python-script-1-cosmic-velocities-bar-plot">Python Script 1: Cosmic Velocities Bar Plot</h3>
-<p><img alt="alt text" src="../image-12.png"/></p>
-<h2 id="python-script-2-velocity-vs-massradius-ratio">Python Script 2: Velocity vs. Mass/Radius Ratio</h2>
-<p><img alt="alt text" src="../image-13.png"/></p>
+<h3 id="python-script-1-trajectory-simulation">Python Script 1: Trajectory Simulation</h3>
+<p><img alt="alt text" src="../image-14.png"/></p>
+<h2 id="python-script-2-energy-based-trajectory-types">Python Script 2: Energy-Based Trajectory Types</h2>
+<p><img alt="alt text" src="../image-15.png"/></p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
