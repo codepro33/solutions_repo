@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Orbital Period and Orbital Radius: Kepler's Third Law - Physics and Mathematics</title>
+<title>Escape Velocities and Cosmic Velocities - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Orbital Period and Orbital Radius: Kepler\u0027s Third Law";
+        var mkdocs_page_name = "Escape Velocities and Cosmic Velocities";
         var mkdocs_page_input_path = "1 Physics/7 Measurements/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -90,33 +90,43 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal current">7 Measurements</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Orbital Period and Orbital Radius: Kepler's Third Law</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Escape Velocities and Cosmic Velocities</a>
 <ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="#motivation">Motivation</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#task-overview">Task Overview</a>
+<li class="toctree-l3"><a class="reference internal" href="#definitions-and-physical-meaning">Definitions and Physical Meaning</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#1-derivation-of-keplers-third-law">1. Derivation of Kepler’s Third Law</a>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#2-implications-of-keplers-third-law">2. Implications of Kepler's Third Law</a>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-derivations">Mathematical Derivations</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#real-world-example-the-moons-orbit-around-earth">Real-World Example: The Moon’s Orbit Around Earth</a>
+<li class="toctree-l4"><a class="reference internal" href="#first-cosmic-velocity-v_1">First Cosmic Velocity (\(v_1\))</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#second-cosmic-velocity-v_2">Second Cosmic Velocity (\(v_2\))</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#third-cosmic-velocity-v_3">Third Cosmic Velocity (\(v_3\))</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#3-computational-model-to-simulate-circular-orbits">3. Computational Model to Simulate Circular Orbits</a>
+<li class="toctree-l3"><a class="reference internal" href="#parameters-affecting-these-velocities">Parameters Affecting These Velocities</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#calculations-for-celestial-bodies">Calculations for Celestial Bodies</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#code-1-simulating-a-circular-orbit-using-numerical-integration">Code 1: Simulating a Circular Orbit Using Numerical Integration</a>
+<li class="toctree-l4"><a class="reference internal" href="#earth">Earth</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#mars">Mars</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#jupiter">Jupiter</a>
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#4-testing-keplers-third-law">4. Testing Kepler’s Third Law</a>
+<li class="toctree-l3"><a class="reference internal" href="#importance-in-space-exploration">Importance in Space Exploration</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#5-extension-to-elliptical-orbits">5. Extension to Elliptical Orbits</a>
+<li class="toctree-l3"><a class="reference internal" href="#python-scripts-and-visualizations">Python Scripts and Visualizations</a>
 <ul>
-<li class="toctree-l4"><a class="reference internal" href="#code-3-simulating-an-elliptical-orbit">Code 3: Simulating an Elliptical Orbit</a>
+<li class="toctree-l4"><a class="reference internal" href="#python-script-1-cosmic-velocities-bar-plot">Python Script 1: Cosmic Velocities Bar Plot</a>
 </li>
 </ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#python-script-2-velocity-vs-massradius-ratio">Python Script 2: Velocity vs. Mass/Radius Ratio</a>
 </li>
 </ul>
 </li>
@@ -137,7 +147,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">7 Measurements</li>
-<li class="breadcrumb-item active">Orbital Period and Orbital Radius: Kepler's Third Law</li>
+<li class="breadcrumb-item active">Escape Velocities and Cosmic Velocities</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -145,100 +155,135 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="orbital-period-and-orbital-radius-keplers-third-law">Orbital Period and Orbital Radius: Kepler's Third Law</h1>
+<h1 id="escape-velocities-and-cosmic-velocities">Escape Velocities and Cosmic Velocities</h1>
 <h2 id="motivation">Motivation</h2>
-<p>The relationship between the square of the orbital period and the cube of the orbital radius, known as <strong>Kepler's Third Law</strong>, is a cornerstone of celestial mechanics. This law allows for the determination of planetary motions and has broad implications for understanding gravitational interactions both on local and cosmic scales. By analyzing this relationship, we can connect fundamental principles of gravity with real-world phenomena such as satellite orbits and planetary systems.</p>
-<h2 id="task-overview">Task Overview</h2>
-<p>The task involves deriving the relationship between the square of the orbital period and the cube of the orbital radius for circular orbits. We will explore the implications of this law in astronomy, investigate real-world examples, and implement a computational model to simulate circular orbits and verify this relationship.</p>
+<p>The concept of escape velocity is fundamental to understanding how objects can break free from a celestial body's gravitational pull. Building on this, the first, second, and third cosmic velocities provide critical thresholds for orbiting a planet, escaping its gravity, and departing its star system, respectively. These velocities are essential for space exploration, governing satellite launches, interplanetary missions, and the theoretical framework for interstellar travel.</p>
 <hr/>
-<h2 id="1-derivation-of-keplers-third-law">1. Derivation of Kepler’s Third Law</h2>
-<p>For a body in a circular orbit, the centripetal force required to keep the body moving in orbit is provided by the gravitational force. This is expressed as:</p>
+<h2 id="definitions-and-physical-meaning">Definitions and Physical Meaning</h2>
+<ol>
+<li><strong>First Cosmic Velocity (<span class="arithmatex">\(v_1\)</span>)</strong>:  </li>
+</ol>
+<p>The minimum speed required for an object to achieve a stable circular orbit around a celestial body at its surface. It is essentially the orbital velocity at radius <span class="arithmatex">\(r = R\)</span>, where <span class="arithmatex">\(R\)</span> is the body's radius.</p>
+<ol>
+<li><strong>Second Cosmic Velocity (<span class="arithmatex">\(v_2\)</span>)</strong>:  </li>
+</ol>
+<p>Known as the escape velocity, this is the minimum speed needed to escape a celestial body’s gravitational field from its surface, reaching infinity with zero residual velocity.</p>
+<ol>
+<li><strong>Third Cosmic Velocity (<span class="arithmatex">\(v_3\)</span>)</strong>:  </li>
+</ol>
+<p>The minimum speed required to escape the gravitational influence of a star system (e.g., the Solar System) from a planet’s surface, assuming the planet is in a circular orbit around the star.</p>
+<hr/>
+<h2 id="mathematical-derivations">Mathematical Derivations</h2>
+<h3 id="first-cosmic-velocity-v_1">First Cosmic Velocity (<span class="arithmatex">\(v_1\)</span>)</h3>
+<p>The first cosmic velocity is derived from the condition for circular orbit, where gravitational force equals centripetal force: <span class="arithmatex">\(G M m / r^2 = m v^2 / r\)</span>. At the surface, <span class="arithmatex">\(r = R\)</span>:</p>
 <div class="arithmatex">\[
-F_{\text{centripetal}} = F_{\text{gravitational}}
+G M / R^2 = v_1^2 / R
 \]</div>
-<p>The centripetal force is given by:</p>
+<p>Multiply by <span class="arithmatex">\(R\)</span>:</p>
 <div class="arithmatex">\[
-F_{\text{centripetal}} = \frac{m v^2}{r}
+v_1^2 = G M / R
 \]</div>
-<p>where:</p>
+<p>Thus:</p>
+<div class="arithmatex">\[
+v_1 = \sqrt{G M / R}
+\]</div>
+<p>where <span class="arithmatex">\(G\)</span> is the gravitational constant, <span class="arithmatex">\(M\)</span> is the mass of the celestial body, and <span class="arithmatex">\(R\)</span> is its radius.</p>
+<h3 id="second-cosmic-velocity-v_2">Second Cosmic Velocity (<span class="arithmatex">\(v_2\)</span>)</h3>
+<p>The escape velocity is derived from conservation of energy. Total mechanical energy at the surface (kinetic + potential) must be zero at infinity:</p>
+<div class="arithmatex">\[
+\frac{1}{2} m v_2^2 - G M m / R = 0
+\]</div>
+<p>Simplify:</p>
+<div class="arithmatex">\[
+\frac{1}{2} v_2^2 = G M / R
+\]</div>
+<div class="arithmatex">\[
+v_2^2 = 2 G M / R
+\]</div>
+<p>Thus:</p>
+<div class="arithmatex">\[
+v_2 = \sqrt{2 G M / R}
+\]</div>
+<p>Note that <span class="arithmatex">\(v_2 = \sqrt{2} v_1\)</span>, meaning escape velocity is <span class="arithmatex">\(\sqrt{2}\)</span> times the orbital velocity.</p>
+<h3 id="third-cosmic-velocity-v_3">Third Cosmic Velocity (<span class="arithmatex">\(v_3\)</span>)</h3>
+<p>The third cosmic velocity is more complex, as it involves escaping the star’s gravitational field from a planet’s surface. For a planet in a circular orbit around a star (mass <span class="arithmatex">\(M_s\)</span>, orbital radius <span class="arithmatex">\(a\)</span>), the planet’s orbital velocity is <span class="arithmatex">\(v_p = \sqrt{G M_s / a}\)</span>. The total velocity to escape the Solar System from the planet’s surface combines:</p>
 <ul>
-<li><span class="arithmatex">\(m\)</span> is the mass of the orbiting body,</li>
-<li><span class="arithmatex">\(v\)</span> is the orbital velocity,</li>
-<li><span class="arithmatex">\(r\)</span> is the orbital radius.</li>
+<li>Escaping the planet: <span class="arithmatex">\(v_2 = \sqrt{2 G M / R}\)</span>.</li>
+<li>Matching the planet’s orbital velocity and exceeding the star’s escape velocity at <span class="arithmatex">\(a\)</span>.</li>
 </ul>
-<p>The gravitational force is:</p>
+<p>The escape velocity from the star’s field at distance <span class="arithmatex">\(a\)</span> is:</p>
 <div class="arithmatex">\[
-F_{\text{gravitational}} = \frac{G M m}{r^2}
+v_{\text{esc, star}} = \sqrt{2 G M_s / a}
 \]</div>
-<p>where:</p>
+<p>Assuming the launch is in the direction of the planet’s orbit, the approximate <span class="arithmatex">\(v_3\)</span> from the surface is:</p>
+<div class="arithmatex">\[
+v_3 \approx \sqrt{v_2^2 + (v_{\text{esc, star}} - v_p)^2}
+\]</div>
+<p>For Earth escaping the Sun:</p>
+<div class="arithmatex">\[
+v_3 \approx \sqrt{(11.2)^2 + (42.1 - 29.8)^2} \, \text{km/s}
+\]</div>
+<hr/>
+<h2 id="parameters-affecting-these-velocities">Parameters Affecting These Velocities</h2>
 <ul>
-<li><span class="arithmatex">\(G\)</span> is the gravitational constant,</li>
-<li><span class="arithmatex">\(M\)</span> is the mass of the central body (e.g., the Sun),</li>
-<li><span class="arithmatex">\(r\)</span> is the orbital radius.</li>
+<li><strong>Mass (<span class="arithmatex">\(M\)</span>)</strong>: Higher mass increases all velocities (<span class="arithmatex">\(v_1\)</span>, <span class="arithmatex">\(v_2\)</span>, <span class="arithmatex">\(v_3\)</span>).</li>
+<li><strong>Radius (<span class="arithmatex">\(R\)</span>)</strong>: Larger radius decreases <span class="arithmatex">\(v_1\)</span> and <span class="arithmatex">\(v_2\)</span> (inverse relationship).</li>
+<li><strong>Star’s Mass (<span class="arithmatex">\(M_s\)</span>) and Orbital Distance (<span class="arithmatex">\(a\)</span>)</strong>: For <span class="arithmatex">\(v_3\)</span>, a more massive star or smaller orbit increases the velocity needed to escape the system.</li>
 </ul>
-<p>By equating the two forces:</p>
-<div class="arithmatex">\[
-\frac{m v^2}{r} = \frac{G M m}{r^2}
-\]</div>
-<p>Simplifying:</p>
-<div class="arithmatex">\[
-v^2 = \frac{G M}{r}
-\]</div>
-<p>Now, the velocity is related to the orbital period <span class="arithmatex">\(T\)</span> by:</p>
-<div class="arithmatex">\[
-v = \frac{2\pi r}{T}
-\]</div>
-<p>Substituting this into the above equation:</p>
-<div class="arithmatex">\[
-\left(\frac{2\pi r}{T}\right)^2 = \frac{G M}{r}
-\]</div>
-<p>Simplifying further:</p>
-<div class="arithmatex">\[
-\frac{4\pi^2 r^2}{T^2} = \frac{G M}{r}
-\]</div>
-<p>Now, solve for <span class="arithmatex">\(T^2\)</span>:</p>
-<div class="arithmatex">\[
-T^2 = \frac{4\pi^2 r^3}{G M}
-\]</div>
-<p>This is the relationship between the orbital period squared (<span class="arithmatex">\(T^2\)</span>) and the orbital radius cubed (<span class="arithmatex">\(r^3\)</span>), which is Kepler's Third Law:</p>
-<div class="arithmatex">\[
-T^2 \propto r^3
-\]</div>
 <hr/>
-<h2 id="2-implications-of-keplers-third-law">2. Implications of Kepler's Third Law</h2>
-<p>Kepler’s Third Law provides several important insights into the motion of celestial bodies:</p>
+<h2 id="calculations-for-celestial-bodies">Calculations for Celestial Bodies</h2>
+<h3 id="earth">Earth</h3>
 <ul>
-<li><strong>Planetary Masses</strong>: By measuring the orbital period and radius of a satellite or planet, the mass of the central body (e.g., the Sun or Earth) can be determined.</li>
-<li><strong>Orbital Distances</strong>: The law helps calculate the distance of a planet or moon from the central star or planet based on its orbital period.</li>
-<li><strong>Satellite Orbits</strong>: Kepler’s Third Law is used extensively in satellite communication and space exploration, determining satellite orbital periods for given altitudes.</li>
+<li><span class="arithmatex">\(M = 5.972 \times 10^{24}\)</span> kg</li>
+<li><span class="arithmatex">\(R = 6.371 \times 10^6\)</span> m</li>
+<li><span class="arithmatex">\(G = 6.6743 \times 10^{-11}\)</span> m³ kg⁻¹ s⁻²</li>
+<li><span class="arithmatex">\(M_s = 1.989 \times 10^{30}\)</span> kg (Sun’s mass)</li>
+<li><span class="arithmatex">\(a = 1.496 \times 10^{11}\)</span> m (1 AU)</li>
 </ul>
-<h3 id="real-world-example-the-moons-orbit-around-earth">Real-World Example: The Moon’s Orbit Around Earth</h3>
-<p>The Moon orbits Earth at an average distance of <span class="arithmatex">\(r = 3.84 \times 10^8\)</span> meters and has an orbital period of approximately <span class="arithmatex">\(T = 27.3\)</span> days. Using Kepler's Third Law:</p>
 <div class="arithmatex">\[
-T^2 = \frac{4\pi^2 r^3}{G M}
+v_1 = \sqrt{G M / R} = \sqrt{(6.6743 \times 10^{-11}) (5.972 \times 10^{24}) / (6.371 \times 10^6)} \approx 7.91 \, \text{km/s}
 \]</div>
-<p>Substituting the values for <span class="arithmatex">\(r\)</span> and <span class="arithmatex">\(M\)</span> (the mass of Earth):</p>
 <div class="arithmatex">\[
-T = \sqrt{\frac{4\pi^2 (3.84 \times 10^8)^3}{(6.67430 \times 10^{-11}) (5.972 \times 10^{24})}}
+v_2 = \sqrt{2 G M / R} = \sqrt{2} \cdot 7.91 \approx 11.19 \, \text{km/s}
 \]</div>
-<p>This confirms that Kepler's Third Law can be used to accurately predict the Moon's orbital period.</p>
+<div class="arithmatex">\[
+v_3 \approx \sqrt{(11.19)^2 + (42.1 - 29.8)^2} \approx 16.6 \, \text{km/s}
+\]</div>
+<h3 id="mars">Mars</h3>
+<ul>
+<li><span class="arithmatex">\(M = 6.417 \times 10^{23}\)</span> kg</li>
+<li><span class="arithmatex">\(R = 3.39 \times 10^6\)</span> m</li>
+</ul>
+<div class="arithmatex">\[
+v_1 = \sqrt{(6.6743 \times 10^{-11}) (6.417 \times 10^{23}) / (3.39 \times 10^6)} \approx 3.55 \, \text{km/s}
+\]</div>
+<div class="arithmatex">\[
+v_2 = \sqrt{2} \cdot 3.55 \approx 5.02 \, \text{km/s}
+\]</div>
+<h3 id="jupiter">Jupiter</h3>
+<ul>
+<li><span class="arithmatex">\(M = 1.899 \times 10^{27}\)</span> kg</li>
+<li><span class="arithmatex">\(R = 6.991 \times 10^7\)</span> m</li>
+</ul>
+<div class="arithmatex">\[
+v_1 = \sqrt{(6.6743 \times 10^{-11}) (1.899 \times 10^{27}) / (6.991 \times 10^7)} \approx 42.6 \, \text{km/s}
+\]</div>
+<div class="arithmatex">\[
+v_2 = \sqrt{2} \cdot 42.6 \approx 60.2 \, \text{km/s}
+\]</div>
 <hr/>
-<h2 id="3-computational-model-to-simulate-circular-orbits">3. Computational Model to Simulate Circular Orbits</h2>
-<p>Below is a Python script to simulate the motion of a planet in a circular orbit using Newtonian mechanics. This simulation will help visualize the orbital motion and verify Kepler's Third Law.</p>
-<h3 id="code-1-simulating-a-circular-orbit-using-numerical-integration">Code 1: Simulating a Circular Orbit Using Numerical Integration</h3>
-<p><img alt="alt text" src="../image-8.png"/></p>
-<h2 id="4-testing-keplers-third-law">4. Testing  Kepler’s Third Law</h2>
-<p>We can now verify the proportionality <span class="arithmatex">\(T^2 \propto r^3\)</span> numerically.</p>
-<p><img alt="alt text" src="../image-9.png"/></p>
-<h2 id="5-extension-to-elliptical-orbits">5. Extension to Elliptical Orbits</h2>
-<p>For elliptical orbits, <strong>Kepler’s Third Law</strong> still holds, but we replace the orbital radius <span class="arithmatex">\(r\)</span> with the <strong>semi-major axis</strong> <span class="arithmatex">\(a\)</span>:</p>
-<div class="arithmatex">\[
-T^2 = \frac{4\pi^2}{G M} a^3
-\]</div>
-<p>This is the general form of Kepler’s Third Law for elliptical orbits, and it allows us to calculate the orbital period of objects in elliptical orbits, such as the planets in the Solar System.</p>
+<h2 id="importance-in-space-exploration">Importance in Space Exploration</h2>
+<ol>
+<li><strong>Launching Satellites</strong>: <span class="arithmatex">\(v_1\)</span> determines the speed for low Earth orbit (e.g., 7.91 km/s). Rockets must exceed this, typically reaching 8-10 km/s with altitude.</li>
+<li><strong>Interplanetary Missions</strong>: <span class="arithmatex">\(v_2\)</span> (11.19 km/s for Earth) is the threshold for missions to Mars or the Moon. Additional velocity from Earth’s motion aids efficiency.</li>
+<li><strong>Interstellar Travel</strong>: <span class="arithmatex">\(v_3\)</span> (16.6 km/s from Earth) sets the bar for escaping the Solar System, as achieved by Voyager 1 using gravitational assists.</li>
+</ol>
 <hr/>
-<h3 id="code-3-simulating-an-elliptical-orbit">Code 3: Simulating an Elliptical Orbit</h3>
-<p><img alt="alt text" src="../image-10.png"/></p>
+<h2 id="python-scripts-and-visualizations">Python Scripts and Visualizations</h2>
+<h3 id="python-script-1-cosmic-velocities-bar-plot">Python Script 1: Cosmic Velocities Bar Plot</h3>
+<p><img alt="alt text" src="../image-12.png"/></p>
+<h2 id="python-script-2-velocity-vs-massradius-ratio">Python Script 2: Velocity vs. Mass/Radius Ratio</h2>
+<p><img alt="alt text" src="../image-13.png"/></p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
