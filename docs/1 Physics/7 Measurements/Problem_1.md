@@ -1,94 +1,103 @@
-# Trajectories of a Freely Released Payload Near Earth
+# Interference Patterns of Waves on a Water Surface
 
 ## Motivation
 
-When a payload is released from a moving rocket near Earth, its subsequent trajectory is determined by its initial position, velocity, and Earth’s gravitational field. This scenario integrates orbital mechanics and numerical simulation, offering insights into payload deployment, orbital insertion, and reentry dynamics. Understanding these trajectories is critical for space mission planning, such as satellite launches or spacecraft reentry.
+Interference occurs when waves from different sources overlap, creating new patterns on a water surface. Ripples from multiple points form distinctive interference patterns, demonstrating how waves can reinforce (constructive interference) or cancel (destructive interference) each other. This phenomenon provides a visual way to study wave behavior, phase relationships, and the effects of multiple sources. Understanding these patterns is fundamental to wave physics, with applications in acoustics, optics, and fluid dynamics.
 
 ---
 
-## Possible Trajectories
+## Problem Statement
 
-The trajectory of a freely released payload depends on its specific energy and angular momentum relative to Earth. Using gravitational principles, the possible paths are:
-
-1. **Elliptical Trajectory**: If the payload’s total mechanical energy $E < 0$, it follows a bound, elliptical orbit around Earth.
-2. **Parabolic Trajectory**: If $E = 0$, the payload escapes Earth with zero velocity at infinity, tracing a parabola.
-3. **Hyperbolic Trajectory**: If $E > 0$, the payload escapes with excess velocity, following a hyperbola.
-
-The specific energy per unit mass is:
+The task is to analyze the interference patterns formed on a water surface due to the superposition of waves emitted from point sources placed at the vertices of a chosen regular polygon. A single wave from a source at $(x_0, y_0)$ is described by:
 
 $$
-\epsilon = \frac{v^2}{2} - \frac{G M}{r}
+\eta(x, y, t) = \frac{A}{\sqrt{r}} \cdot \cos(kr - \omega t + \phi)
 $$
 
-where $v$ is the initial velocity, $r$ is the radial distance from Earth’s center, $G$ is the gravitational constant, and $M$ is Earth’s mass. The trajectory type is determined by:
+where:
 
-- $\epsilon < 0$: Elliptical
-- $\epsilon = 0$: Parabolic
-- $\epsilon > 0$: Hyperbolic
+- $\eta(x, y, t)$ is the displacement of the water surface at point $(x, y)$ and time $t$,
+- $A$ is the amplitude,
+- $k = 2\pi / \lambda$ is the wave number, with wavelength $\lambda$,
+- $\omega = 2\pi f$ is the angular frequency, with frequency $f$,
+- $r = \sqrt{(x - x_0)^2 + (y - y_0)^2}$ is the distance from the source to $(x, y)$,
+- $\phi$ is the initial phase.
+
+The total displacement from $N$ sources (vertices of the polygon) is given by the principle of superposition:
+
+$$
+\eta_{\text{sum}}(x, y, t) = \sum_{i=1}^N \eta_i(x, y, t)
+$$
+
+We assume all sources emit waves with the same $A$, $\lambda$, $f$, and a constant phase difference (set $\phi = 0$ for simplicity).
 
 ---
 
-## Mathematical Derivation
+## Step-by-Step Analysis
 
-### Equations of Motion
+### 1. Select a Regular Polygon
 
-Newton’s Law of Gravitation provides the force: $F = G M m / r^2$. For a payload of mass $m$, the acceleration in polar coordinates (radial $r$, angular $\theta$) is:
+Let’s choose an equilateral triangle as the regular polygon, with vertices at $(x_i, y_i)$ for $i = 1, 2, 3$. Place the triangle centered at the origin with side length $s = 2$ m:
 
-$$
-\ddot{r} - r \dot{\theta}^2 = -\frac{G M}{r^2}
-$$
+- Vertex 1: $(0, 1)$
+- Vertex 2: $(\sqrt{3}/2, -1/2)$
+- Vertex 3: $(-\sqrt{3}/2, -1/2)$
 
-$$
-r \ddot{\theta} + 2 \dot{r} \dot{\theta} = 0
-$$
+### 2. Position the Sources
 
-The second equation implies conservation of angular momentum: $h = r^2 \dot{\theta} = \text{constant}$.
+The wave sources are placed at these vertices, so $(x_1, y_1) = (0, 1)$, $(x_2, y_2) = (\sqrt{3}/2, -1/2)$, and $(x_3, y_3) = (-\sqrt{3}/2, -1/2)$.
 
-### Trajectory Classification
+### 3. Wave Equations
 
-The orbit’s shape is governed by the eccentricity $e$, derived from initial conditions:
+For each source $i$, the wave equation is:
 
 $$
-e = \sqrt{1 + \frac{2 \epsilon h^2}{(G M)^2}}
+\eta_i(x, y, t) = \frac{A}{\sqrt{r_i}} \cos(k r_i - \omega t)
 $$
 
-- $e < 1$: Elliptical
-- $e = 1$: Parabolic
-- $e > 1$: Hyperbolic
+where $r_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}$. We set $A = 1$ m, $\lambda = 0.5$ m, $f = 1$ Hz, so:
 
-For a circular orbit, $v = \sqrt{G M / r}$, and for escape, $v = \sqrt{2 G M / r}$.
+- $k = 2\pi / \lambda = 4\pi$ rad/m,
+- $\omega = 2\pi f = 2\pi$ rad/s.
+
+### 4. Superposition of Waves
+
+The total displacement is:
+
+$$
+\eta_{\text{sum}}(x, y, t) = \sum_{i=1}^3 \frac{A}{\sqrt{r_i}} \cos(k r_i - \omega t)
+$$
 
 ---
 
-## Numerical Analysis
+## Interference Patterns Analysis
 
-To compute the trajectory, we solve the differential equations numerically using initial conditions: position $(r_0, \theta_0)$ and velocity $(v_{r0}, v_{\theta0})$. The state vector is $[r, \dot{r}, \theta, \dot{\theta}]$, and we use a numerical integrator (e.g., Runge-Kutta) to simulate the path under Earth’s gravity.
+### Constructive and Destructive Interference
 
-### Initial Conditions Example
+- **Constructive Interference**: Occurs when waves are in phase, i.e., $|k(r_i - r_j)| = 2n\pi$ for integer $n$. The path difference $\Delta r = |r_i - r_j|$ must satisfy:
 
-- Altitude: 400 km ($r_0 = 6.371 \times 10^6 + 4 \times 10^5 = 6.771 \times 10^6$ m)
-- Earth’s mass: $M = 5.972 \times 10^{24}$ kg
-- $G = 6.6743 \times 10^{-11}$ m³ kg⁻¹ s⁻²
-- Circular velocity: $v_{\theta0} = \sqrt{G M / r_0} \approx 7.67$ km/s
-- Test cases: $v = 0.8 v_c$, $v_c$, $1.5 v_c$ (suborbital, orbital, escape)
+  $$
+  \Delta r = n \lambda
+  $$
 
----
+- **Destructive Interference**: Occurs when waves are out of phase by $\pi$, i.e., $|k(r_i - r_j)| = (2n+1)\pi$, so:
 
-## Relation to Space Scenarios
+  $$
+  \Delta r = (n + 1/2) \lambda
+  $$
 
-1. **Orbital Insertion**: If $v \approx v_c$, the payload enters an elliptical or circular orbit, useful for satellite deployment.
-2. **Reentry**: If $v < v_c$, the trajectory intersects Earth’s surface or atmosphere, simulating a return path.
-3. **Escape**: If $v > \sqrt{2 G M / r}$, the payload escapes Earth’s gravity, relevant for interplanetary missions.
+For our setup, $\lambda = 0.5$ m, so constructive interference occurs at $\Delta r = 0, 0.5, 1, \ldots$ m, and destructive interference at $\Delta r = 0.25, 0.75, \ldots$ m.
+
+### Time Evolution
+
+At a fixed time $t$, the pattern depends on the spatial variation of $r_i$. As $t$ changes, the pattern oscillates with frequency $f$, creating a dynamic interference field.
 
 ---
 
 ## Python Scripts and Visualizations
 
-### Python Script 1: Trajectory Simulation
+![alt text](image-16.png)
 
-![alt text](image-14.png)
+## Python Script 2: Time Evolution of Displacement at a Point
 
-
-## Python Script 2: Energy-Based Trajectory Types
-
-![alt text](image-15.png)
+![alt text](image-17.png)
