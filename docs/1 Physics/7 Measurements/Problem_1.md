@@ -36,9 +36,10 @@ For small $\theta$, $\sin\theta \approx \theta$, simplifying the equation to a l
 
 $$
 \frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \theta = A \cos(\omega t)
-
 $$
+
 This is a second-order linear differential equation. The homogeneous solution is:
+
 $$
 \theta_h(t) = e^{-\frac{\gamma}{2} t} \left( C_1 \cos(\omega_d t) + C_2 \sin(\omega_d t) \right)
 $$
