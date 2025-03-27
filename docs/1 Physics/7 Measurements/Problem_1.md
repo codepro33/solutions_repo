@@ -1,143 +1,106 @@
 # Problem 1
 
-# Investigating the Range as a Function of the Angle of Projection
+# Investigating the Dynamics of a Forced Damped Pendulum
+
+## Motivation
+
+The forced damped pendulum is a fascinating system that evolves from simple harmonic motion to complex dynamics due to damping and periodic external forcing. This interplay introduces phenomena like resonance, chaos, and quasiperiodic motion, offering insights into real-world systems such as mechanical oscillators, climate models, and structural engineering under periodic loads. The addition of forcing parameters—amplitude and frequency—enriches the system’s behavior, making it a powerful tool for studying both fundamental physics and practical applications.
 
 ## 1. Theoretical Foundation
 
-Projectile motion describes the trajectory of an object under the influence of gravity, assuming no other forces (e.g., air resistance) act upon it. Let’s derive the governing equations from first principles.
+### 1.1 Governing Differential Equation
 
-### 1.1 Deriving the Equations of Motion
-
-The motion can be split into horizontal (x) and vertical (y) components. Assume the projectile is launched from the origin $(x_0, y_0) = (0, 0)$ with an initial velocity $v_0$ at an angle $\theta$ from the horizontal. The acceleration due to gravity is $g$, acting downward.
-
-- **Initial velocities:**
-
-  - Horizontal: $v_{0x} = v_0 \cos\theta$
-  - Vertical: $v_{0y} = v_0 \sin\theta$
-
-- **Accelerations:**
-
-  - Horizontal: $a_x = 0$ (no horizontal forces)
-  - Vertical: $a_y = -g$
-
-Using Newton’s equations of motion, the position as a function of time $t$ is:
-
-- Horizontal: $x(t) = v_{0x} t = (v_0 \cos\theta) t$
-- Vertical: $y(t) = v_{0y} t + \frac{1}{2} a_y t^2 = (v_0 \sin\theta) t - \frac{1}{2} g t^2$
-
-### 1.2 Time of Flight
-
-The projectile returns to the ground when $y(t) = 0$:
+The motion of a pendulum with length $l$, mass $m$, under gravitational acceleration $g$, damping coefficient $b$, and external forcing $F(t) = F_0 \cos(\omega t)$ is governed by:
 
 $$
-(v_0 \sin\theta) t - \frac{1}{2} g t^2 = 0
+\frac{d^2\theta}{dt^2} + \frac{b}{m} \frac{d\theta}{dt} + \frac{g}{l} \sin\theta = \frac{F_0}{ml} \cos(\omega t)
 $$
 
-Factorizing:
+where $\theta$ is the angular displacement, $\frac{b}{m}$ is the damping rate, $\frac{g}{l}$ relates to the natural frequency, and $\frac{F_0}{ml} \cos(\omega t)$ is the driving term.
+
+Define:
+
+- Natural angular frequency: $\omega_0 = \sqrt{\frac{g}{l}}$
+- Damping constant: $\gamma = \frac{b}{m}$
+- Driving amplitude: $A = \frac{F_0}{ml}$
+
+Thus, the equation becomes:
 
 $$
-t \left( v_0 \sin\theta - \frac{1}{2} g t \right) = 0
+\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \sin\theta = A \cos(\omega t)
 $$
 
-Solutions: $t = 0$ (launch) or $t = \frac{2 v_0 \sin\theta}{g}$ (landing). Thus, the time of flight $T$ is:
+### 1.2 Small-Angle Approximation
+
+For small $\theta$, $\sin\theta \approx \theta$, simplifying the equation to a linear forced damped oscillator:
 
 $$
-T = \frac{2 v_0 \sin\theta}{g}
-$$
-
-### 1.3 Range Equation
-
-The horizontal range $R$ is the distance traveled when $t = T$:
+\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \theta = A \cos(\omega t)
 
 $$
-R = v_{0x} T = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}
+This is a second-order linear differential equation. The homogeneous solution is:
+$$
+\theta_h(t) = e^{-\frac{\gamma}{2} t} \left( C_1 \cos(\omega_d t) + C_2 \sin(\omega_d t) \right)
 $$
 
-Using the trigonometric identity $2 \sin\theta \cos\theta = \sin 2\theta$:
+where $\omega_d = \sqrt{\omega_0^2 - \left(\frac{\gamma}{2}\right)^2}$ is the damped frequency, and $C_1, C_2$ depend on initial conditions.
+
+The particular solution for the driving term is:
 
 $$
-R = \frac{v_0^2 \sin 2\theta}{g}
+\theta_p(t) = B \cos(\omega t - \phi)
 $$
 
-This is the range as a function of the angle of projection $\theta$.
-
-### 1.4 Family of Solutions
-
-The range depends on free parameters:
-
-- $v_0$: Initial velocity
-- $g$: Gravitational acceleration
-- $\theta$: Angle of projection
-
-Varying these parameters generates a family of solutions. For instance, increasing $v_0$ scales $R$ quadratically, while $g$ inversely affects $R$.
-
-![alt text](image-1.png)
-
-## 2. Analysis of the Range
-
-### 2.1 Dependence on Angle $\theta$
-
-The term $\sin 2\theta$ dictates the angular dependence:
-
-- At $\theta = 0^\circ$ or $90^\circ$, $\sin 2\theta = 0$, so $R = 0$.
-- Maximum range occurs when $\sin 2\theta = 1$, i.e., $2\theta = 90^\circ$, or $\theta = 45^\circ$:
+where the amplitude $B$ and phase $\phi$ are:
 
 $$
-R_{\text{max}} = \frac{v_0^2}{g}
+B = \frac{A}{\sqrt{(\omega_0^2 - \omega^2)^2 + (\gamma \omega)^2}}, \quad \tan\phi = \frac{\gamma \omega}{\omega_0^2 - \omega^2}
 $$
 
-- Complementary angles (e.g., $30^\circ$ and $60^\circ$) yield the same range since $\sin(180^\circ - 2\theta) = \sin 2\theta$.
+### 1.3 Resonance
 
-### 2.2 Influence of Parameters
+Resonance occurs when the driving frequency $\omega$ approaches the natural frequency $\omega_0$. For low damping ($\gamma \ll \omega_0$), the amplitude peaks near $\omega = \omega_0$, with maximum:
 
-- **Initial Velocity ($v_0$)**: $R \propto v_0^2$. Doubling $v_0$ quadruples the range.
-- **Gravity ($g$)**: $R \propto \frac{1}{g}$. On the Moon ($g \approx 1.62 \, \text{m/s}^2$), the range is ~6 times larger than on Earth ($g \approx 9.81 \, \text{m/s}^2$).
+$$
+B_{\text{max}} \approx \frac{A}{\gamma \omega_0}
+$$
+
+This amplification highlights energy transfer efficiency.
+
+## 2. Analysis of Dynamics
+
+### 2.1 Parameter Influence
+
+- **Damping ($\gamma$)**: Low $\gamma$ sustains oscillations; high $\gamma$ causes rapid decay.
+- **Driving Amplitude ($A$)**: Higher $A$ can push the system into nonlinear regimes or chaos.
+- **Driving Frequency ($\omega$)**: Near $\omega_0$, resonance amplifies motion; far from $\omega_0$, motion may become quasiperiodic or chaotic.
+
+### 2.2 Transition to Chaos
+
+For large $A$ or specific $\omega$, the nonlinear term $\sin\theta$ dominates, leading to chaotic behavior. This is characterized by sensitivity to initial conditions and aperiodic motion, observable in phase portraits and Poincaré sections.
 
 ## 3. Practical Applications
 
-### 3.1 Uneven Terrain
-
-For a launch height $h$, the vertical displacement becomes:
-$$
-y(t) = h + (v_0 \sin\theta) t - \frac{1}{2} g t^2
-$$
-
-Set $y(t) = 0$ to find the new time of flight:
-
-$$
-\frac{1}{2} g t^2 - (v_0 \sin\theta) t - h = 0
-$$
-
-Solve the quadratic equation for $t$, then compute $R = (v_0 \cos\theta) t$.
-
-![alt text](image-3.png)
-
-- Max Range = 49.78 m at 39.0°
-
-### 3.2 Air Resistance
-
-With drag ($F_d = -k v$), the equations become nonlinear:
-
-$$
-m \frac{dv_x}{dt} = -k v_x, \quad m \frac{dv_y}{dt} = -mg - k v_y
-$$
-
-Analytical solutions are complex, so numerical methods (e.g., Euler or Runge-Kutta) are typically used.
-
-### 3.3 Real-World Examples
-
-- **Sports**: Optimizing a basketball shot ($\theta \approx 45^\circ$).
-- **Engineering**: Artillery trajectories with wind and drag.
-- **Astrophysics**: Planetary motion with adjusted $g$.
+- **Energy Harvesting**: Pendulum-based devices convert ambient vibrations into electrical energy.
+- **Suspension Bridges**: Model swaying under wind (e.g., Tacoma Narrows).
+- **Oscillating Circuits**: Analogous to driven RLC circuits in electronics.
 
 ## 4. Implementation
 
-Below is a Python script to simulate and visualize the range versus angle.
+### 4.1 Python Code 1: Small-Angle Resonance Simulation
 
+Simulates the linear approximation and plots amplitude vs. time.
 
-![alt text](image.png)
+![alt text](image-4.png)
 
+## 4.2 Python Code 2: Nonlinear Simulation with Phase Portrait
 
-- v0 = 10 m/s, Max Range at 45° = 10.19 m
-- v0 = 20 m/s, Max Range at 45° = 40.77 m
-- v0 = 30 m/s, Max Range at 45° = 91.74 m
+Solves the full nonlinear equation and plots the phase portrait.
+
+![alt text](image-5.png)
+
+## 4.3 Python Code 3: Poincaré Section and Chaos
+
+Visualizes the Poincaré section to detect chaotic behavior.
+
+![alt text](image-6.png)
