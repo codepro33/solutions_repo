@@ -1,107 +1,143 @@
-# Problem 1
+# Orbital Period and Orbital Radius: Kepler's Third Law
 
-# Investigating the Dynamics of a Forced Damped Pendulum
+## Motivation  
 
-## Motivation
+The relationship between the square of the orbital period and the cube of the orbital radius, known as **Kepler's Third Law**, is a cornerstone of celestial mechanics. This law allows for the determination of planetary motions and has broad implications for understanding gravitational interactions both on local and cosmic scales. By analyzing this relationship, we can connect fundamental principles of gravity with real-world phenomena such as satellite orbits and planetary systems.
 
-The forced damped pendulum is a fascinating system that evolves from simple harmonic motion to complex dynamics due to damping and periodic external forcing. This interplay introduces phenomena like resonance, chaos, and quasiperiodic motion, offering insights into real-world systems such as mechanical oscillators, climate models, and structural engineering under periodic loads. The addition of forcing parameters—amplitude and frequency—enriches the system’s behavior, making it a powerful tool for studying both fundamental physics and practical applications.
+## Task Overview  
 
-## 1. Theoretical Foundation
+The task involves deriving the relationship between the square of the orbital period and the cube of the orbital radius for circular orbits. We will explore the implications of this law in astronomy, investigate real-world examples, and implement a computational model to simulate circular orbits and verify this relationship.
 
-### 1.1 Governing Differential Equation
+---
 
-The motion of a pendulum with length $l$, mass $m$, under gravitational acceleration $g$, damping coefficient $b$, and external forcing $F(t) = F_0 \cos(\omega t)$ is governed by:
+## 1. Derivation of Kepler’s Third Law  
 
-$$
-\frac{d^2\theta}{dt^2} + \frac{b}{m} \frac{d\theta}{dt} + \frac{g}{l} \sin\theta = \frac{F_0}{ml} \cos(\omega t)
-$$
-
-where $\theta$ is the angular displacement, $\frac{b}{m}$ is the damping rate, $\frac{g}{l}$ relates to the natural frequency, and $\frac{F_0}{ml} \cos(\omega t)$ is the driving term.
-
-Define:
-
-- Natural angular frequency: $\omega_0 = \sqrt{\frac{g}{l}}$
-- Damping constant: $\gamma = \frac{b}{m}$
-- Driving amplitude: $A = \frac{F_0}{ml}$
-
-Thus, the equation becomes:
+For a body in a circular orbit, the centripetal force required to keep the body moving in orbit is provided by the gravitational force. This is expressed as:
 
 $$
-\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \sin\theta = A \cos(\omega t)
+F_{\text{centripetal}} = F_{\text{gravitational}}
 $$
 
-### 1.2 Small-Angle Approximation
-
-For small $\theta$, $\sin\theta \approx \theta$, simplifying the equation to a linear forced damped oscillator:
+The centripetal force is given by:
 
 $$
-\frac{d^2\theta}{dt^2} + \gamma \frac{d\theta}{dt} + \omega_0^2 \theta = A \cos(\omega t)
+F_{\text{centripetal}} = \frac{m v^2}{r}
 $$
 
-This is a second-order linear differential equation. The homogeneous solution is:
+where:
+
+- $m$ is the mass of the orbiting body,
+- $v$ is the orbital velocity,
+- $r$ is the orbital radius.
+
+The gravitational force is:
 
 $$
-\theta_h(t) = e^{-\frac{\gamma}{2} t} \left( C_1 \cos(\omega_d t) + C_2 \sin(\omega_d t) \right)
+F_{\text{gravitational}} = \frac{G M m}{r^2}
 $$
 
-where $\omega_d = \sqrt{\omega_0^2 - \left(\frac{\gamma}{2}\right)^2}$ is the damped frequency, and $C_1, C_2$ depend on initial conditions.
+where:
 
-The particular solution for the driving term is:
+- $G$ is the gravitational constant,
+- $M$ is the mass of the central body (e.g., the Sun),
+- $r$ is the orbital radius.
 
-$$
-\theta_p(t) = B \cos(\omega t - \phi)
-$$
-
-where the amplitude $B$ and phase $\phi$ are:
+By equating the two forces:
 
 $$
-B = \frac{A}{\sqrt{(\omega_0^2 - \omega^2)^2 + (\gamma \omega)^2}}, \quad \tan\phi = \frac{\gamma \omega}{\omega_0^2 - \omega^2}
+\frac{m v^2}{r} = \frac{G M m}{r^2}
 $$
 
-### 1.3 Resonance
-
-Resonance occurs when the driving frequency $\omega$ approaches the natural frequency $\omega_0$. For low damping ($\gamma \ll \omega_0$), the amplitude peaks near $\omega = \omega_0$, with maximum:
+Simplifying:
 
 $$
-B_{\text{max}} \approx \frac{A}{\gamma \omega_0}
+v^2 = \frac{G M}{r}
 $$
 
-This amplification highlights energy transfer efficiency.
+Now, the velocity is related to the orbital period $T$ by:
 
-## 2. Analysis of Dynamics
+$$
+v = \frac{2\pi r}{T}
+$$
 
-### 2.1 Parameter Influence
+Substituting this into the above equation:
 
-- **Damping ($\gamma$)**: Low $\gamma$ sustains oscillations; high $\gamma$ causes rapid decay.
-- **Driving Amplitude ($A$)**: Higher $A$ can push the system into nonlinear regimes or chaos.
-- **Driving Frequency ($\omega$)**: Near $\omega_0$, resonance amplifies motion; far from $\omega_0$, motion may become quasiperiodic or chaotic.
+$$
+\left(\frac{2\pi r}{T}\right)^2 = \frac{G M}{r}
+$$
 
-### 2.2 Transition to Chaos
+Simplifying further:
 
-For large $A$ or specific $\omega$, the nonlinear term $\sin\theta$ dominates, leading to chaotic behavior. This is characterized by sensitivity to initial conditions and aperiodic motion, observable in phase portraits and Poincaré sections.
+$$
+\frac{4\pi^2 r^2}{T^2} = \frac{G M}{r}
+$$
 
-## 3. Practical Applications
+Now, solve for $T^2$:
 
-- **Energy Harvesting**: Pendulum-based devices convert ambient vibrations into electrical energy.
-- **Suspension Bridges**: Model swaying under wind (e.g., Tacoma Narrows).
-- **Oscillating Circuits**: Analogous to driven RLC circuits in electronics.
+$$
+T^2 = \frac{4\pi^2 r^3}{G M}
+$$
 
-## 4. Implementation
+This is the relationship between the orbital period squared ($T^2$) and the orbital radius cubed ($r^3$), which is Kepler's Third Law:
 
-### 4.1 Python Code 1: Small-Angle Resonance Simulation
+$$
+T^2 \propto r^3
+$$
 
-Simulates the linear approximation and plots amplitude vs. time.
+---
 
-![alt text](image-4.png)
+## 2. Implications of Kepler's Third Law  
 
-## 4.2 Python Code 2: Nonlinear Simulation with Phase Portrait
+Kepler’s Third Law provides several important insights into the motion of celestial bodies:
 
-Solves the full nonlinear equation and plots the phase portrait.
+- **Planetary Masses**: By measuring the orbital period and radius of a satellite or planet, the mass of the central body (e.g., the Sun or Earth) can be determined.
+- **Orbital Distances**: The law helps calculate the distance of a planet or moon from the central star or planet based on its orbital period.
+- **Satellite Orbits**: Kepler’s Third Law is used extensively in satellite communication and space exploration, determining satellite orbital periods for given altitudes.
 
-![alt text](image-5.png)
+### Real-World Example: The Moon’s Orbit Around Earth  
 
-## 4.3 Python Code 3: Poincaré Section and Chaos
+The Moon orbits Earth at an average distance of $r = 3.84 \times 10^8$ meters and has an orbital period of approximately $T = 27.3$ days. Using Kepler's Third Law:
 
-Visualizes the Poincaré section to detect chaotic behavior.
+$$
+T^2 = \frac{4\pi^2 r^3}{G M}
+$$
 
-![alt text](image-6.png)
+Substituting the values for $r$ and $M$ (the mass of Earth):
+
+$$
+T = \sqrt{\frac{4\pi^2 (3.84 \times 10^8)^3}{(6.67430 \times 10^{-11}) (5.972 \times 10^{24})}}
+$$
+
+This confirms that Kepler's Third Law can be used to accurately predict the Moon's orbital period.
+
+---
+
+## 3. Computational Model to Simulate Circular Orbits  
+
+Below is a Python script to simulate the motion of a planet in a circular orbit using Newtonian mechanics. This simulation will help visualize the orbital motion and verify Kepler's Third Law.
+
+### Code 1: Simulating a Circular Orbit Using Numerical Integration  
+
+![alt text](image-8.png)
+
+## 4. Testing  Kepler’s Third Law
+
+We can now verify the proportionality $T^2 \propto r^3$ numerically.
+
+![alt text](image-9.png)
+
+## 5. Extension to Elliptical Orbits  
+
+For elliptical orbits, **Kepler’s Third Law** still holds, but we replace the orbital radius $r$ with the **semi-major axis** $a$:
+
+$$
+T^2 = \frac{4\pi^2}{G M} a^3
+$$
+
+This is the general form of Kepler’s Third Law for elliptical orbits, and it allows us to calculate the orbital period of objects in elliptical orbits, such as the planets in the Solar System.
+
+---
+
+### Code 3: Simulating an Elliptical Orbit
+
+![alt text](image-10.png)
