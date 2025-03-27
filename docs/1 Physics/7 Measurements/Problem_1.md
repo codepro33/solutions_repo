@@ -110,7 +110,9 @@ $$
 
 Solve the quadratic equation for $t$, then compute $R = (v_0 \cos\theta) t$.
 
-![alt text](image-2.png)
+![alt text](image-3.png)
+
+- Max Range = 49.78 m at 39.0°
 
 ### 3.2 Air Resistance
 
@@ -134,3 +136,8 @@ Below is a Python script to simulate and visualize the range versus angle.
 
 
 ![alt text](image.png)
+
+
+- v0 = 10 m/s, Max Range at 45° = 10.19 m
+- v0 = 20 m/s, Max Range at 45° = 40.77 m
+- v0 = 30 m/s, Max Range at 45° = 91.74 m
