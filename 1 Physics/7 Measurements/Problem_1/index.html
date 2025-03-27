@@ -120,6 +120,109 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<h1 id="investigating-the-range-as-a-function-of-the-angle-of-projection">Investigating the Range as a Function of the Angle of Projection</h1>
+<h2 id="1-theoretical-foundation">1. Theoretical Foundation</h2>
+<p>Projectile motion describes the trajectory of an object under the influence of gravity, assuming no other forces (e.g., air resistance) act upon it. Let’s derive the governing equations from first principles.</p>
+<h3 id="11-deriving-the-equations-of-motion">1.1 Deriving the Equations of Motion</h3>
+<p>The motion can be split into horizontal (x) and vertical (y) components. Assume the projectile is launched from the origin <span class="arithmatex">\((x_0, y_0) = (0, 0)\)</span> with an initial velocity <span class="arithmatex">\(v_0\)</span> at an angle <span class="arithmatex">\(\theta\)</span> from the horizontal. The acceleration due to gravity is <span class="arithmatex">\(g\)</span>, acting downward.</p>
+<ul>
+<li>
+<p><strong>Initial velocities:</strong></p>
+</li>
+<li>
+<p>Horizontal: <span class="arithmatex">\(v_{0x} = v_0 \cos\theta\)</span></p>
+</li>
+<li>
+<p>Vertical: <span class="arithmatex">\(v_{0y} = v_0 \sin\theta\)</span></p>
+</li>
+<li>
+<p><strong>Accelerations:</strong></p>
+</li>
+<li>
+<p>Horizontal: <span class="arithmatex">\(a_x = 0\)</span> (no horizontal forces)</p>
+</li>
+<li>Vertical: <span class="arithmatex">\(a_y = -g\)</span></li>
+</ul>
+<p>Using Newton’s equations of motion, the position as a function of time <span class="arithmatex">\(t\)</span> is:</p>
+<ul>
+<li>Horizontal: <span class="arithmatex">\(x(t) = v_{0x} t = (v_0 \cos\theta) t\)</span></li>
+<li>Vertical: <span class="arithmatex">\(y(t) = v_{0y} t + \frac{1}{2} a_y t^2 = (v_0 \sin\theta) t - \frac{1}{2} g t^2\)</span></li>
+</ul>
+<h3 id="12-time-of-flight">1.2 Time of Flight</h3>
+<p>The projectile returns to the ground when <span class="arithmatex">\(y(t) = 0\)</span>:</p>
+<div class="arithmatex">\[
+(v_0 \sin\theta) t - \frac{1}{2} g t^2 = 0
+\]</div>
+<p>Factorizing:</p>
+<div class="arithmatex">\[
+t \left( v_0 \sin\theta - \frac{1}{2} g t \right) = 0
+\]</div>
+<p>Solutions: <span class="arithmatex">\(t = 0\)</span> (launch) or <span class="arithmatex">\(t = \frac{2 v_0 \sin\theta}{g}\)</span> (landing). Thus, the time of flight <span class="arithmatex">\(T\)</span> is:</p>
+<div class="arithmatex">\[
+T = \frac{2 v_0 \sin\theta}{g}
+\]</div>
+<h3 id="13-range-equation">1.3 Range Equation</h3>
+<p>The horizontal range <span class="arithmatex">\(R\)</span> is the distance traveled when <span class="arithmatex">\(t = T\)</span>:</p>
+<div class="arithmatex">\[
+R = v_{0x} T = (v_0 \cos\theta) \cdot \frac{2 v_0 \sin\theta}{g}
+\]</div>
+<p>Using the trigonometric identity <span class="arithmatex">\(2 \sin\theta \cos\theta = \sin 2\theta\)</span>:</p>
+<div class="arithmatex">\[
+R = \frac{v_0^2 \sin 2\theta}{g}
+\]</div>
+<p>This is the range as a function of the angle of projection <span class="arithmatex">\(\theta\)</span>.</p>
+<h3 id="14-family-of-solutions">1.4 Family of Solutions</h3>
+<p>The range depends on free parameters:</p>
+<ul>
+<li><span class="arithmatex">\(v_0\)</span>: Initial velocity</li>
+<li><span class="arithmatex">\(g\)</span>: Gravitational acceleration</li>
+<li><span class="arithmatex">\(\theta\)</span>: Angle of projection</li>
+</ul>
+<p>Varying these parameters generates a family of solutions. For instance, increasing <span class="arithmatex">\(v_0\)</span> scales <span class="arithmatex">\(R\)</span> quadratically, while <span class="arithmatex">\(g\)</span> inversely affects <span class="arithmatex">\(R\)</span>.</p>
+<h2 id="2-analysis-of-the-range">2. Analysis of the Range</h2>
+<h3 id="21-dependence-on-angle-theta">2.1 Dependence on Angle <span class="arithmatex">\(\theta\)</span></h3>
+<p>The term <span class="arithmatex">\(\sin 2\theta\)</span> dictates the angular dependence:</p>
+<ul>
+<li>At <span class="arithmatex">\(\theta = 0^\circ\)</span> or <span class="arithmatex">\(90^\circ\)</span>, <span class="arithmatex">\(\sin 2\theta = 0\)</span>, so <span class="arithmatex">\(R = 0\)</span>.</li>
+<li>Maximum range occurs when <span class="arithmatex">\(\sin 2\theta = 1\)</span>, i.e., <span class="arithmatex">\(2\theta = 90^\circ\)</span>, or <span class="arithmatex">\(\theta = 45^\circ\)</span>:</li>
+</ul>
+<div class="arithmatex">\[
+R_{\text{max}} = \frac{v_0^2}{g}
+\]</div>
+<ul>
+<li>Complementary angles (e.g., <span class="arithmatex">\(30^\circ\)</span> and <span class="arithmatex">\(60^\circ\)</span>) yield the same range since <span class="arithmatex">\(\sin(180^\circ - 2\theta) = \sin 2\theta\)</span>.</li>
+</ul>
+<h3 id="22-influence-of-parameters">2.2 Influence of Parameters</h3>
+<ul>
+<li><strong>Initial Velocity (<span class="arithmatex">\(v_0\)</span>)</strong>: <span class="arithmatex">\(R \propto v_0^2\)</span>. Doubling <span class="arithmatex">\(v_0\)</span> quadruples the range.</li>
+<li><strong>Gravity (<span class="arithmatex">\(g\)</span>)</strong>: <span class="arithmatex">\(R \propto \frac{1}{g}\)</span>. On the Moon (<span class="arithmatex">\(g \approx 1.62 \, \text{m/s}^2\)</span>), the range is ~6 times larger than on Earth (<span class="arithmatex">\(g \approx 9.81 \, \text{m/s}^2\)</span>).</li>
+</ul>
+<h2 id="3-practical-applications">3. Practical Applications</h2>
+<h3 id="31-uneven-terrain">3.1 Uneven Terrain</h3>
+<p>For a launch height <span class="arithmatex">\(h\)</span>, the vertical displacement becomes:
+$$
+y(t) = h + (v_0 \sin\theta) t - \frac{1}{2} g t^2
+$$</p>
+<p>Set <span class="arithmatex">\(y(t) = 0\)</span> to find the new time of flight:</p>
+<div class="arithmatex">\[
+\frac{1}{2} g t^2 - (v_0 \sin\theta) t - h = 0
+\]</div>
+<p>Solve the quadratic equation for <span class="arithmatex">\(t\)</span>, then compute <span class="arithmatex">\(R = (v_0 \cos\theta) t\)</span>.</p>
+<h3 id="32-air-resistance">3.2 Air Resistance</h3>
+<p>With drag (<span class="arithmatex">\(F_d = -k v\)</span>), the equations become nonlinear:</p>
+<div class="arithmatex">\[
+m \frac{dv_x}{dt} = -k v_x, \quad m \frac{dv_y}{dt} = -mg - k v_y
+\]</div>
+<p>Analytical solutions are complex, so numerical methods (e.g., Euler or Runge-Kutta) are typically used.</p>
+<h3 id="33-real-world-examples">3.3 Real-World Examples</h3>
+<ul>
+<li><strong>Sports</strong>: Optimizing a basketball shot (<span class="arithmatex">\(\theta \approx 45^\circ\)</span>).</li>
+<li><strong>Engineering</strong>: Artillery trajectories with wind and drag.</li>
+<li><strong>Astrophysics</strong>: Planetary motion with adjusted <span class="arithmatex">\(g\)</span>.</li>
+</ul>
+<h2 id="4-implementation">4. Implementation</h2>
+<p>Below is a Python script to simulate and visualize the range versus angle.</p>
+<p><img alt="alt text" src="../image.png"/></p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
