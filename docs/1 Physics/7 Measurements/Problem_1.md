@@ -1,4 +1,5 @@
 # Problem 1
+
 # Investigating the Range as a Function of the Angle of Projection
 
 ## 1. Theoretical Foundation
@@ -6,6 +7,7 @@
 Projectile motion describes the trajectory of an object under the influence of gravity, assuming no other forces (e.g., air resistance) act upon it. Let’s derive the governing equations from first principles.
 
 ### 1.1 Deriving the Equations of Motion
+
 The motion can be split into horizontal (x) and vertical (y) components. Assume the projectile is launched from the origin $(x_0, y_0) = (0, 0)$ with an initial velocity $v_0$ at an angle $\theta$ from the horizontal. The acceleration due to gravity is $g$, acting downward.
 
 - **Initial velocities:**
@@ -69,6 +71,8 @@ The range depends on free parameters:
 
 Varying these parameters generates a family of solutions. For instance, increasing $v_0$ scales $R$ quadratically, while $g$ inversely affects $R$.
 
+![alt text](image-1.png)
+
 ## 2. Analysis of the Range
 
 ### 2.1 Dependence on Angle $\theta$
@@ -105,6 +109,8 @@ $$
 $$
 
 Solve the quadratic equation for $t$, then compute $R = (v_0 \cos\theta) t$.
+
+![alt text](image-2.png)
 
 ### 3.2 Air Resistance
 
