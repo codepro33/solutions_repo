@@ -38,13 +38,6 @@ The **third cosmic velocity** ($v_3$) is the speed required to escape the gravit
 - **Current Distance:** Over **24 billion km (160+ AU)** from Earth.
 - **Signal Delay:** It takes **over 22 hours** for a signal from Voyager 1 to reach Earth.
 
-## Fun Fact 🤯
-
-If an **alien civilization** finds Voyager 1, they will get **a snapshot of human civilization from 1977!** 👽✨
-----------------------------------------------------------------
-
-
-
 ---
 
 ## Mathematical Derivations
