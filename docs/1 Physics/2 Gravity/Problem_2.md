@@ -32,7 +32,7 @@ The **third cosmic velocity** ($v_3$) is the speed required to escape the gravit
 **Voyager 1** is a space probe launched by **NASA** on **September 5, 1977**, as part of the **Voyager program**. It was designed to explore the outer planets and is now the **farthest human-made object from Earth**, traveling into **interstellar space**.
 
 
-## Speed & Distance 📏
+## Speed & Distance 
 
 - **Current Speed:** ~ **17 km/s** (~3.6 AU per year).
 - **Current Distance:** Over **24 billion km (160+ AU)** from Earth.
@@ -155,10 +155,13 @@ The Python script from the main document generates a bar chart comparing $v_1$ a
 ## Importance in Space Exploration
 
 ### Launching Satellites
+
 - **First Cosmic Velocity**: Satellites in LEO (e.g., ~$7.8 \, \text{km/s}$ for Earth) use $v_1$, adjusted for drag and altitude.
 
 ### Missions to Other Planets
+
 - **Second Cosmic Velocity**: Interplanetary missions require $v_2$ (e.g., $5.03 \, \text{km/s}$ for Mars escape).
 
 ### Interstellar Travel
+
 - **Third Cosmic Velocity**: Escaping the solar system needs $v_3$ (e.g., $16.6 \, \text{km/s}$ from Earth), often aided by gravitational assists.
