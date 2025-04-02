@@ -133,10 +133,12 @@
 <h2 id="solution">Solution</h2>
 <h3 id="1-theory-and-application">1. Theory and Application</h3>
 <h4 id="systems-involving-the-lorentz-force">Systems Involving the Lorentz Force</h4>
-<p>The Lorentz force plays a critical role in several systems:
-- <strong>Particle Accelerators</strong>: In cyclotrons, the magnetic field causes charged particles to move in circular paths, while electric fields accelerate them. The Lorentz force ensures particles follow a spiral trajectory as their energy increases.
-- <strong>Mass Spectrometers</strong>: The Lorentz force separates ions based on their mass-to-charge ratio by deflecting them in a magnetic field.
-- <strong>Plasma Confinement</strong>: In fusion devices like tokamaks, magnetic fields confine charged particles in a plasma, preventing them from hitting the reactor walls.</p>
+<p>The Lorentz force plays a critical role in several systems:</p>
+<ul>
+<li><strong>Particle Accelerators</strong>: In cyclotrons, the magnetic field causes charged particles to move in circular paths, while electric fields accelerate them. The Lorentz force ensures particles follow a spiral trajectory as their energy increases.</li>
+<li><strong>Mass Spectrometers</strong>: The Lorentz force separates ions based on their mass-to-charge ratio by deflecting them in a magnetic field.</li>
+<li><strong>Plasma Confinement</strong>: In fusion devices like tokamaks, magnetic fields confine charged particles in a plasma, preventing them from hitting the reactor walls.</li>
+</ul>
 <h4 id="role-of-electric-and-magnetic-fields">Role of Electric and Magnetic Fields</h4>
 <ul>
 <li><strong>Electric Field (<span class="arithmatex">\(\mathbf{E}\)</span>)</strong>: Exerts a force <span class="arithmatex">\(\mathbf{F}_E = q \mathbf{E}\)</span>, accelerating the particle in the direction of the field (if <span class="arithmatex">\(q\)</span> is positive). This force is independent of the particle’s velocity.</li>
@@ -151,25 +153,48 @@
 <div class="arithmatex">\[
 \mathbf{a} = \frac{d\mathbf{v}}{dt} = \frac{q}{m} (\mathbf{E} + \mathbf{v} \times \mathbf{B})
 \]</div>
-<p>We’ll use the <strong>Runge-Kutta 4th-order method (RK4)</strong> to numerically solve this differential equation, as it provides better accuracy than the Euler method. We’ll simulate the following cases:
-- <strong>Uniform Magnetic Field</strong>: <span class="arithmatex">\(\mathbf{B} = (0, 0, B_z)\)</span>, <span class="arithmatex">\(\mathbf{E} = 0\)</span>.
-- <strong>Combined Uniform Electric and Magnetic Fields</strong>: <span class="arithmatex">\(\mathbf{B} = (0, 0, B_z)\)</span>, <span class="arithmatex">\(\mathbf{E} = (E_x, 0, 0)\)</span>.
-- <strong>Crossed Fields</strong>: <span class="arithmatex">\(\mathbf{B} = (0, 0, B_z)\)</span>, <span class="arithmatex">\(\mathbf{E} = (E_x, 0, 0)\)</span>, with <span class="arithmatex">\(\mathbf{E} \perp \mathbf{B}\)</span>.
-- <strong>Non-Uniform Magnetic Field (Magnetic Bottle)</strong>: <span class="arithmatex">\(\mathbf{B}\)</span> varies spatially.</p>
+<p>We’ll use the <strong>Runge-Kutta 4th-order method (RK4)</strong> to numerically solve this differential equation, as it provides better accuracy than the Euler method. We’ll simulate the following cases:</p>
+<ul>
+<li><strong>Uniform Magnetic Field</strong>: <span class="arithmatex">\(\mathbf{B} = (0, 0, B_z)\)</span>, <span class="arithmatex">\(\mathbf{E} = 0\)</span>.</li>
+<li><strong>Combined Uniform Electric and Magnetic Fields</strong>: <span class="arithmatex">\(\mathbf{B} = (0, 0, B_z)\)</span>, <span class="arithmatex">\(\mathbf{E} = (E_x, 0, 0)\)</span>.</li>
+<li><strong>Crossed Fields</strong>: <span class="arithmatex">\(\mathbf{B} = (0, 0, B_z)\)</span>, <span class="arithmatex">\(\mathbf{E} = (E_x, 0, 0)\)</span>, with <span class="arithmatex">\(\mathbf{E} \perp \mathbf{B}\)</span>.</li>
+<li><strong>Non-Uniform Magnetic Field (Magnetic Bottle)</strong>: <span class="arithmatex">\(\mathbf{B}\)</span> varies spatially.</li>
+</ul>
 <h4 id="python-script-for-simulation">Python Script for Simulation</h4>
 <p>Below is a Python script that simulates the particle’s motion under the Lorentz force for the above cases. It uses NumPy for calculations and Matplotlib for 2D and 3D visualizations.</p>
 <p><img alt="alt text" src="../image.png"/></p>
 <p><img alt="alt text" src="../image-1.png"/> </p>
-<p align="center">
-<img src="image.png" width="400"/>
-<img src="image-1.png" width="400"/>
-</p>
 <p><img alt="alt text" src="../image-2.png"/></p>
 <p><img alt="alt text" src="../image-3.png"/></p>
 <p><img alt="alt text" src="../image-4.png"/></p>
 <p><img alt="alt text" src="../image-5.png"/></p>
 <p><img alt="alt text" src="../image-6.png"/></p>
 <p><img alt="alt text" src="../image-7.png"/></p>
+<h3 id="3-parameter-exploration">3. Parameter Exploration</h3>
+<p>We’ll explore the effects of varying parameters:</p>
+<ul>
+<li><strong>Field Strengths</strong>: Increase <span class="arithmatex">\(B_z\)</span> to 2 T. A stronger magnetic field reduces the Larmor radius, as <span class="arithmatex">\(R_L = \frac{m v_\perp}{q B}\)</span>, leading to tighter circular motion.</li>
+<li><strong>Initial Velocity</strong>: Double <span class="arithmatex">\(v_0\)</span> to <span class="arithmatex">\((2 \times 10^5, 2 \times 10^5, 0)\)</span> m/s. This increases the Larmor radius proportionally, as <span class="arithmatex">\(R_L \propto v_\perp\)</span>.</li>
+<li><strong>Charge and Mass</strong>: Use an electron (<span class="arithmatex">\(q = -1.6 \times 10^{-19}\)</span> C, <span class="arithmatex">\(m = 9.11 \times 10^{-31}\)</span> kg). The smaller mass and opposite charge result in a smaller Larmor radius and opposite direction of rotation.</li>
+</ul>
+<p>These variations can be implemented by modifying the constants in the script and re-running the simulation.</p>
+<h3 id="4-visualization">4. Visualization</h3>
+<p>The script generates 2D and 3D plots for each case:</p>
+<ul>
+<li><strong>Uniform Magnetic Field</strong>: The particle follows a helical path (circular in the x-y plane) with a Larmor radius of approximately <span class="arithmatex">\(1.04 \times 10^{-3}\)</span> m.</li>
+<li><strong>Combined E and B Fields</strong>: The electric field introduces a drift in the x-direction, resulting in a helical path with a drift velocity of <span class="arithmatex">\(1.00 \times 10^3\)</span> m/s.</li>
+<li><strong>Crossed Fields</strong>: Similar to the combined case, but the drift is more pronounced due to the perpendicular fields.</li>
+<li><strong>Magnetic Bottle</strong>: The non-uniform field causes the particle to oscillate along the z-axis, demonstrating confinement.</li>
+</ul>
+<h3 id="discussion">Discussion</h3>
+<p>The simulations highlight key phenomena:</p>
+<ul>
+<li><strong>Larmor Radius</strong>: In a uniform magnetic field, the particle’s circular motion has a radius <span class="arithmatex">\(R_L = \frac{m v_\perp}{q B}\)</span>, which matches our calculated value.</li>
+<li><strong>Drift Velocity</strong>: In crossed fields, the <span class="arithmatex">\(\mathbf{E} \times \mathbf{B}\)</span> drift velocity is <span class="arithmatex">\(v_d = \frac{E}{B}\)</span>, consistent with our result.</li>
+<li><strong>Practical Applications</strong>: The helical motion in a magnetic field is seen in cyclotrons, while the drift in crossed fields is used in mass spectrometers. The magnetic bottle simulation demonstrates plasma confinement, as used in fusion research.</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>This simulation successfully demonstrates the effects of the Lorentz force on a charged particle under various field configurations. The visualizations reveal circular, helical, and drifting trajectories, aligning with theoretical expectations. By exploring parameter variations, we gain insight into how field strengths, velocity, and particle properties influence motion, providing a deeper understanding of applications like particle accelerators and plasma confinement systems.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
