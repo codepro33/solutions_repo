@@ -120,6 +120,56 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
+<h1 id="simulating-the-effects-of-the-lorentz-force">Simulating the Effects of the Lorentz Force</h1>
+<h2 id="motivation">Motivation</h2>
+<p>The Lorentz force, expressed as <span class="arithmatex">\(\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})\)</span>, governs the motion of charged particles in electric and magnetic fields. It is fundamental in fields like plasma physics, particle accelerators, and astrophysics. By focusing on simulations, we can explore the practical applications and visualize the complex trajectories that arise due to this force.</p>
+<h2 id="task-overview">Task Overview</h2>
+<ol>
+<li><strong>Theory and Application</strong>: Identify systems where the Lorentz force is key and discuss the roles of electric (<span class="arithmatex">\(\mathbf{E}\)</span>) and magnetic (<span class="arithmatex">\(\mathbf{B}\)</span>) fields.</li>
+<li><strong>Simulating Particle Motion</strong>: Simulate the trajectory of a charged particle under various field configurations (uniform magnetic field, combined electric and magnetic fields, crossed fields, and non-uniform magnetic field).</li>
+<li><strong>Parameter Exploration</strong>: Vary parameters like field strengths, initial velocity, charge, and mass to observe their effects.</li>
+<li><strong>Visualization</strong>: Create 2D and 3D plots to visualize the particle’s trajectory and highlight phenomena like Larmor radius and drift velocity.</li>
+</ol>
+<h2 id="solution">Solution</h2>
+<h3 id="1-theory-and-application">1. Theory and Application</h3>
+<h4 id="systems-involving-the-lorentz-force">Systems Involving the Lorentz Force</h4>
+<p>The Lorentz force plays a critical role in several systems:
+- <strong>Particle Accelerators</strong>: In cyclotrons, the magnetic field causes charged particles to move in circular paths, while electric fields accelerate them. The Lorentz force ensures particles follow a spiral trajectory as their energy increases.
+- <strong>Mass Spectrometers</strong>: The Lorentz force separates ions based on their mass-to-charge ratio by deflecting them in a magnetic field.
+- <strong>Plasma Confinement</strong>: In fusion devices like tokamaks, magnetic fields confine charged particles in a plasma, preventing them from hitting the reactor walls.</p>
+<h4 id="role-of-electric-and-magnetic-fields">Role of Electric and Magnetic Fields</h4>
+<ul>
+<li><strong>Electric Field (<span class="arithmatex">\(\mathbf{E}\)</span>)</strong>: Exerts a force <span class="arithmatex">\(\mathbf{F}_E = q \mathbf{E}\)</span>, accelerating the particle in the direction of the field (if <span class="arithmatex">\(q\)</span> is positive). This force is independent of the particle’s velocity.</li>
+<li><strong>Magnetic Field (<span class="arithmatex">\(\mathbf{B}\)</span>)</strong>: Exerts a force <span class="arithmatex">\(\mathbf{F}_B = q (\mathbf{v} \times \mathbf{B})\)</span>, which is perpendicular to both the velocity <span class="arithmatex">\(\mathbf{v}\)</span> and the magnetic field <span class="arithmatex">\(\mathbf{B}\)</span>. This force causes circular or helical motion but does no work since it is always perpendicular to the velocity.</li>
+</ul>
+<h3 id="2-simulating-particle-motion">2. Simulating Particle Motion</h3>
+<p>We’ll simulate the motion of a charged particle under the Lorentz force using the following equation of motion:</p>
+<div class="arithmatex">\[
+\mathbf{F} = m \mathbf{a} = q (\mathbf{E} + \mathbf{v} \times \mathbf{B})
+\]</div>
+<p>This gives the acceleration:</p>
+<div class="arithmatex">\[
+\mathbf{a} = \frac{d\mathbf{v}}{dt} = \frac{q}{m} (\mathbf{E} + \mathbf{v} \times \mathbf{B})
+\]</div>
+<p>We’ll use the <strong>Runge-Kutta 4th-order method (RK4)</strong> to numerically solve this differential equation, as it provides better accuracy than the Euler method. We’ll simulate the following cases:
+- <strong>Uniform Magnetic Field</strong>: <span class="arithmatex">\(\mathbf{B} = (0, 0, B_z)\)</span>, <span class="arithmatex">\(\mathbf{E} = 0\)</span>.
+- <strong>Combined Uniform Electric and Magnetic Fields</strong>: <span class="arithmatex">\(\mathbf{B} = (0, 0, B_z)\)</span>, <span class="arithmatex">\(\mathbf{E} = (E_x, 0, 0)\)</span>.
+- <strong>Crossed Fields</strong>: <span class="arithmatex">\(\mathbf{B} = (0, 0, B_z)\)</span>, <span class="arithmatex">\(\mathbf{E} = (E_x, 0, 0)\)</span>, with <span class="arithmatex">\(\mathbf{E} \perp \mathbf{B}\)</span>.
+- <strong>Non-Uniform Magnetic Field (Magnetic Bottle)</strong>: <span class="arithmatex">\(\mathbf{B}\)</span> varies spatially.</p>
+<h4 id="python-script-for-simulation">Python Script for Simulation</h4>
+<p>Below is a Python script that simulates the particle’s motion under the Lorentz force for the above cases. It uses NumPy for calculations and Matplotlib for 2D and 3D visualizations.</p>
+<p><img alt="alt text" src="../image.png"/></p>
+<p><img alt="alt text" src="../image-1.png"/> </p>
+<p align="center">
+<img src="image.png" width="400"/>
+<img src="image-1.png" width="400"/>
+</p>
+<p><img alt="alt text" src="../image-2.png"/></p>
+<p><img alt="alt text" src="../image-3.png"/></p>
+<p><img alt="alt text" src="../image-4.png"/></p>
+<p><img alt="alt text" src="../image-5.png"/></p>
+<p><img alt="alt text" src="../image-6.png"/></p>
+<p><img alt="alt text" src="../image-7.png"/></p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
