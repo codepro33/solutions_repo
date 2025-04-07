@@ -138,20 +138,75 @@
   where <span class="arithmatex">\(g\)</span> is the acceleration due to gravity.</p>
 </li>
 </ul>
-<p>To find the total time of flight, we set <span class="arithmatex">\(y = 0\)</span> (assuming the projectile lands at the same height from which it was launched):</p>
-<p><span class="arithmatex">\(t_{total} = \frac{2 v_0 \sin(\theta)}{g}\)</span></p>
-<p>Substituting this into the horizontal motion equation gives the range formula:</p>
-<p><span class="arithmatex">\(R = \frac{v_0^2 \sin(2\theta)}{g}\)</span></p>
-<h2 id="constants">Constants</h2>
+<p>We’re analyzing <strong>projectile motion</strong> where an object is launched at an angle <span class="arithmatex">\(\theta\)</span> with an <strong>initial velocity</strong> <span class="arithmatex">\(v_0\)</span>, and lands at the <strong>same height</strong> it was launched from.</p>
+<h2 id="1-total-time-of-flight">1.  Total Time of Flight</h2>
+<p>Vertical motion equation:</p>
+<div class="arithmatex">\[
+y(t) = v_0 \sin(\theta) t - \frac{1}{2} g t^2
+\]</div>
+<p>To find <strong>total flight time</strong>, set <span class="arithmatex">\(y = 0\)</span> (back at launch height):</p>
+<div class="arithmatex">\[
+0 = v_0 \sin(\theta) t - \frac{1}{2} g t^2
+\]</div>
+<p>Factor:</p>
+<div class="arithmatex">\[
+t \left( v_0 \sin(\theta) - \frac{1}{2} g t \right) = 0
+\]</div>
+<p>Solutions:
+- <span class="arithmatex">\(t = 0\)</span> (initial launch)
+- <span class="arithmatex">\(t = \frac{2 v_0 \sin(\theta)}{g}\)</span></p>
+<p>So the <strong>total time of flight</strong> is:</p>
+<div class="arithmatex">\[
+t_{\text{total}} = \frac{2 v_0 \sin(\theta)}{g}
+\]</div>
+<hr/>
+<h2 id="2-horizontal-range">2.  Horizontal Range</h2>
+<p>Now we consider horizontal motion. There’s no acceleration horizontally, so it's a simple:</p>
+<ul>
+<li>
+<h3 id="distance-speed-time">Distance = speed × time</h3>
+</li>
+</ul>
+<p>Horizontal velocity is:</p>
+<div class="arithmatex">\[
+v_0 \cos(\theta)
+\]</div>
+<p>Multiply by total flight time to get the <strong>range</strong>:</p>
+<div class="arithmatex">\[
+R = v_0 \cos(\theta) \cdot \frac{2 v_0 \sin(\theta)}{g}
+\]</div>
+<p>Use identity:</p>
+<div class="arithmatex">\[
+2 \sin(\theta) \cos(\theta) = \sin(2\theta)
+\]</div>
+<p>So:</p>
+<div class="arithmatex">\[
+R = \frac{v_0^2 \sin(2\theta)}{g}
+\]</div>
+<h3 id="summary">Summary</h3>
+<ul>
+<li><strong>Total Time of Flight:</strong></li>
+</ul>
+<p>$$
+  t_{\text{total}} = \frac{2 v_0 \sin(\theta)}{g}
+  $$</p>
+<ul>
+<li><strong>Range:</strong></li>
+</ul>
+<p>$$
+  R = \frac{v_0^2 \sin(2\theta)}{g}
+  $$</p>
+<h2 id="visualization-of-range">Visualization of Range</h2>
+<h3 id="constants">Constants</h3>
 <ul>
 <li>Gravitational acceleration on Earth: <span class="arithmatex">\(g_{earth} = 9.81\)</span> m/s²</li>
 <li>Gravitational acceleration on the Moon: <span class="arithmatex">\(g_{moon} = 1.62\)</span> m/s²</li>
 <li>Initial velocities considered: <span class="arithmatex">\(10, 20, 30\)</span> m/s</li>
 </ul>
-<h2 id="range-calculation-and-visualization">Range Calculation and Visualization</h2>
+<h3 id="range-calculation-and-visualization">Range Calculation and Visualization</h3>
 <p>We analyze the range for different launch angles (0° to 90°) and compare it for Earth and Moon conditions.</p>
 <p><img alt="alt text" src="../image-1.png"/></p>
-<h1 id="projectile-motion-simulation">🚀 Projectile Motion Simulation</h1>
+<h1 id="projectile-motion-simulation">Projectile Motion Simulation</h1>
 <p>This interactive simulation shows how the <strong>range</strong> of a projectile changes with the <strong>launch angle</strong>.</p>
 <p>👉 <strong><a href="../simulation.html">Click here to view the simulation</a></strong> 👈</p>
 <p>Enter the initial velocity and see how the range changes dynamically!</p>
