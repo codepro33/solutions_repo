@@ -46,6 +46,7 @@ t \left( v_0 \sin(\theta) - \frac{1}{2} g t \right) = 0
 $$
 
 Solutions:
+
 - $t = 0$ (initial launch)
 - $t = \frac{2 v_0 \sin(\theta)}{g}$
 
