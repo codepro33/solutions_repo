@@ -104,6 +104,36 @@ $$
   R = \frac{v_0^2 \sin(2\theta)}{g}
   $$
 
+
+##  How Range Depends on the Angle of Projection
+
+The formula for the horizontal range of a projectile is:
+
+$$
+R(\theta) = \frac{v_0^2}{g} \cdot \sin(2\theta)
+$$
+
+Where:
+
+- $v_0$ is the initial velocity,
+- $g$ is the acceleration due to gravity,
+- $\theta$ is the angle of projection,
+- and $\sin(2\theta)$ captures how the angle affects the range.
+
+###  Angle Observations
+
+- The **range depends on $\sin(2\theta)$**, which reaches its **maximum value when $\theta = 45^\circ$**.
+- Therefore, the **maximum range** occurs when the projectile is launched at **45 degrees**.
+- The function $\sin(2\theta)$ is **symmetric** about $45^\circ$:
+  - For example, $30^\circ$ and $60^\circ$ give the **same range**.
+  - Similarly, $20^\circ$ and $70^\circ$ give the same range.
+
+###  Graph Shape:
+
+If you were to graph the range against the angle $\theta$, you would get a **sine curve** shape, peaking at $45^\circ$ and symmetric on both sides.
+
+This symmetry explains why certain pairs of angles produce the same horizontal range.
+
 ## Visualization of Range 
 
 ### Constants
@@ -122,7 +152,7 @@ We analyze the range for different launch angles (0° to 90°) and compare it fo
 
 This interactive simulation shows how the **range** of a projectile changes with the **launch angle**.
 
-👉 **[Click here to view the simulation](simulation.html)** 👈
+ **[Click here to view the simulation](simulation.html)** 
 
 Enter the initial velocity and see how the range changes dynamically!
 
