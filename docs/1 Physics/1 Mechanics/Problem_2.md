@@ -1,7 +1,42 @@
 # Problem 2
-# Theoretical Foundation
+
+## Theoretical Foundation
 
 The forced damped pendulum is a captivating example of a physical system with intricate behavior resulting from the interplay of damping, restoring forces, and external driving forces. By introducing both damping and external periodic forcing, the system demonstrates a transition from simple harmonic motion to a rich spectrum of dynamics, including resonance, chaos, and quasiperiodic behavior. These phenomena serve as a foundation for understanding complex real-world systems, such as driven oscillators, climate systems, and mechanical structures under periodic stress.
+
+## Types of Pendulums
+
+---
+
+### 1. Regular Pendulum (No damping or force)
+
+This is just a mass on a string, swinging under gravity.
+
+- Motion is smooth and regular.
+- If you lift and release it, it keeps swinging back and forth.
+- It has a **natural frequency** depending on length and gravity.
+
+---
+
+### 2. Damped Pendulum
+
+Now we add **damping**, which means it **loses energy** over time (due to air resistance or friction in the pivot).
+
+- The pendulum slows down.
+- Eventually, it comes to rest.
+- Damping is modeled by a term like $b \frac{d\theta}{dt}$ in the equation (where $b$ is the damping coefficient).
+
+---
+
+### 3. Forced Pendulum
+
+Now imagine we **keep pushing** the pendulum at regular intervals — like tapping it with a finger over and over.
+
+- This is a **driving force** or **external forcing**.
+- It’s usually sinusoidal: $A \cos(\omega t)$ — like a wave that keeps pushing the pendulum.
+- Even though it loses energy through damping, the external force **feeds energy back in**.
+
+---
 
 ## Governing Equation
 
