@@ -49,9 +49,22 @@ $$
 where:
 
 - $\theta$ is the angular displacement,
+
+Angular displacement measures how far an object has rotated from its starting position — like how much a pendulum has swung from its resting point.
+
 - $\gamma$ is the damping coefficient,
+
+which quantifies the strength of damping (friction or resistance) in the system.
+
 - $F_d$ is the amplitude of the external forcing,
+
+representing the maximum strength of the periodic external force applied to the system.
+
 - $\omega_d$ is the driving frequency.
+
+which is the frequency of the external periodic force driving the system.
+
+---
 
 For small angles, we approximate $\sin(\theta) \approx \theta$, simplifying the equation to:
 
