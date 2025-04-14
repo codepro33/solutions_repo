@@ -92,21 +92,15 @@ $$
 \omega_0 = \sqrt{1 - \gamma^2}
 $$
 
+#### Example In python script
+
+![alt text](image-6.png)
+
 At resonance, the amplitude of oscillations peaks, which can be critical in engineering applications such as bridges and buildings. For example, the **Tacoma Narrows Bridge collapse** was a consequence of wind-induced resonance.
 
 ## Energy Considerations
 
 The total energy of the system is affected by damping and external forcing. The balance between energy input and dissipation determines whether oscillations persist, decay, or become chaotic.
-
-
-
-
-
-
-
-
-
-
 
 # Analysis of Dynamics
 
@@ -146,10 +140,7 @@ These analyses help understand chaotic behavior in physical systems like climate
 
 ## Step 1: Define the Forced Damped Pendulum Equation
 
-
 👉 **[Click here to view the simulation](simulation1.html)** 👈
-
-
 
 The equation of motion for a forced damped pendulum is:
 
@@ -185,13 +176,12 @@ Below is the Python code to simulate the system:
 
 ![alt text](image-2.png)
 
-
-## A phase diagram plots the angular velocity $\omega$ against the angular displacement $\theta$.
+## A phase diagram plots the angular velocity $\omega$ against the angular displacement $\theta$
 
 ![alt text](image-3.png)
 
 ## Step 4: Plot Poincaré Sections
 
-## A Poincaré section is a way to visualize chaotic behavior. We sample the system at a fixed phase of the driving force (e.g., every $2\pi/\omega_d$).
+## A Poincaré section is a way to visualize chaotic behavior. We sample the system at a fixed phase of the driving force (e.g., every $2\pi/\omega_d$)
 
 ![alt text](image-4.png)
