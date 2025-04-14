@@ -1,6 +1,8 @@
 # Problem 2
 # Theoretical Foundation
 
+The forced damped pendulum is a captivating example of a physical system with intricate behavior resulting from the interplay of damping, restoring forces, and external driving forces. By introducing both damping and external periodic forcing, the system demonstrates a transition from simple harmonic motion to a rich spectrum of dynamics, including resonance, chaos, and quasiperiodic behavior. These phenomena serve as a foundation for understanding complex real-world systems, such as driven oscillators, climate systems, and mechanical structures under periodic stress.
+
 ## Governing Equation
 
 The motion of a forced damped pendulum is governed by the differential equation:
