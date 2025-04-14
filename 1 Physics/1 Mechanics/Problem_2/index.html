@@ -50,6 +50,26 @@
 </li>
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 2</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-foundation">Theoretical Foundation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#types-of-pendulums">Types of Pendulums</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#1-regular-pendulum-no-damping-or-force">1. Regular Pendulum (No damping or force)</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2-damped-pendulum">2. Damped Pendulum</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3-forced-pendulum">3. Forced Pendulum</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#governing-equation">Governing Equation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#approximate-solutions">Approximate Solutions</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#resonance-conditions">Resonance Conditions</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#energy-considerations">Energy Considerations</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -120,8 +140,34 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-2">Problem 2</h1>
-<h1 id="theoretical-foundation">Theoretical Foundation</h1>
+<h2 id="theoretical-foundation">Theoretical Foundation</h2>
 <p>The forced damped pendulum is a captivating example of a physical system with intricate behavior resulting from the interplay of damping, restoring forces, and external driving forces. By introducing both damping and external periodic forcing, the system demonstrates a transition from simple harmonic motion to a rich spectrum of dynamics, including resonance, chaos, and quasiperiodic behavior. These phenomena serve as a foundation for understanding complex real-world systems, such as driven oscillators, climate systems, and mechanical structures under periodic stress.</p>
+<h2 id="types-of-pendulums">Types of Pendulums</h2>
+<hr/>
+<h3 id="1-regular-pendulum-no-damping-or-force">1. Regular Pendulum (No damping or force)</h3>
+<p>This is just a mass on a string, swinging under gravity.</p>
+<ul>
+<li>Motion is smooth and regular.</li>
+<li>If you lift and release it, it keeps swinging back and forth.</li>
+<li>It has a <strong>natural frequency</strong> depending on length and gravity.</li>
+</ul>
+<hr/>
+<h3 id="2-damped-pendulum">2. Damped Pendulum</h3>
+<p>Now we add <strong>damping</strong>, which means it <strong>loses energy</strong> over time (due to air resistance or friction in the pivot).</p>
+<ul>
+<li>The pendulum slows down.</li>
+<li>Eventually, it comes to rest.</li>
+<li>Damping is modeled by a term like <span class="arithmatex">\(b \frac{d\theta}{dt}\)</span> in the equation (where <span class="arithmatex">\(b\)</span> is the damping coefficient).</li>
+</ul>
+<hr/>
+<h3 id="3-forced-pendulum">3. Forced Pendulum</h3>
+<p>Now imagine we <strong>keep pushing</strong> the pendulum at regular intervals — like tapping it with a finger over and over.</p>
+<ul>
+<li>This is a <strong>driving force</strong> or <strong>external forcing</strong>.</li>
+<li>It’s usually sinusoidal: <span class="arithmatex">\(A \cos(\omega t)\)</span> — like a wave that keeps pushing the pendulum.</li>
+<li>Even though it loses energy through damping, the external force <strong>feeds energy back in</strong>.</li>
+</ul>
+<hr/>
 <h2 id="governing-equation">Governing Equation</h2>
 <p>The motion of a forced damped pendulum is governed by the differential equation:</p>
 <div class="arithmatex">\[
