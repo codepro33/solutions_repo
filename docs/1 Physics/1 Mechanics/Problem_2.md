@@ -94,49 +94,6 @@ The transition to chaos is analyzed using:
 
 These analyses help understand chaotic behavior in physical systems like climate models, mechanical oscillators, and biological rhythms.
 
-
-
-
-
-
-
-
-# Practical Applications
-
-The forced damped pendulum model applies to various real-world scenarios, including:
-
-## 1. Energy Harvesting Devices
-
-Vibrational energy harvesters use principles similar to the forced damped pendulum to convert mechanical oscillations into electrical energy. By tuning the system to resonate with ambient vibrations, maximum energy extraction is achieved.
-
-## 2. Suspension Bridges
-
-Bridges can experience dangerous resonance due to periodic external forces such as wind or traffic. The **Tacoma Narrows Bridge collapse** is a famous example where insufficient damping led to destructive oscillations.
-
-## 3. Oscillating Circuits
-
-Electrical circuits containing inductors and capacitors (LC circuits) behave analogously to the forced damped pendulum. Driven RLC circuits exhibit resonance and damping effects similar to mechanical oscillators.
-
-## 4. Seismology and Earthquake Engineering
-
-Buildings and structures must be designed to avoid resonating with seismic waves. Engineers use damping mechanisms to reduce oscillations and prevent catastrophic failure.
-
-## 5. Biomechanics
-
-Human gait and body movements can be modeled using forced damped oscillatory systems. Understanding these dynamics helps in designing prosthetics and exoskeletons that adapt to natural motion patterns.
-
-## 6. Clocks and Timekeeping
-
-Pendulum clocks rely on the periodic motion of a damped oscillator. External energy input compensates for damping, ensuring consistent timekeeping.
-
-These applications illustrate the broad impact of the forced damped pendulum across physics, engineering, and biology.
-
-
-
-
-
-
-
 ## Step 1: Define the Forced Damped Pendulum Equation
 
 
