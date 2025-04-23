@@ -63,13 +63,19 @@ $$
 ### Second Cosmic Velocity ($v_2$)
 
 From energy conservation (kinetic + potential = 0 at infinity):
+
 $$
 \frac{1}{2} m v_2^2 - \frac{G M m}{r} = 0
 $$
+
+This describes the condition where the object has just enough energy to escape the gravitational pull and **reach infinity with zero kinetic energy left** — this is the definition of escape velocity.
+
 Simplifying:
+
 $$
 v_2 = \sqrt{\frac{2 G M}{r}}
 $$
+
 Note: $v_2 = \sqrt{2} \cdot v_1$.
 
 ### Third Cosmic Velocity ($v_3$)
