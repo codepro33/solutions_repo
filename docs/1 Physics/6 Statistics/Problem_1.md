@@ -28,59 +28,12 @@ For each sample size, take 1,000 samples, compute the sample mean for each, and 
 - Plot histograms of the sample means to observe their distribution.
 
 Below is the Python code to perform these simulations and visualizations using NumPy and Matplotlib:
-import numpy as np
-import matplotlib.pyplot as plt
 
-# Set random seed for reproducibility
+![alt text](image.png)
 
-np.random.seed(42)
+![alt text](image-1.png)
 
-# Generate population datasets
-
-population_size = 100000
-uniform_pop = np.random.uniform(0, 1, population_size)
-exponential_pop = np.random.exponential(1, population_size)
-binomial_pop = np.random.binomial(10, 0.5, population_size)
-
-# Define sample sizes and number of samples
-
-sample_sizes = [5, 10, 30, 50]
-num_samples = 1000
-
-# Function to compute sample means
-
-def compute_sample_means(population, sample_size, num_samples):
-    sample_means = []
-    for _ in range(num_samples):
-        sample = np.random.choice(population, sample_size)
-        sample_means.append(np.mean(sample))
-    return np.array(sample_means)
-
-# Plotting function
-
-def plot_sampling_distributions(populations, pop_names):
-    for pop, pop_name in zip(populations, pop_names):
-        plt.figure(figsize=(12, 8))
-        for i, sample_size in enumerate(sample_sizes, 1):
-            sample_means = compute_sample_means(pop, sample_size, num_samples)
-            
-            plt.subplot(2, 2, i)
-            plt.hist(sample_means, bins=30, density=True, alpha=0.7, color='skyblue')
-            plt.title(f'{pop_name} (n={sample_size})')
-            plt.xlabel('Sample Mean')
-            plt.ylabel('Density')
-            plt.grid(True)
-        
-        plt.tight_layout()
-        plt.savefig(f'{pop_name.lower()}_sampling_distributions.png')
-
-# List of populations and their names
-
-populations = [uniform_pop, exponential_pop, binomial_pop]
-pop_names = ['Uniform', 'Exponential', 'Binomial']
-
-## Generate plots
-plot_sampling_distributions(populations, pop_names)
+![alt text](image-2.png)
 
 ## Task 2: Parameter Exploration
 
