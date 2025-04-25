@@ -47,8 +47,8 @@
   let previousTrajectories = [];
   let animationIndex = 0;
   let isAnimating = false;
-  let speedMultiplier = 1; // Animation speed (1x, 2x, 4x, 15x)
-  let speedMultipliers = [1, 2, 4, 15];
+  let speedMultiplier = 1; // Animation speed (1x, 2x, 4x, 15x, 30x)
+  let speedMultipliers = [1, 2, 4, 15, 30];
   let speedIndex = 0;
   let colors = [
     [100, 100, 100], // Gray for previous trajectories
@@ -86,7 +86,7 @@
 
   function updateSliderValues() {
     speedValue.html(speedSlider.value());
-    angleValue.html(angleSlider.value()); // Fixed: Show angle slider value
+    angleValue.html(angleSlider.value());
     massValue.html(massSlider.value());
   }
 
