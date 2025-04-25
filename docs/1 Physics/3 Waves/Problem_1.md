@@ -185,6 +185,81 @@ Below is a Python script outline using Matplotlib to simulate and visualize the 
 
 ![alt text](image.png)
 
+## 3 Sources 
+
+![alt text](image-2.png)
+
+
+For a triangle with side length $s$, the distance from the center to each vertex (radius $r$) is $r = \frac{s}{\sqrt{3}}$. For simplicity, we choose $r = 2$ units.
+The angles for the vertices of a regular $N$-gon are given by:$$\theta_i = \frac{2\pi (i-1)}{N}, \quad i = 1, 2, \ldots, N$$For $N = 3$:
+
+$\theta_1 = 0$
+$\theta_2 = \frac{2\pi}{3} = 120^\circ$
+$\theta_3 = \frac{4\pi}{3} = 240^\circ$
+
+The coordinates of the sources are:
+
+Source 1: $(x_1, y_1) = (r \cos \theta_1, r \sin \theta_1) = (2 \cos 0, 2 \sin 0) = (2, 0)$
+Source 2: $(x_2, y_2) = (r \cos \theta_2, r \sin \theta_2) = (2 \cos 120^\circ, 2 \sin 120^\circ) = (-1, \sqrt{3})$
+Source 3: $(x_3, y_3) = (r \cos \theta_3, r \sin \theta_3) = (2 \cos 240^\circ, 2 \sin 240^\circ) = (-1, -\sqrt{3})$
+
+Step 3: Wave Equations
+Each source emits a wave of the form:$$\eta_i(x, y, t) = A \cos(kr_i - \omega t + \phi_i)$$where:
+
+$r_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}$ is the distance from source $i$ at $(x_i, y_i)$ to point $(x, y)$.
+$k = \frac{2\pi}{\lambda}$ is the wave number.
+$\omega = 2\pi f$ is the angular frequency.
+$\phi_i$ is the phase of source $i$. Since the waves are coherent with a constant phase difference, we assume $\phi_i = 0$ (all sources in phase).
+
+We choose the following parameters for visualization:
+
+Amplitude: $A = 1$
+Wavelength: $\lambda = 3$ (arbitrary, chosen for clear interference patterns)
+Frequency: $f = 1$ (arbitrary, sets oscillation speed)
+
+Thus:
+
+$k = \frac{2\pi}{\lambda} = \frac{2\pi}{3}$
+$\omega = 2\pi f = 2\pi$
+
+The wave from each source is:$$\eta_i(x, y, t) = A \cos\left( \frac{2\pi}{\lambda} r_i - \omega t \right)$$
+Step 4: Superposition of Waves
+The total displacement at point $(x, y)$ at time $t$ is the sum of the waves from all sources:$$\eta_{\text{sum}}(x, y, t) = \sum_{i=1}^{N} \eta_i(x, y, t)$$For $N = 3$:$$\eta_{\text{sum}}(x, y, t) = A \sum_{i=1}^{3} \cos\left( \frac{2\pi}{\lambda} r_i - \omega t \right)$$
+Step 5: Analyze Interference Patterns
+
+Constructive Interference: Occurs where the waves are in phase, i.e., the phase difference $\frac{2\pi}{\lambda} (r_i - r_j)$ is an integer multiple of $2\pi$. This happens when the path difference $|r_i - r_j| = m\lambda$ (for integer $m$). At these points, the amplitude can reach up to $3A$.
+Destructive Interference: Occurs where the waves are out of phase, i.e., the phase difference is an odd multiple of $\pi$, so the path difference $|r_i - r_j| = (m + \frac{1}{2})\lambda$. At these points, the amplitude is near zero.
+Example at the Center: At $(x, y) = (0, 0)$, the distance to each source is $r_i = 2$, so the phase term for each wave is identical at a given time, leading to constructive interference when $\cos(-\omega t)$ is maximized.
+
+
+
+
+## 5 Sources
+
+![alt text](image-1.png)
+
+## Steps Followed
+
+### 1. Select a Regular Polygon
+
+We choose a **regular pentagon** with 5 vertices as our source configuration.
+
+### 2. Position the Sources
+
+Sources are placed at the vertices of a pentagon of radius $r = 4$. The coordinates are:
+$$(x_i, y_i) = (r \cos \theta_i, r \sin \theta_i), \quad \theta_i = \frac{2\pi i}{5}, \quad i = 0, 1, ..., 4$$
+
+### 3. Wave Equations
+
+Each source emits a wave of amplitude $A$, wave number $k = \frac{2\pi}{\lambda}$, and angular frequency $\omega = 2\pi f$. The wave from source $i$ at point $(x, y)$ and time $t$ is:
+$$\eta_i(x, y, t) = A \cos(k R_i - \omega t)$$
+where $R_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}$
+
+### 4. Superposition of Waves
+
+By the superposition principle, the total wave displacement is:
+$$\eta_{\text{sum}}(x, y, t) = \sum_{i=1}^5 \eta_i(x, y, t)$$
+
 
 ### Explanation of Interference Patterns
 
