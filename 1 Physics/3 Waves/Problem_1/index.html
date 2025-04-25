@@ -266,6 +266,52 @@
 <h3 id="step-6-visualization-python-script-outline">Step 6: Visualization (Python Script Outline)</h3>
 <p>Below is a Python script outline using Matplotlib to simulate and visualize the interference pattern. This script computes <span class="arithmatex">\(\eta_{\text{sum}}(x, y, t)\)</span> over a grid and plots the result as a heatmap.</p>
 <p><img alt="alt text" src="../image.png"/></p>
+<h2 id="3-sources">3 Sources</h2>
+<p><img alt="alt text" src="../image-2.png"/></p>
+<p>For a triangle with side length <span class="arithmatex">\(s\)</span>, the distance from the center to each vertex (radius <span class="arithmatex">\(r\)</span>) is <span class="arithmatex">\(r = \frac{s}{\sqrt{3}}\)</span>. For simplicity, we choose <span class="arithmatex">\(r = 2\)</span> units.
+The angles for the vertices of a regular <span class="arithmatex">\(N\)</span>-gon are given by:<span class="arithmatex">\(<span class="arithmatex">\(\theta_i = \frac{2\pi (i-1)}{N}, \quad i = 1, 2, \ldots, N\)</span>\)</span>For <span class="arithmatex">\(N = 3\)</span>:</p>
+<p><span class="arithmatex">\(\theta_1 = 0\)</span>
+<span class="arithmatex">\(\theta_2 = \frac{2\pi}{3} = 120^\circ\)</span>
+<span class="arithmatex">\(\theta_3 = \frac{4\pi}{3} = 240^\circ\)</span></p>
+<p>The coordinates of the sources are:</p>
+<p>Source 1: <span class="arithmatex">\((x_1, y_1) = (r \cos \theta_1, r \sin \theta_1) = (2 \cos 0, 2 \sin 0) = (2, 0)\)</span>
+Source 2: <span class="arithmatex">\((x_2, y_2) = (r \cos \theta_2, r \sin \theta_2) = (2 \cos 120^\circ, 2 \sin 120^\circ) = (-1, \sqrt{3})\)</span>
+Source 3: <span class="arithmatex">\((x_3, y_3) = (r \cos \theta_3, r \sin \theta_3) = (2 \cos 240^\circ, 2 \sin 240^\circ) = (-1, -\sqrt{3})\)</span></p>
+<p>Step 3: Wave Equations
+Each source emits a wave of the form:<span class="arithmatex">\(<span class="arithmatex">\(\eta_i(x, y, t) = A \cos(kr_i - \omega t + \phi_i)\)</span>\)</span>where:</p>
+<p><span class="arithmatex">\(r_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}\)</span> is the distance from source <span class="arithmatex">\(i\)</span> at <span class="arithmatex">\((x_i, y_i)\)</span> to point <span class="arithmatex">\((x, y)\)</span>.
+<span class="arithmatex">\(k = \frac{2\pi}{\lambda}\)</span> is the wave number.
+<span class="arithmatex">\(\omega = 2\pi f\)</span> is the angular frequency.
+<span class="arithmatex">\(\phi_i\)</span> is the phase of source <span class="arithmatex">\(i\)</span>. Since the waves are coherent with a constant phase difference, we assume <span class="arithmatex">\(\phi_i = 0\)</span> (all sources in phase).</p>
+<p>We choose the following parameters for visualization:</p>
+<p>Amplitude: <span class="arithmatex">\(A = 1\)</span>
+Wavelength: <span class="arithmatex">\(\lambda = 3\)</span> (arbitrary, chosen for clear interference patterns)
+Frequency: <span class="arithmatex">\(f = 1\)</span> (arbitrary, sets oscillation speed)</p>
+<p>Thus:</p>
+<p><span class="arithmatex">\(k = \frac{2\pi}{\lambda} = \frac{2\pi}{3}\)</span>
+<span class="arithmatex">\(\omega = 2\pi f = 2\pi\)</span></p>
+<p>The wave from each source is:<span class="arithmatex">\(<span class="arithmatex">\(\eta_i(x, y, t) = A \cos\left( \frac{2\pi}{\lambda} r_i - \omega t \right)\)</span>\)</span>
+Step 4: Superposition of Waves
+The total displacement at point <span class="arithmatex">\((x, y)\)</span> at time <span class="arithmatex">\(t\)</span> is the sum of the waves from all sources:<span class="arithmatex">\(<span class="arithmatex">\(\eta_{\text{sum}}(x, y, t) = \sum_{i=1}^{N} \eta_i(x, y, t)\)</span>\)</span>For <span class="arithmatex">\(N = 3\)</span>:<span class="arithmatex">\(<span class="arithmatex">\(\eta_{\text{sum}}(x, y, t) = A \sum_{i=1}^{3} \cos\left( \frac{2\pi}{\lambda} r_i - \omega t \right)\)</span>\)</span>
+Step 5: Analyze Interference Patterns</p>
+<p>Constructive Interference: Occurs where the waves are in phase, i.e., the phase difference <span class="arithmatex">\(\frac{2\pi}{\lambda} (r_i - r_j)\)</span> is an integer multiple of <span class="arithmatex">\(2\pi\)</span>. This happens when the path difference <span class="arithmatex">\(|r_i - r_j| = m\lambda\)</span> (for integer <span class="arithmatex">\(m\)</span>). At these points, the amplitude can reach up to <span class="arithmatex">\(3A\)</span>.
+Destructive Interference: Occurs where the waves are out of phase, i.e., the phase difference is an odd multiple of <span class="arithmatex">\(\pi\)</span>, so the path difference <span class="arithmatex">\(|r_i - r_j| = (m + \frac{1}{2})\lambda\)</span>. At these points, the amplitude is near zero.
+Example at the Center: At <span class="arithmatex">\((x, y) = (0, 0)\)</span>, the distance to each source is <span class="arithmatex">\(r_i = 2\)</span>, so the phase term for each wave is identical at a given time, leading to constructive interference when <span class="arithmatex">\(\cos(-\omega t)\)</span> is maximized.</p>
+<h2 id="5-sources">5 Sources</h2>
+<p><img alt="alt text" src="../image-1.png"/></p>
+<h2 id="steps-followed">Steps Followed</h2>
+<h3 id="1-select-a-regular-polygon">1. Select a Regular Polygon</h3>
+<p>We choose a <strong>regular pentagon</strong> with 5 vertices as our source configuration.</p>
+<h3 id="2-position-the-sources">2. Position the Sources</h3>
+<p>Sources are placed at the vertices of a pentagon of radius <span class="arithmatex">\(r = 4\)</span>. The coordinates are:
+<span class="arithmatex">\(<span class="arithmatex">\((x_i, y_i) = (r \cos \theta_i, r \sin \theta_i), \quad \theta_i = \frac{2\pi i}{5}, \quad i = 0, 1, ..., 4\)</span>\)</span></p>
+<h3 id="3-wave-equations">3. Wave Equations</h3>
+<p>Each source emits a wave of amplitude <span class="arithmatex">\(A\)</span>, wave number <span class="arithmatex">\(k = \frac{2\pi}{\lambda}\)</span>, and angular frequency <span class="arithmatex">\(\omega = 2\pi f\)</span>. The wave from source <span class="arithmatex">\(i\)</span> at point <span class="arithmatex">\((x, y)\)</span> and time <span class="arithmatex">\(t\)</span> is:
+<span class="arithmatex">\(<span class="arithmatex">\(\eta_i(x, y, t) = A \cos(k R_i - \omega t)\)</span>\)</span>
+where <span class="arithmatex">\(R_i = \sqrt{(x - x_i)^2 + (y - y_i)^2}\)</span></p>
+<h3 id="4-superposition-of-waves">4. Superposition of Waves</h3>
+<p>By the superposition principle, the total wave displacement is:
+<span class="arithmatex">\(<span class="arithmatex">\(\eta_{\text{sum}}(x, y, t) = \sum_{i=1}^5 \eta_i(x, y, t)\)</span>\)</span></p>
 <h3 id="explanation-of-interference-patterns">Explanation of Interference Patterns</h3>
 <ul>
 <li><strong>Symmetry</strong>: Due to the square’s symmetry, the interference pattern is symmetric about the x-axis, y-axis, and diagonals. The origin <span class="arithmatex">\((0, 0)\)</span> shows significant displacement because all sources are equidistant, leading to constructive or destructive interference depending on the phase <span class="arithmatex">\(2\pi \sqrt{2}\)</span>.</li>
