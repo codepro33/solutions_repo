@@ -14,14 +14,15 @@ This document analyzes possible trajectories (parabolic, hyperbolic, elliptical)
 
 - **Elliptical**: Closed orbit; payload remains bound to Earth (e.g., satellite orbits).
 
-![alt text](image-6.png)
-
-
+![alt text](image-8.png)
 
 - **Parabolic**: Boundary case; payload escapes with zero residual velocity at infinity.
+
+![alt text](image-9.png)
+
 - **Hyperbolic**: Open trajectory; payload escapes with excess velocity.
 
-![alt text](image-7.png)
+![alt text](image-10.png)
 
 - **Physical Meaning**: The trajectory depends on the payload’s specific energy, determined by initial velocity and position relative to Earth’s gravitational potential.
 
@@ -98,6 +99,9 @@ $$
 
 ![alt text](image-4.png)
 
+#######
+[click for simulation](simulation.html)
+#######
 
 # Results and Importance of Payload Trajectories Near Earth
 
