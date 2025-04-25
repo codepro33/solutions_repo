@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Trajectory Simulator with Animation and Speed Control</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <style>
+    body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
+    canvas { border: 1px solid black; }
+    .slider-container { margin: 10px 0; }
+    label { margin-right: 10px; }
+    button { margin: 10px; padding: 8px 16px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <div id="sketch-holder"></div>
+  <div class="slider-container">
+    <label for="speedSlider">Launch Speed (km/s):</label>
+    <input type="range" id="speedSlider" min="0" max="20" value="11.2" step="0.1">
+    <span id="speedValue">11.2</span>
+  </div>
+  <div class="slider-container">
+    <label for="angleSlider">Launch Angle (degrees):</label>
+    <input type="range" id="angleSlider" min="0" max="90" value="45" step="1">
+    <span id="angleValue">45</span>
+  </div>
+  <div class="slider-container">
+    <label for="massSlider">Mass (kg):</label>
+    <input type="range" id="massSlider" min="1" max="1000" value="100" step="1">
+    <span id="massValue">100</span>
+  </div>
+  <button id="launchButton">Launch</button>
+  <button id="speedUpButton">Speed Up (1x)</button>
+  <button id="resetButton">Reset</button>
+<script>
+  // Constants
+  const G = 6.67430e-11; // Gravitational constant (m^3 kg^-1 s^-2)
+  const M = 5.972e24;    // Earth's mass (kg)
+  const R = 6.371e6;     // Earth's radius (m)
+  const r0 = R + 1e5;    // Initial radius (100 km above surface)
+  const dt = 0.1;        // Time step (s)
+  const t_max = 10000;   // Max simulation time (s)
+
+  let speedSlider, angleSlider, massSlider;
+  let speedValue, angleValue, massValue;
+  let launchButton, speedUpButton, resetButton;
+  let currentTrajectory = [];
+  let previousTrajectories = [];
+  let animationIndex = 0;
+  let isAnimating = false;
+  let speedMultiplier = 1; // Animation speed (1x, 2x, 4x, 15x)
+  let speedMultipliers = [1, 2, 4, 15];
+  let speedIndex = 0;
+  let colors = [
+    [100, 100, 100], // Gray for previous trajectories
+    [150, 150, 150],
+    [200, 200, 200]
+  ];
+
+  function setup() {
+    let canvas = createCanvas(800, 800);
+    canvas.parent('sketch-holder');
+    
+    // Initialize sliders
+    speedSlider = select('#speedSlider');
+    angleSlider = select('#angleSlider');
+    massSlider = select('#massSlider');
+    speedValue = select('#speedValue');
+    angleValue = select('#angleValue');
+    massValue = select('#massValue');
+    
+    // Initialize buttons
+    launchButton = select('#launchButton');
+    speedUpButton = select('#speedUpButton');
+    resetButton = select('#resetButton');
+    launchButton.mousePressed(startAnimation);
+    speedUpButton.mousePressed(increaseSpeed);
+    resetButton.mousePressed(resetTrajectories);
+    
+    // Update displayed values
+    speedSlider.input(updateSliderValues);
+    angleSlider.input(updateSliderValues);
+    massSlider.input(updateSliderValues);
+    
+    updateSliderValues();
+  }
+
+  function updateSliderValues() {
+    speedValue.html(speedSlider.value());
+    angleValue.html(angleSlider.value()); // Fixed: Show angle slider value
+    massValue.html(massSlider.value());
+  }
+
+  function grav_acc(x, y) {
+    let r = Math.sqrt(x * x + y * y);
+    if (r < R) return [0, 0];
+    let ax = -G * M * x / (r * r * r);
+    let ay = -G * M * y / (r * r * r);
+    return [ax, ay];
+  }
+
+  function rk4_step(state) {
+    let [x, y, vx, vy] = state;
+    let [k1_vx, k1_vy] = grav_acc(x, y);
+    let k1_x = vx, k1_y = vy;
+    
+    let x2 = x + 0.5 * dt * k1_x, y2 = y + 0.5 * dt * k1_y;
+    let [k2_vx, k2_vy] = grav_acc(x2, y2);
+    let k2_x = vx + 0.5 * dt * k1_vx, k2_y = vy + 0.5 * dt * k1_vy;
+    
+    let x3 = x + 0.5 * dt * k2_x, y3 = y + 0.5 * dt * k2_y;
+    let [k3_vx, k3_vy] = grav_acc(x3, y3);
+    let k3_x = vx + 0.5 * dt * k2_vx, k3_y = vy + 0.5 * dt * k2_vy;
+    
+    let x4 = x + dt * k3_x, y4 = y + dt * k3_y;
+    let [k4_vx, k4_vy] = grav_acc(x4, y4);
+    let k4_x = vx + dt * k3_vx, k4_y = vy + dt * k3_vy;
+    
+    let x_new = x + (dt / 6) * (k1_x + 2 * k2_x + 2 * k3_x + k4_x);
+    let y_new = y + (dt / 6) * (k1_y + 2 * k2_y + 2 * k3_y + k4_y);
+    let vx_new = vx + (dt / 6) * (k1_vx + 2 * k2_vx + 2 * k3_vx + k4_vx);
+    let vy_new = vy + (dt / 6) * (k1_vy + 2 * k2_vy + 2 * k3_vy + k4_vy);
+    
+    return [x_new, y_new, vx_new, vy_new];
+  }
+
+  function calculate_trajectory(v0, theta, mass) {
+    let theta_rad = radians(theta);
+    let x0 = r0 * cos(theta_rad);
+    let y0 = r0 * sin(theta_rad);
+    let vx0 = v0 * cos(theta_rad + HALF_PI); // Perpendicular to radial
+    let vy0 = v0 * sin(theta_rad + HALF_PI);
+    
+    let state = [x0, y0, vx0, vy0];
+    let traj = [[x0, y0]];
+    
+    for (let t = 0; t < t_max; t += dt) {
+      state = rk4_step(state);
+      let [x, y] = state;
+      let r = Math.sqrt(x * x + y * y);
+      if (r < R) break;
+      traj.push([x, y]);
+    }
+    
+    return traj;
+  }
+
+  function startAnimation() {
+    let v0 = parseFloat(speedSlider.value()) * 1000; // Convert km/s to m/s
+    let theta = parseFloat(angleSlider.value());
+    let mass = parseFloat(massSlider.value());
+    
+    // Save current trajectory to previous if it exists
+    if (currentTrajectory.length > 1) {
+      previousTrajectories.push(currentTrajectory);
+      if (previousTrajectories.length > 3) {
+        previousTrajectories.shift(); // Keep only last 3 trajectories
+      }
+    }
+    
+    // Calculate and start new trajectory
+    currentTrajectory = calculate_trajectory(v0, theta, mass);
+    animationIndex = 0;
+    isAnimating = true;
+  }
+
+  function increaseSpeed() {
+    speedIndex = (speedIndex + 1) % speedMultipliers.length;
+    speedMultiplier = speedMultipliers[speedIndex];
+    speedUpButton.html(`Speed Up (${speedMultiplier}x)`);
+  }
+
+  function resetTrajectories() {
+    previousTrajectories = [];
+    currentTrajectory = [];
+    isAnimating = false;
+    animationIndex = 0;
+  }
+
+  function draw() {
+    background(255);
+    
+    // Scale: 1 Earth radius = 100 pixels
+    let scale = 100 / R;
+    let offsetX = width / 2;
+    let offsetY = height / 2;
+    
+    // Draw Earth
+    fill(0, 100, 0, 100);
+    noStroke();
+    ellipse(offsetX, offsetY, 2 * R * scale, 2 * R * scale);
+    
+    // Draw Earth center
+    fill(255, 0, 0);
+    ellipse(offsetX, offsetY, 10, 10);
+    
+    // Draw previous trajectories
+    for (let i = 0; i < previousTrajectories.length; i++) {
+      let traj = previousTrajectories[i];
+      stroke(colors[i][0], colors[i][1], colors[i][2], 150);
+      strokeWeight(1);
+      noFill();
+      beginShape();
+      for (let [x, y] of traj) {
+        let px = x * scale + offsetX;
+        let py = -y * scale + offsetY; // Invert y for canvas
+        vertex(px, py);
+      }
+      endShape();
+    }
+    
+    // Draw current trajectory during animation
+    if (isAnimating && animationIndex < currentTrajectory.length) {
+      stroke(0, 0, 255);
+      strokeWeight(2);
+      noFill();
+      beginShape();
+      for (let i = 0; i <= animationIndex; i++) {
+        let [x, y] = currentTrajectory[i];
+        let px = x * scale + offsetX;
+        let py = -y * scale + offsetY;
+        vertex(px, py);
+      }
+      endShape();
+      
+      // Draw object
+      let [x, y] = currentTrajectory[animationIndex];
+      fill(0);
+      ellipse(x * scale + offsetX, -y * scale + offsetY, 8, 8);
+      
+      // Advance animation with speed multiplier
+      animationIndex += speedMultiplier;
+      if (animationIndex >= currentTrajectory.length) {
+        isAnimating = false; // Stop animation when complete
+      }
+    }
+    
+    // Draw legend on right side
+    fill(0);
+    textSize(16);
+    textAlign(RIGHT);
+    text("Blue: Current Trajectory", 780, 30);
+    text("Gray: Previous Trajectories", 780, 50);
+    text("Green: Earth", 780, 70);
+    text("Red: Earth center", 780, 90);
+    text("Black dot: Object", 780, 110);
+    text(`Animation Speed: ${speedMultiplier}x`, 780, 130);
+  }
+</script>
+</body>
+</html>
