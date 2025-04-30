@@ -80,6 +80,12 @@ $$
 a = -\frac{G M}{2 \epsilon} \quad (\epsilon < 0)
 $$
 
+This formula tells us that:
+
+- The more **negative** the specific energy ($\epsilon$), the **smaller** the orbit.
+- Since $\epsilon < 0$ for bound (elliptical) orbits, the negative sign in the denominator ensures that $a > 0$.
+
+
 ---
 
 ## Parameters Affecting Trajectories
