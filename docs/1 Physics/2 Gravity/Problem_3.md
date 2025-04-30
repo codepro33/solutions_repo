@@ -14,13 +14,19 @@ This document analyzes possible trajectories (parabolic, hyperbolic, elliptical)
 
 - **Elliptical**: Closed orbit; payload remains bound to Earth (e.g., satellite orbits).
 
+ Ellipse (closed) | $< 11.2\ \text{km/s}$
+
 ![alt text](image-8.png)
 
 - **Parabolic**: Boundary case; payload escapes with zero residual velocity at infinity.
 
+Parabola         | $= 11.2\ \text{km/s}$
+
 ![alt text](image-9.png)
 
 - **Hyperbolic**: Open trajectory; payload escapes with excess velocity.
+
+ Hyperbola        | $> 11.2\ \text{km/s}$
 
 ![alt text](image-10.png)
 
