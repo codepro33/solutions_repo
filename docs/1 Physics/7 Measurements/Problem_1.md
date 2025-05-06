@@ -51,11 +51,14 @@ $$
 
 - Mean period for 10 oscillations: 
 
-  $$\overline{T}_{10} = \frac{\sum T_{10}}{10} = 22.043 \text{ s}$$
+  $$
+  \overline{T}_{10} = \frac{\sum T_{10}}{10} = 22.043 \text{ s}
+  $$
 
 - Standard deviation:
 
-  $$\sigma_T = \sqrt{\frac{\sum (T_{10} - \overline{T}_{10})^2}{9}} = 0.057 \text{ s}
+  $$
+  \sigma_T = \sqrt{\frac{\sum (T_{10} - \overline{T}_{10})^2}{9}} = 0.057 \text{ s}
   $$
 
 - Uncertainty in mean:
