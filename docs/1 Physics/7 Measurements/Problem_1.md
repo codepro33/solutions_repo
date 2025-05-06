@@ -71,9 +71,10 @@ $$
 
 1. **Single Period**:
 
-   $$
-   T = \frac{\overline{T}_{10}}{10} = 2.2043 \text{ s}, \quad \Delta T = \frac{\Delta T_{10}}{10} = 0.0018 \text{ s}
-   $$
+$$
+T = \frac{\overline{T}_{10}}{10} = 2.2043 \text{ s}, \quad \Delta T = \frac{\Delta T_{10}}{10} = 0.0018 \text{ s}
+$$
+
 
 2. **Gravitational acceleration**:
 
