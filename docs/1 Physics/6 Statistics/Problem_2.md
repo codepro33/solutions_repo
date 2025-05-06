@@ -1,17 +1,17 @@
 # Problem 2
 
-# Estimating $ \pi $ Using Monte Carlo Methods
+# Estimating $\pi$ Using Monte Carlo Methods
 
 ## 🎯 Motivation
 
-Monte Carlo simulations are powerful tools that use randomness to solve problems or estimate values. One elegant example is estimating the value of $ \pi $ using probabilistic geometry. This document explores two such techniques:
+Monte Carlo simulations are powerful tools that use randomness to solve problems or estimate values. One elegant example is estimating the value of $\pi$ using probabilistic geometry. This document explores two such techniques:
 
 - **Circle-Based Monte Carlo Method**
 - **Buffon’s Needle Method**
 
 ---
 
-## Part 1: Estimating $ \pi $ Using a Circle
+## Part 1: Estimating $\pi$ Using a Circle
 
 ### 1. Theoretical Foundation
 
@@ -37,10 +37,10 @@ $$
 
 ### 2. Simulation
 
-We generate random points $ (x, y) $ in the square $ [-1, 1] \times [-1, 1] $ and count how many fall inside the unit circle (i.e., satisfy $ x^2 + y^2 \leq 1 $).
+We generate random points $(x, y)$ in the square $[-1, 1] \times [-1, 1]$ and count how many fall inside the unit circle (i.e., satisfy $x^2 + y^2 \leq 1$).
 
 - **Number of Points**: 10,000  
-- **Estimated $ \pi $**:  
+- **Estimated $\pi$**:  
   $$
   \pi \approx 3.1816
   $$
@@ -55,11 +55,11 @@ Points inside the circle are shown in blue, while those outside are in red.
 
 ---
 
-## Part 2: Estimating $ \pi $ Using Buffon’s Needle
+## Part 2: Estimating $\pi$ Using Buffon’s Needle
 
 ### 1. Theoretical Foundation
 
-Buffon’s Needle problem estimates $ \pi $ by dropping a needle of length $ L $ on a surface with parallel lines spaced $ d $ apart. The probability of the needle crossing a line is:
+Buffon’s Needle problem estimates $\pi$ by dropping a needle of length $L$ on a surface with parallel lines spaced $d$ apart. The probability of the needle crossing a line is:
 
 $$
 P = \frac{2L}{\pi d}
@@ -77,7 +77,8 @@ $$
 
 We randomly drop 10,000 needles of length 1 on a plane with lines spaced 2 units apart and count the crossings.
 
-- **Estimated $ \pi $**:  
+- **Estimated $\pi$**:  
+
   $$
   \pi \approx 3.06748
   $$
@@ -94,7 +95,7 @@ The plot below shows needle drops (in blue) with dashed horizontal lines indicat
 
 ## 📈 Convergence Analysis
 
-We analyze how both methods converge toward $ \pi $ as the number of iterations increases (from 100 to 100,000).
+We analyze how both methods converge toward $\pi$ as the number of iterations increases (from 100 to 100,000).
 
 ### Plot: Convergence of Estimates
 
@@ -104,7 +105,7 @@ We analyze how both methods converge toward $ \pi $ as the number of iterations 
 
 - **Circle Method** converges faster and is more stable.
 - **Buffon's Needle** method is more erratic and converges slower due to geometric sensitivity.
-- As the number of samples increases, both estimates approach the true value $ \pi \approx 3.14159 $.
+- As the number of samples increases, both estimates approach the true value $\pi \approx 3.14159$.
 
 ---
 
